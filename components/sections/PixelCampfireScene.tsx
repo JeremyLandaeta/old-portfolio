@@ -23,12 +23,12 @@ import { motion, useReducedMotion } from "framer-motion";
 // Brasas que suben desde la zona de la fogata (posiciones estáticas → sin
 // hydration mismatch).
 const EMBERS = [
-  { left: "30%", bottom: "44%", size: 4, delay: 0, duration: 3.2 },
-  { left: "32%", bottom: "50%", size: 3, delay: 0.5, duration: 3.8 },
-  { left: "34%", bottom: "47%", size: 2, delay: 1.1, duration: 3.4 },
-  { left: "36%", bottom: "52%", size: 3, delay: 1.6, duration: 4.1 },
-  { left: "31%", bottom: "42%", size: 2, delay: 2.1, duration: 3.5 },
-  { left: "35%", bottom: "45%", size: 4, delay: 2.7, duration: 4.4 },
+  { left: "44.2%", bottom: "48%", size: 3, delay: 0, duration: 3.2 },
+  { left: "45.1%", bottom: "53%", size: 4, delay: 0.5, duration: 3.8 },
+  { left: "46.0%", bottom: "50%", size: 2, delay: 1.1, duration: 3.4 },
+  { left: "46.8%", bottom: "56%", size: 3, delay: 1.6, duration: 4.1 },
+  { left: "44.7%", bottom: "60%", size: 2, delay: 2.1, duration: 3.5 },
+  { left: "47.4%", bottom: "62%", size: 3, delay: 2.7, duration: 4.4 },
 ];
 
 // Luciérnagas cyan/cálidas flotando por la escena.
@@ -81,14 +81,14 @@ export function PixelCampfireScene() {
 
       {/* Glow cálido de la fogata */}
       <motion.div
-        className="pointer-events-none absolute left-[33%] top-[55%] h-28 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(251,146,60,0.58),rgba(239,68,68,0.2)_42%,transparent_72%)] blur-xl"
+        className="pointer-events-none absolute left-[45%] top-[55%] h-28 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(251,146,60,0.58),rgba(239,68,68,0.2)_42%,transparent_72%)] blur-xl"
         animate={reduceMotion ? undefined : { opacity: [0.45, 0.75, 0.5], scale: [1, 1.08, 0.98] }}
         transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* Luz cálida proyectada sobre el suelo */}
       <motion.div
-        className="pointer-events-none absolute bottom-[18%] left-[33%] h-9 w-64 -translate-x-1/2 rounded-[50%] bg-[radial-gradient(ellipse,rgba(251,146,60,0.36),transparent_72%)] blur-md"
+        className="pointer-events-none absolute bottom-[18%] left-[45%] h-9 w-64 -translate-x-1/2 rounded-[50%] bg-[radial-gradient(ellipse,rgba(251,146,60,0.36),transparent_72%)] blur-md"
         animate={reduceMotion ? undefined : { opacity: [0.35, 0.65, 0.4] }}
         transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
       />
