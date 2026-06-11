@@ -415,6 +415,20 @@ body {
   to { background-position: -90% 0; }
 }
 
+/* ============================================================
+   Escena pixel-art (About): imagen base + overlays animados.
+   Las animaciones viven en Framer Motion (PixelCampfireScene.tsx);
+   aquí solo quedan utilidades estáticas.
+   ============================================================ */
+.pixelated {
+  image-rendering: pixelated;
+}
+
+/* Crea un contexto de apilamiento propio para aislar blend-modes/glows */
+.pixel-scene {
+  isolation: isolate;
+}
+
 /* Foco visible para navegación con teclado (accesibilidad) */
 :focus-visible {
   outline: 2px solid var(--accent-2);
@@ -453,6 +467,11 @@ body {
   .pixel-twinkle,
   .group:hover .holo-foil {
     animation: none !important;
+  }
+  .pixel-scene *,
+  .current-quest * {
+    animation: none !important;
+    transition: none !important;
   }
   html {
     scroll-behavior: auto;

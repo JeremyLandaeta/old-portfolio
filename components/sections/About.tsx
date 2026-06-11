@@ -7,6 +7,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { AgeCounter } from "@/components/ui/AgeCounter";
 import { ChampionCard } from "@/components/ui/ChampionCard";
 import { CharacterStats } from "@/components/sections/CharacterStats";
+import { PixelCampfireScene } from "@/components/sections/PixelCampfireScene";
+import { CurrentQuestCard } from "@/components/sections/CurrentQuestCard";
 import { AbilityKit } from "@/components/ui/AbilityKit";
 import { BIRTH_DATE } from "@/lib/content";
 import { ABOUT_GAME } from "@/lib/gamer";
@@ -35,6 +37,11 @@ export function About() {
           <CharacterStats />
         </Reveal>
       </div>
+
+      {/* Escena pixel-art: ronin + fogata (decorativa, full width) */}
+      <Reveal delay={0.05} className="mt-6">
+        <PixelCampfireScene />
+      </Reveal>
 
       {/* Fila 2: Lore + Habilidades */}
       <div className="mt-6 grid gap-6 lg:grid-cols-5 lg:items-start">
@@ -79,6 +86,8 @@ export function About() {
               <AgeCounter birth={BIRTH_DATE} decimals={9} className="tabular-nums text-foreground" />
               <span>{t.about.ageLabel}</span>
             </div>
+
+            <CurrentQuestCard />
           </div>
         </Reveal>
 

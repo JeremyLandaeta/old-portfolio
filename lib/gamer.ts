@@ -161,6 +161,7 @@ export type AboutGame = {
   loreLabel: string;
   attrLabels: Record<string, string>;
   abilities: Ability[];
+  currentQuest: { title: string; text: string; badge: string };
 };
 
 export const ABOUT_GAME: Record<Lang, AboutGame> = {
@@ -187,6 +188,11 @@ export const ABOUT_GAME: Record<Lang, AboutGame> = {
       { slot: "E", icon: "brain", name: "IA Integrada", desc: "Chatbots y automatizaciones con OpenAI y Ollama." },
       { slot: "R", icon: "rocket", name: "Ship It", desc: "Ultimate: lleva ideas a producción, de punta a punta." },
     ],
+    currentQuest: {
+      title: "Current Quest",
+      text: "Buscar nuevo equipo · Mejorar producto · Shippear proyectos",
+      badge: "XP +100",
+    },
   },
   en: {
     cardRole: "Roamer · Fullstack · AI",
@@ -211,5 +217,10 @@ export const ABOUT_GAME: Record<Lang, AboutGame> = {
       { slot: "E", icon: "brain", name: "AI Integration", desc: "Chatbots and automations with OpenAI and Ollama." },
       { slot: "R", icon: "rocket", name: "Ship It", desc: "Ultimate: takes ideas to production, end to end." },
     ],
+    currentQuest: {
+      title: "Current Quest",
+      text: "Find a new team · Improve product · Ship projects",
+      badge: "XP +100",
+    },
   },
 };
