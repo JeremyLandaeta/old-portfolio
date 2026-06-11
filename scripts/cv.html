@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>CV — Jeremy Landaeta Lizama</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0e1a;
+    --bg2: #0d1424;
+    --fg: #e6edf7;
+    --muted: #8aa0c0;
+    --accent: #3b82f6;
+    --accent2: #06b6d4;
+    --border: rgba(120,160,220,0.16);
+  }
+  html, body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 10.5px;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 16mm 15mm;
+    background:
+      radial-gradient(circle at 12% 0%, rgba(59,130,246,0.18), transparent 30%),
+      radial-gradient(circle at 92% 4%, rgba(6,182,212,0.16), transparent 28%),
+      var(--bg);
+  }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .name { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+  .role {
+    font-size: 13px; font-weight: 700; margin-top: 2px;
+    background: linear-gradient(120deg, #93c5fd, var(--accent2));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .contact { text-align: right; font-size: 9.5px; color: var(--muted); line-height: 1.7; }
+  .contact a { color: var(--muted); text-decoration: none; }
+  .contact b { color: var(--accent2); }
+
+  .section { margin-top: 16px; }
+  .section h2 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--accent2); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
+  }
+  .section h2::before { content: "//"; font-family: monospace; color: var(--accent); }
+  .section h2::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+  .summary { color: var(--muted); }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 18px; }
+  .skill-cat { margin-bottom: 5px; }
+  .skill-cat .k { color: var(--fg); font-weight: 700; }
+  .skill-cat .v { color: var(--muted); }
+
+  .job { margin-bottom: 11px; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .job-title { font-weight: 700; font-size: 11.5px; }
+  .job-company { color: var(--accent2); font-weight: 600; }
+  .job-period { color: var(--muted); font-family: monospace; font-size: 9px; white-space: nowrap; }
+  .job ul { list-style: none; margin-top: 4px; }
+  .job li { position: relative; padding-left: 12px; color: var(--muted); margin-bottom: 2px; }
+  .job li::before { content: ""; position: absolute; left: 0; top: 6px; width: 4px; height: 4px; border-radius: 50%; background: var(--accent2); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+  .chip {
+    border: 1px solid var(--border); background: rgba(255,255,255,0.03);
+    border-radius: 6px; padding: 2px 7px; font-size: 9px; color: var(--muted);
+  }
+  .two-col { display: grid; grid-template-columns: 1.45fr 1fr; gap: 22px; }
+  .footer-note { margin-top: 16px; text-align: center; font-size: 8.5px; color: var(--muted); font-family: monospace; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div>
+        <div class="name">Jeremy Landaeta Lizama</div>
+        <div class="role">Ingeniero en Informática · Frontend / Fullstack Developer</div>
+      </div>
+      <div class="contact">
+        <div><b>·</b> +56 9 9702 3812</div>
+        <div><b>·</b> jlandaetalizama22@gmail.com</div>
+        <div><b>·</b> linkedin.com/in/jeremy-landaeta-lizama-04b266223</div>
+        <div><b>·</b> github.com/JeremyLandaeta</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Resumen profesional</h2>
+      <p class="summary">Ingeniero en Informática titulado de Duoc UC, con experiencia en desarrollo web, automatización de procesos e implementación de soluciones digitales con IA. He desarrollado y desplegado soluciones en producción con React, Next.js, TypeScript y Node.js, incluyendo calculadoras ambientales, chatbots con IA, integraciones CRM y pasarelas de pago. Combino una mirada técnica con orientación a negocio, mejora continua y trabajo colaborativo.</p>
+    </div>
+
+    <div class="section">
+      <h2>Competencias técnicas</h2>
+      <div class="grid2">
+        <div class="skill-cat"><span class="k">Frontend:</span> <span class="v">React, Next.js, TypeScript, JavaScript, HTML5, CSS3, Tailwind, Material UI, Ant Design</span></div>
+        <div class="skill-cat"><span class="k">Backend & APIs:</span> <span class="v">Node.js, Express, NestJS, Prisma, PHP, REST APIs</span></div>
+        <div class="skill-cat"><span class="k">Bases de datos:</span> <span class="v">PostgreSQL, MySQL, SQL Server, MongoDB</span></div>
+        <div class="skill-cat"><span class="k">IA & Automatización:</span> <span class="v">OpenAI API, Ollama, Claude, chatbots, automatización de flujos</span></div>
+        <div class="skill-cat"><span class="k">Herramientas:</span> <span class="v">Git, GitHub, Vercel, Docker, Postman, Power BI, Bitrix24, Mercado Pago</span></div>
+        <div class="skill-cat"><span class="k">Metodologías:</span> <span class="v">Scrum, gestión ágil, análisis de requerimientos, documentación técnica</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Experiencia profesional</h2>
+      <div class="job">
+        <div class="job-head">
+          <div><span class="job-title">Desarrollador de Software / Front-End Developer</span> — <span class="job-company">Vínculo Verde / Greensoft</span></div>
+          <div class="job-period">Jun 2025 – Actualidad</div>
+        </div>
+        <ul>
+          <li>Participé en más de 6 iniciativas digitales en el primer año, incluyendo productos en producción, herramientas internas con IA, integraciones CRM y una pasarela de pagos.</li>
+          <li>Lideré técnicamente el frontend de calculadoras ambientales interactivas (Carbono y REP) con React, Next.js y TypeScript, desplegando dos en producción.</li>
+          <li>Diseñé Orbix, asistente con IA generativa para borradores de noticias en LinkedIn, integrado con Bitrix24; coordiné un chatbot de WhatsApp con IA local (Ollama).</li>
+          <li>Aporté a EcoREP (gestor de archivos) y desarrollé una plataforma de venta de dominios con pasarela Mercado Pago. Gestioné despliegues en Vercel con Git/GitHub.</li>
+        </ul>
+      </div>
+      <div class="job">
+        <div class="job-head">
+          <div><span class="job-title">Práctica Profesional — Área de Assurance</span> — <span class="job-company">PwC Chile</span></div>
+          <div class="job-period">Oct 2024 – Nov 2024</div>
+        </div>
+        <ul>
+          <li>Participé en auditorías de procesos internos en empresas de seguros y banca, verificando trazabilidad y cumplimiento de procedimientos.</li>
+          <li>Elaboré documentación y reportes de apoyo con foco en control, gestión de riesgos y mejora de procesos.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h2>Proyectos destacados</h2>
+        <div class="job">
+          <div class="job-title">LEXY — Chatbot legal con backoffice <span style="color:var(--muted);font-weight:400">(Proyecto de título)</span></div>
+          <ul>
+            <li>Chatbot para preguntas legales con backoffice administrativo (preguntas, respuestas, usuarios) e integración de IA.</li>
+          </ul>
+        </div>
+        <div class="job">
+          <div class="job-title">Landing Pages — BaoBlue / Anrra</div>
+          <ul>
+            <li>Sitios a medida para marcas digitales: diseño responsivo, animaciones, componentes reutilizables y despliegue en Vercel.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Educación e idiomas</h2>
+        <div class="job">
+          <div class="job-title">Ingeniería en Informática</div>
+          <div style="color:var(--muted)">Instituto Profesional Duoc UC · Titulado 2025</div>
+        </div>
+        <div class="chips">
+          <span class="chip">Scrum Foundation (2024)</span>
+          <span class="chip">TOEIC 805 pts</span>
+          <span class="chip">Español nativo</span>
+          <span class="chip">Inglés intermedio-avanzado</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">jeremy.dev · Disponible para oportunidades frontend / fullstack / IA aplicada</div>
+  </div>
+</body>
+</html>
