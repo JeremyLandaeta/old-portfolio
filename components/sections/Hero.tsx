@@ -8,10 +8,6 @@ import { SOCIALS } from "@/lib/content";
 import { AuroraBackground } from "@/components/ui/AuroraBackground";
 import { ScrambleText } from "@/components/ui/ScrambleText";
 import { Magnetic } from "@/components/ui/Magnetic";
-import { AgeCounter } from "@/components/ui/AgeCounter";
-import { PixelAvatar } from "@/components/ui/PixelAvatar";
-import { BIRTH_DATE } from "@/lib/content";
-import { PLAYER_LEVEL } from "@/lib/gamer";
 
 const easing = [0.22, 1, 0.36, 1] as const;
 
@@ -24,26 +20,6 @@ export function Hero() {
       className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 pt-28 pb-16 text-center"
     >
       <AuroraBackground />
-
-      {/* Player card pixel-art */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, ease: easing }}
-        className="relative mb-7"
-      >
-        <div className="relative rounded-2xl glass p-2.5">
-          <PixelAvatar cell={7} className="pixel-idle" />
-          {/* indicador online */}
-          <span className="absolute -right-1.5 -top-1.5 flex h-3.5 w-3.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex h-3.5 w-3.5 rounded-full border-2 border-background bg-emerald-400" />
-          </span>
-        </div>
-        <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-accent-2/30 bg-background px-2.5 py-0.5 font-mono text-[10px] font-semibold text-accent-2">
-          Lv. {PLAYER_LEVEL}
-        </span>
-      </motion.div>
 
       {/* Badge disponibilidad */}
       <motion.div
@@ -135,18 +111,6 @@ export function Hero() {
         <span className="hidden h-4 w-px bg-border sm:block" />
         <span className="flex items-center gap-1.5 text-sm">
           <MapPin size={15} /> {t.hero.location}
-        </span>
-        <span className="hidden h-4 w-px bg-border sm:block" />
-        <span
-          className="flex items-center gap-1.5 font-mono text-sm tabular-nums"
-          title={t.about.ageCaption}
-        >
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-2 opacity-75" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent-2" />
-          </span>
-          <AgeCounter birth={BIRTH_DATE} decimals={9} className="text-foreground" />
-          <span>{t.about.ageLabel}</span>
         </span>
       </motion.div>
 

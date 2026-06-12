@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Permite acceder al dev server desde otros dispositivos de la red local
+  // (p. ej. el celular). Útil solo en desarrollo; no afecta producción.
+  allowedDevOrigins: ["192.168.100.7", "192.168.100.*", "192.168.1.*"],
+
   async redirects() {
     return [
       // El idioma por defecto es español: la raíz redirige a /es.

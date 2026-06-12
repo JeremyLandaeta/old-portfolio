@@ -18,8 +18,8 @@ export const SKILL_STATS: Skill[] = [
   { name: "Git · DevOps", level: 72 },
 ];
 
-// "Nivel" del jugador (flavor). Se puede atar a años de experiencia.
-export const PLAYER_LEVEL = 25;
+// "Nivel" del jugador = edad actual de Jeremy (nacido 2002-12-22).
+export const PLAYER_LEVEL = 23;
 
 export type GamerCopy = {
   statsKicker: string;

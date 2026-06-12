@@ -3,7 +3,6 @@
 import { MapPin, Hexagon, Rocket, Leaf, Languages, Award } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { useLang } from "@/components/providers/LanguageProvider";
-import { PixelAvatar } from "@/components/ui/PixelAvatar";
 import { PixelSprite } from "@/components/ui/PixelSprite";
 import { Counter } from "@/components/ui/Counter";
 import { Tilt } from "@/components/ui/Tilt";
@@ -42,13 +41,19 @@ export function ChampionCard() {
           </div>
 
           {/* ventana de arte */}
-          <div className="relative z-20 mt-3 grid place-items-center overflow-hidden rounded-xl border border-amber-300/20 bg-grid py-10">
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-accent/15 via-transparent to-accent-2/15" />
-            <div className="pointer-events-none absolute -bottom-10 left-1/2 h-32 w-32 -translate-x-1/2 rounded-full bg-accent-2/20 blur-2xl" />
+          <div className="relative z-20 mt-3 aspect-square overflow-hidden rounded-xl border border-amber-300/20 bg-grid">
+            <img
+              src="/pixel/jeremy-pixel.png"
+              alt="Jeremy Landaeta — avatar pixel-art"
+              draggable={false}
+              className="pixelated absolute inset-0 h-full w-full select-none object-cover object-top"
+            />
+            {/* tinte para fundir con la identidad cyan/azul */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-accent/15 via-transparent to-accent-2/20 mix-blend-overlay" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background-soft/70 to-transparent" />
             <PixelSprite name="spark" cell={3} className="pixel-twinkle absolute left-4 top-4" />
             <PixelSprite name="star" cell={2} className="pixel-twinkle absolute bottom-5 left-8" style={{ animationDelay: "1s" }} />
             <PixelSprite name="spark" cell={2} className="pixel-twinkle absolute right-5 bottom-7" style={{ animationDelay: "1.8s" }} />
-            <PixelAvatar cell={13} className="pixel-idle relative" />
             <span className="absolute right-2 top-2 flex h-3 w-3">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-400" />
