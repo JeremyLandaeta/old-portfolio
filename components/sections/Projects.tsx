@@ -120,7 +120,7 @@ export function Projects() {
                   type="button"
                   onClick={() => setActive(i)}
                   aria-label={p.title}
-                  className={`group relative flex-1 overflow-hidden rounded-xl border px-4 py-3 text-left transition-all ${
+                  className={`group relative flex-1 overflow-hidden rounded-none border px-4 py-3 text-left transition-all ${
                     isActive
                       ? "border-accent-2/50 glass"
                       : "border-border bg-white/2 opacity-70 hover:opacity-100 hover:border-accent-2/30"
