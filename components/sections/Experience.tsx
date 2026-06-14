@@ -44,6 +44,7 @@ export function Experience() {
                 title={item.company}
                 icon={Briefcase}
                 accent={item.current ? "emerald" : "cyan"}
+                headingLevel="none"
                 className="px-5 pb-5 pt-7 sm:px-6 sm:pb-6"
               >
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
@@ -84,7 +85,7 @@ export function Experience() {
             <span className="absolute -left-8 top-1.5 grid h-4 w-4 place-items-center rounded-full border-2 border-accent bg-background sm:-left-10">
               <GraduationCap size={9} className="text-accent" />
             </span>
-            <MenuFrame title="EDU" icon={GraduationCap} accent="amber" className="px-5 pb-5 pt-7 sm:px-6 sm:pb-6">
+            <MenuFrame title="EDU" icon={GraduationCap} accent="amber" headingLevel="none" className="px-5 pb-5 pt-7 sm:px-6 sm:pb-6">
               <h3 className="text-lg font-semibold">{t.experience.education.title}</h3>
               <p className="mt-0.5 font-mono text-sm text-accent-2">{t.experience.education.subtitle}</p>
               <div className="mt-4 flex flex-wrap gap-2">

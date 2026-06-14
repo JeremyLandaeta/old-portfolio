@@ -48,6 +48,7 @@ export function Projects() {
             title={lang === "en" ? "FEATURED" : "DESTACADO"}
             accent={featured.accent}
             stamp="PROJECT"
+            headingLevel="none"
             className="h-full min-h-95 px-7 pb-7 pt-8"
           >
             <AnimatePresence mode="wait">

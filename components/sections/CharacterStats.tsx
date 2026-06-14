@@ -42,9 +42,9 @@ export function CharacterStats() {
       {/* Radar de atributos — "mapa estelar" con estrellas pixel */}
       <div className="flex items-center gap-2">
         <Hexagon size={16} className="text-accent-2" />
-        <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-muted">
+        <h4 className="font-mono text-sm font-semibold uppercase tracking-wider text-muted">
           {ag.attrsLabel}
-        </h3>
+        </h4>
       </div>
       <div className="relative mt-3 flex flex-1 items-center justify-center overflow-hidden rounded-xl border border-border bg-[radial-gradient(circle_at_50%_42%,rgba(34,211,238,0.07),transparent_70%)] p-4">
         {/* estrellas pixel decorativas */}

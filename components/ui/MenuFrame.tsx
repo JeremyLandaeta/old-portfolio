@@ -26,6 +26,8 @@ type MenuFrameProps = {
   stamp?: string;
   /** Skin de acento — distinto por sección para que no se vean todas iguales. */
   accent?: Accent;
+  /** Nivel de heading del título (2-4) o "none" para etiqueta decorativa. */
+  headingLevel?: 2 | 3 | 4 | "none";
   className?: string;
   children: ReactNode;
 };
@@ -35,8 +37,10 @@ type MenuFrameProps = {
  * el borde superior y sello opcional. Alternativa con personalidad a la card
  * glass redondeada (rompe el look de plantilla).
  */
-export function MenuFrame({ title, icon: Icon, stamp, accent = "cyan", className = "", children }: MenuFrameProps) {
+export function MenuFrame({ title, icon: Icon, stamp, accent = "cyan", headingLevel = 3, className = "", children }: MenuFrameProps) {
   const a = ACCENTS[accent];
+  // El título es un heading real (h2-h4) salvo que sea decorativo ("none").
+  const TitleTag = (headingLevel === "none" ? "span" : `h${headingLevel}`) as "span" | "h2" | "h3" | "h4";
 
   return (
     <div
@@ -51,7 +55,7 @@ export function MenuFrame({ title, icon: Icon, stamp, accent = "cyan", className
       {/* título incrustado en el borde superior */}
       <div className="absolute -top-2.25 left-5 flex items-center gap-1.5 bg-background px-2">
         {Icon && <Icon size={13} className={a.text} />}
-        <span className={`font-pixel text-[0.5rem] uppercase tracking-wide ${a.text}`}>{title}</span>
+        <TitleTag className={`font-pixel text-[0.5rem] uppercase tracking-wide ${a.text}`}>{title}</TitleTag>
       </div>
 
       {/* sello opcional */}
