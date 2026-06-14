@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { IconType } from "react-icons";
 import {
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiNodedotjs, SiOpenai,
@@ -120,21 +120,23 @@ function Ring({ frac, half }: { frac: number; half: number }) {
 
 export function TechOrbit() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [size, setSize] = useState(440);
   const [time, setTime] = useState(0);
   const pausedRef = useRef(false);
 
-  // tamaño responsive
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver((entries) => {
-      const w = entries[0]?.contentRect.width;
-      if (w) setSize(w);
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
+  // tamaño responsive vía useSyncExternalStore: el ResizeObserver es la
+  // suscripción y getSnapshot mide el ancho actual. 440 es el snapshot de
+  // servidor (= max-w-[440px]), así hidrata limpio sin un render extra.
+  const size = useSyncExternalStore(
+    (onChange) => {
+      const el = containerRef.current;
+      if (!el) return () => {};
+      const ro = new ResizeObserver(onChange);
+      ro.observe(el);
+      return () => ro.disconnect();
+    },
+    () => containerRef.current?.getBoundingClientRect().width ?? 440,
+    () => 440,
+  );
 
   // bucle de animación
   useEffect(() => {

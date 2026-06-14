@@ -130,6 +130,7 @@ export function GlobalParticles() {
     <canvas
       ref={canvasRef}
       aria-hidden
+      tabIndex={-1}
       className="pointer-events-none fixed inset-0 -z-[1]"
     />
   );

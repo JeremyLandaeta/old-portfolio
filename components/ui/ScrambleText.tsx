@@ -18,7 +18,6 @@ export function ScrambleText({
   const reduce = usePrefersReducedMotion();
   const [output, setOutput] = useState(words[0] ?? "");
   const indexRef = useRef(0);
-  const rafRef = useRef(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   // Sin animación: cuando hay una sola palabra o el usuario pidió menos
@@ -29,6 +28,9 @@ export function ScrambleText({
     if (!animating) return;
 
     let cancelled = false;
+    // rafId vive solo dentro de este effect (no es un ref): el cleanup lee así
+    // el id del frame realmente pendiente, sin depender de `ref.current`.
+    let rafId = 0;
 
     function scrambleTo(next: string) {
       const from = words[indexRef.current];
@@ -59,7 +61,7 @@ export function ScrambleText({
           return;
         }
         frame++;
-        rafRef.current = requestAnimationFrame(tick);
+        rafId = requestAnimationFrame(tick);
       };
       tick();
     }
@@ -78,7 +80,7 @@ export function ScrambleText({
 
     return () => {
       cancelled = true;
-      cancelAnimationFrame(rafRef.current);
+      cancelAnimationFrame(rafId);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, [animating, words, hold]);
