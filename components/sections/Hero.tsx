@@ -10,6 +10,7 @@ import { AuroraBackground } from "@/components/ui/AuroraBackground";
 import { ScrambleText } from "@/components/ui/ScrambleText";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { Typewriter } from "@/components/ui/Typewriter";
+import { DecodeText } from "@/components/ui/DecodeText";
 import { usePrefersReducedMotion } from "@/components/ui/usePrefersReducedMotion";
 
 const easing = [0.22, 1, 0.36, 1] as const;
@@ -58,34 +59,35 @@ export function Hero() {
         aria-hidden
       >
         <div>
-          <Typewriter text={BOOT[0]} start onDone={() => setStep((s) => Math.max(s, 1))} />
+          <Typewriter text={BOOT[0]} start speed={26} onDone={() => setStep((s) => Math.max(s, 1))} />
         </div>
         <div>
           <Typewriter
             text={BOOT[1]}
             start={step >= 1}
+            speed={26}
             onDone={() => setStep((s) => Math.max(s, 2))}
           />
         </div>
       </div>
 
-      {/* Nombre (se tipea como respuesta a whoami; nombre real en sr-only para SEO) */}
-      <h1 className="text-shimmer mt-3 min-h-[1.05em] max-w-4xl text-balance break-words text-[2rem] font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
+      {/* Nombre: decode tipo Matrix como "respuesta" a whoami + sombra 8-bit.
+          El nombre real va en sr-only para SEO/accesibilidad. */}
+      <h1 className="text-shimmer text-8bit mt-3 min-h-[1.05em] max-w-4xl text-balance break-words text-[2rem] font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
         <span className="sr-only">{t.hero.name}</span>
         <span aria-hidden>
-          <Typewriter
+          <DecodeText
             text={t.hero.name}
             start={step >= 2}
-            speed={55}
             onDone={() => setStep((s) => Math.max(s, 3))}
           />
         </span>
       </h1>
 
-      {/* Rol con efecto scramble */}
+      {/* Rol — scramble en pixel-font (8-bit) */}
       <m.div
         {...reveal(0)}
-        className="mt-4 flex h-10 items-center justify-center font-mono text-xl sm:text-2xl md:text-3xl"
+        className="mt-5 flex min-h-[2.4em] items-center justify-center font-pixel text-xs leading-relaxed sm:text-sm md:text-base"
       >
         <span className="text-muted">&lt;</span>
         <ScrambleText words={t.hero.roles} className="text-gradient-animated mx-2 min-w-[1ch] font-semibold" />
