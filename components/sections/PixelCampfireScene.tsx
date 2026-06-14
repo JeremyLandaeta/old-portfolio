@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
+import { m, useReducedMotion } from "framer-motion";
 
 /**
  * Escena pixel-art decorativa de la sección "Sobre mí".
@@ -58,12 +59,14 @@ export function PixelCampfireScene() {
       )}
 
       {/* Imagen base pixel-art */}
-      <img
+      <Image
         src="/pixel/about-scene-base.webp"
         alt=""
+        fill
+        sizes="(min-width: 1024px) 640px, 100vw"
         draggable={false}
         onError={() => setBaseOk(false)}
-        className={`pixelated pointer-events-none absolute inset-0 h-full w-full select-none object-cover object-center transition-opacity duration-500 ${
+        className={`pixelated pointer-events-none select-none object-cover object-center transition-opacity duration-500 ${
           baseOk ? "opacity-100" : "opacity-0"
         }`}
       />
@@ -80,28 +83,28 @@ export function PixelCampfireScene() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-background via-background/30 to-transparent" />
 
       {/* Glow cálido de la fogata */}
-      <motion.div
+      <m.div
         className="pointer-events-none absolute left-[45%] top-[55%] h-28 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(251,146,60,0.58),rgba(239,68,68,0.2)_42%,transparent_72%)] blur-xl"
         animate={reduceMotion ? undefined : { opacity: [0.45, 0.75, 0.5], scale: [1, 1.08, 0.98] }}
         transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* Luz cálida proyectada sobre el suelo */}
-      <motion.div
+      <m.div
         className="pointer-events-none absolute bottom-[18%] left-[45%] h-9 w-64 -translate-x-1/2 rounded-[50%] bg-[radial-gradient(ellipse,rgba(251,146,60,0.36),transparent_72%)] blur-md"
         animate={reduceMotion ? undefined : { opacity: [0.35, 0.65, 0.4] }}
         transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* Glow cyan del cristal / terminal */}
-      <motion.div
+      <m.div
         className="pointer-events-none absolute bottom-[22%] right-[5%] h-28 w-56 rounded-full bg-[radial-gradient(ellipse,rgba(34,211,238,0.24),transparent_70%)] blur-xl"
         animate={reduceMotion ? undefined : { opacity: [0.25, 0.5, 0.3] }}
         transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* Scanlines / pulse del terminal (oculto en mobile) */}
-      <motion.div
+      <m.div
         className="pointer-events-none absolute bottom-[34%] right-[8%] hidden h-[48px] w-[118px] rounded-sm bg-[repeating-linear-gradient(to_bottom,rgba(0,255,140,0.12)_0_1px,transparent_1px_3px)] mix-blend-screen sm:block"
         animate={reduceMotion ? { opacity: 0.3 } : { opacity: [0.18, 0.42, 0.24] }}
         transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
@@ -109,9 +112,9 @@ export function PixelCampfireScene() {
 
       {/* Brasas */}
       {!reduceMotion &&
-        EMBERS.map((ember, index) => (
-          <motion.span
-            key={`ember-${index}`}
+        EMBERS.map((ember) => (
+          <m.span
+            key={`ember-${ember.left}-${ember.bottom}`}
             className="pointer-events-none absolute rounded-full bg-[radial-gradient(circle,#fde68a,#f97316_55%,transparent_75%)] shadow-[0_0_8px_rgba(249,115,22,0.8)]"
             style={{ left: ember.left, bottom: ember.bottom, width: ember.size, height: ember.size }}
             initial={{ y: 0, opacity: 0, scale: 0.7 }}
@@ -123,8 +126,8 @@ export function PixelCampfireScene() {
       {/* Luciérnagas */}
       {!reduceMotion &&
         FIREFLIES.map((fly, index) => (
-          <motion.span
-            key={`firefly-${index}`}
+          <m.span
+            key={`firefly-${fly.left}-${fly.top}`}
             className={`pointer-events-none absolute rounded-full ${
               fly.warm
                 ? "bg-amber-300 shadow-[0_0_8px_rgba(251,191,36,0.85)]"

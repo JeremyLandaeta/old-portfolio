@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { X, Sparkles } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { usePrefersReducedMotion } from "@/components/ui/usePrefersReducedMotion";
@@ -18,7 +18,8 @@ const CONFETTI = Array.from({ length: 28 }, (_, i) => {
   const drift = ((i * 53) % 40) - 20;
   const sprite = SPRITE_NAMES[i % SPRITE_NAMES.length];
   const size = 3 + (i % 3);
-  return { left, delay, drift, sprite, size };
+  // id estable por partícula (la lista es fija y nunca se reordena/filtra).
+  return { id: `confetti-${i}`, left, delay, drift, sprite, size };
 });
 
 /**
@@ -76,7 +77,7 @@ export function KonamiEgg() {
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -87,7 +88,9 @@ export function KonamiEgg() {
           aria-label={c.title}
         >
           {/* Telón */}
-          <div
+          <button
+            type="button"
+            aria-label={c.close}
             className="absolute inset-0 bg-background/80 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
@@ -95,9 +98,9 @@ export function KonamiEgg() {
           {/* Lluvia de sprites pixel-art */}
           {!reduced && (
             <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-              {CONFETTI.map((p, i) => (
-                <motion.div
-                  key={i}
+              {CONFETTI.map((p) => (
+                <m.div
+                  key={p.id}
                   className="absolute -top-10"
                   style={{ left: `${p.left}%` }}
                   initial={{ y: -40, opacity: 0, rotate: 0 }}
@@ -105,13 +108,13 @@ export function KonamiEgg() {
                   transition={{ duration: 2.4, delay: p.delay, ease: "easeIn" }}
                 >
                   <PixelSprite name={p.sprite} cell={p.size} />
-                </motion.div>
+                </m.div>
               ))}
             </div>
           )}
 
           {/* Carta de recompensa estilo TCG */}
-          <motion.div
+          <m.div
             initial={{ scale: 0.8, y: 30, rotateX: -12 }}
             animate={{ scale: 1, y: 0, rotateX: 0 }}
             exit={{ scale: 0.85, y: 20, opacity: 0 }}
@@ -119,6 +122,7 @@ export function KonamiEgg() {
             className="relative w-full max-w-sm overflow-hidden rounded-3xl border border-accent-2/40 glass p-6 text-center shadow-2xl shadow-accent-2/20 card-beam"
           >
             <button
+              type="button"
               onClick={() => setOpen(false)}
               aria-label={c.close}
               className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full border border-border text-muted transition-colors hover:border-accent-2 hover:text-foreground"
@@ -151,8 +155,8 @@ export function KonamiEgg() {
             <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-4 py-1.5 font-mono text-xs font-semibold text-background">
               {c.reward}
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

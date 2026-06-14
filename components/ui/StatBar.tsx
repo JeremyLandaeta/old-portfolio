@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { usePrefersReducedMotion } from "@/components/ui/usePrefersReducedMotion";
 
 /** Barra de stat estilo RPG (HP/MP): se llena al entrar en vista. */
@@ -49,7 +49,7 @@ export function StatBar({
         <span className="text-accent-2 tabular-nums">{reduce ? level : display}<span className="text-muted">/100</span></span>
       </div>
       <div className="mt-1.5 h-2.5 overflow-hidden rounded-full border border-border bg-white/[0.04]">
-        <motion.div
+        <m.div
           className="relative h-full rounded-full bg-gradient-to-r from-accent to-accent-2"
           style={{
             // muescas tipo segmento para el toque retro-HUD

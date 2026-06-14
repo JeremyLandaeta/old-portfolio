@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { GAMER_COPY } from "@/lib/gamer";
 
@@ -12,19 +12,23 @@ export function Achievements() {
   const { lang } = useLang();
   const g = GAMER_COPY[lang];
   const [toasts, setToasts] = useState<Toast[]>([]);
-  const firedRef = useRef<Set<string>>(new Set());
+  const firedRef = useRef<Set<string> | null>(null);
   const counterRef = useRef(0);
 
   useEffect(() => {
     const ids = Object.keys(g.achievements);
+    // Inicialización perezosa dentro del effect: el Set se crea una sola vez y
+    // así no entra en las deps (es referencia estable, pero el linter estático
+    // no puede inferirlo si vive en el cuerpo del componente).
+    const fired = (firedRef.current ??= new Set<string>());
 
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           const id = entry.target.id;
           if (!entry.isIntersecting || entry.intersectionRatio < 0.35) continue;
-          if (firedRef.current.has(id)) continue;
-          firedRef.current.add(id);
+          if (fired.has(id)) continue;
+          fired.add(id);
 
           const a = g.achievements[id];
           const key = ++counterRef.current;
@@ -49,7 +53,7 @@ export function Achievements() {
     <div className="pointer-events-none fixed bottom-4 right-4 z-[70] flex w-[min(20rem,calc(100vw-2rem))] flex-col gap-2">
       <AnimatePresence>
         {toasts.map((t) => (
-          <motion.div
+          <m.div
             key={t.key}
             initial={{ opacity: 0, x: 60, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -64,7 +68,7 @@ export function Achievements() {
                 background:
                   "linear-gradient(110deg, transparent 30%, rgba(34,211,238,0.18) 50%, transparent 70%)",
                 backgroundSize: "250% 100%",
-                animation: "achievement-shine 1.6s ease-out",
+                animation: "achievement-shine 0.9s ease-out",
               }}
             />
             <div className="relative flex items-center gap-3">
@@ -79,7 +83,7 @@ export function Achievements() {
                 <p className="truncate text-xs text-muted">{t.desc}</p>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </AnimatePresence>
     </div>

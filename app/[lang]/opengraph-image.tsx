@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { ImageResponse } from "next/og";
 
 export const alt = "Jeremy Landaeta — Frontend / Fullstack Developer";
@@ -15,6 +16,36 @@ const SUBTITLE: Record<string, string> = {
   en: "Web products, modern interfaces and AI automations · React · Next.js · TypeScript",
 };
 
+// Estilos estáticos a nivel de módulo: Satori solo admite estilos inline
+// (sin Tailwind/clases CSS), así que los extraemos a const para legibilidad
+// y para estabilizar la identidad del objeto (no se reconstruye por render).
+const ROOT_STYLE: CSSProperties = {
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  padding: "80px",
+  background: "#0a0e1a",
+  backgroundImage:
+    "radial-gradient(circle at 18% 20%, rgba(59,130,246,0.45), transparent 45%), radial-gradient(circle at 85% 25%, rgba(6,182,212,0.40), transparent 45%)",
+  color: "#e6edf7",
+  fontFamily: "sans-serif",
+};
+
+const BADGE_STYLE: CSSProperties = {
+  width: 56,
+  height: 56,
+  borderRadius: 14,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  background: "linear-gradient(135deg, #3b82f6, #06b6d4)",
+  color: "#0a0e1a",
+  fontSize: 26,
+  fontWeight: 700,
+};
+
 export default async function OpengraphImage({
   params,
 }: {
@@ -25,36 +56,9 @@ export default async function OpengraphImage({
 
   return new ImageResponse(
     (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          padding: "80px",
-          background: "#0a0e1a",
-          backgroundImage:
-            "radial-gradient(circle at 18% 20%, rgba(59,130,246,0.45), transparent 45%), radial-gradient(circle at 85% 25%, rgba(6,182,212,0.40), transparent 45%)",
-          color: "#e6edf7",
-          fontFamily: "sans-serif",
-        }}
-      >
+      <div style={ROOT_STYLE}>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div
-            style={{
-              width: 56,
-              height: 56,
-              borderRadius: 14,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "linear-gradient(135deg, #3b82f6, #06b6d4)",
-              color: "#0a0e1a",
-              fontSize: 26,
-              fontWeight: 700,
-            }}
-          >
+          <div style={BADGE_STYLE}>
             JL
           </div>
           <div style={{ fontSize: 26, color: "#8aa0c0", fontFamily: "monospace" }}>jeremy.dev</div>

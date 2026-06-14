@@ -55,8 +55,8 @@ export function About() {
               </h3>
             </div>
             <div className="mt-3 space-y-3">
-              {t.about.paragraphs.map((p, i) => (
-                <p key={i} className="text-pretty leading-relaxed text-muted">{p}</p>
+              {t.about.paragraphs.map((p) => (
+                <p key={p} className="text-pretty leading-relaxed text-muted">{p}</p>
               ))}
             </div>
 

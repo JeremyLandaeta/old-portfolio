@@ -5,6 +5,10 @@ import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SOCIALS } from "@/lib/content";
 
+// Se calcula una sola vez a nivel de módulo: servidor y cliente coinciden y
+// se evita el hydration mismatch de `new Date()` en el JSX.
+const CURRENT_YEAR = new Date().getFullYear();
+
 export function Footer() {
   const { t } = useLang();
 
@@ -51,7 +55,7 @@ export function Footer() {
 
         <div className="mt-6 flex flex-col items-center justify-between gap-2 text-xs text-muted sm:flex-row">
           <p>
-            © {new Date().getFullYear()} Jeremy Landaeta Lizama · {t.footer.rights}
+            © {CURRENT_YEAR} Jeremy Landaeta Lizama · {t.footer.rights}
           </p>
           <p className="font-mono">{t.footer.built}</p>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, type ReactNode } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { m, useMotionValue, useSpring } from "framer-motion";
 
 /** Envuelve un elemento para que se "imante" hacia el cursor (desktop). */
 export function Magnetic({
@@ -33,7 +33,7 @@ export function Magnetic({
   }
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       onPointerMove={onMove}
       onPointerLeave={reset}
@@ -41,6 +41,6 @@ export function Magnetic({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

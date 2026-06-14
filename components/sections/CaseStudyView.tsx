@@ -42,8 +42,8 @@ function Block({
 function Bullets({ items }: { items: string[] }) {
   return (
     <ul className="space-y-2">
-      {items.map((b, i) => (
-        <li key={i} className="flex gap-2.5">
+      {items.map((b) => (
+        <li key={b} className="flex gap-2.5">
           <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-2" />
           <span>{b}</span>
         </li>

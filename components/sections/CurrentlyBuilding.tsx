@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
@@ -11,7 +11,7 @@ export function CurrentlyBuilding() {
     <section className="mx-auto max-w-5xl px-4 py-20 sm:py-28">
       <SectionHeading kicker={t.building.kicker} title={t.building.heading} />
 
-      <motion.div
+      <m.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-80px" }}
@@ -19,7 +19,7 @@ export function CurrentlyBuilding() {
         className="mt-10 grid gap-4 sm:grid-cols-2"
       >
         {t.building.items.map((item) => (
-          <motion.div
+          <m.div
             key={item.title}
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
             className="group relative overflow-hidden rounded-2xl glass p-5"
@@ -38,9 +38,9 @@ export function CurrentlyBuilding() {
               </span>
             </div>
             <p className="mt-2 text-sm leading-relaxed text-muted">{item.description}</p>
-          </motion.div>
+          </m.div>
         ))}
-      </motion.div>
+      </m.div>
     </section>
   );
 }

@@ -12,7 +12,10 @@ export function Counter({ value, className = "" }: { value: string; className?: 
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const reduce = usePrefersReducedMotion();
-  const [display, setDisplay] = useState(value);
+  // Semilla inicial UNA vez (patrón no-controlado): `display` es un buffer que el
+  // rAF reescribe cuadro a cuadro durante la animación, no una copia del prop.
+  // El initializer lazy deja claro ese intent y no re-sincroniza con `value`.
+  const [display, setDisplay] = useState(() => value);
 
   const hasNumber = /^(\D*)(\d+)(.*)$/.test(value);
 

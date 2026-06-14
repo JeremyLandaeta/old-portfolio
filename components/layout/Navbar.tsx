@@ -1,12 +1,27 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SOCIALS } from "@/lib/content";
+
+// Store externo para el estado de scroll: sin render extra al montar y
+// SSR-safe (el snapshot del servidor es siempre false, igual que el HTML).
+function subscribeScroll(callback: () => void) {
+  window.addEventListener("scroll", callback, { passive: true });
+  return () => window.removeEventListener("scroll", callback);
+}
+
+function getScrolledSnapshot() {
+  return window.scrollY > 24;
+}
+
+function getScrolledServerSnapshot() {
+  return false;
+}
 
 export function Navbar() {
   const { t, lang, toggle } = useLang();
@@ -14,15 +29,12 @@ export function Navbar() {
   const isHome = pathname === `/${lang}`;
   // en otras páginas, los anclajes deben apuntar a la home del idioma (/es#seccion)
   const linkFor = (id: string) => (isHome ? `#${id}` : `/${lang}#${id}`);
-  const [scrolled, setScrolled] = useState(false);
+  const scrolled = useSyncExternalStore(
+    subscribeScroll,
+    getScrolledSnapshot,
+    getScrolledServerSnapshot
+  );
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   // Bloquear scroll cuando el menú mobile está abierto
   useEffect(() => {
@@ -43,7 +55,7 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <motion.header
+    <m.header
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -89,6 +101,7 @@ export function Navbar() {
         {/* Acciones */}
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={toggle}
             aria-label="Toggle language"
             className={`rounded-full border border-border font-mono font-semibold text-muted transition-all duration-300 hover:border-accent-2 hover:text-foreground ${
@@ -112,6 +125,7 @@ export function Navbar() {
           </a>
 
           <button
+            type="button"
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={open}
@@ -126,7 +140,7 @@ export function Navbar() {
       {/* Menú mobile */}
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             id="mobile-menu"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -158,9 +172,9 @@ export function Navbar() {
                 </a>
               </li>
             </ul>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </m.header>
   );
 }

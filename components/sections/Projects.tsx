@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -47,7 +47,7 @@ export function Projects() {
           <GlowCard beam className="h-full min-h-[380px]">
             <div className={`pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-gradient-to-br ${accent.glow} to-transparent blur-2xl`} />
             <AnimatePresence mode="wait">
-              <motion.div
+              <m.div
                 key={featured.id}
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -98,7 +98,7 @@ export function Projects() {
                   {t.cta.caseStudy}
                   <ArrowUpRight size={16} />
                 </Link>
-              </motion.div>
+              </m.div>
             </AnimatePresence>
           </GlowCard>
         </Reveal>
@@ -112,6 +112,7 @@ export function Projects() {
               return (
                 <button
                   key={p.id}
+                  type="button"
                   onClick={() => setActive(i)}
                   aria-label={p.title}
                   className={`group relative flex-1 overflow-hidden rounded-xl border px-4 py-3 text-left transition-all ${

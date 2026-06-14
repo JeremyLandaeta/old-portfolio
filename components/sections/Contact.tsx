@@ -9,14 +9,15 @@ import { AuroraBackground } from "@/components/ui/AuroraBackground";
 import { Meteors } from "@/components/ui/Meteors";
 import { SOCIALS } from "@/lib/content";
 
+// Estatico: solo referencia imports de modulo (SOCIALS e iconos), no usa t/props/estado.
+const links = [
+  { label: "Email", value: SOCIALS.email, href: `mailto:${SOCIALS.email}`, Icon: Mail },
+  { label: "LinkedIn", value: "in/jeremy-landaeta-lizama", href: SOCIALS.linkedin, Icon: FaLinkedin, external: true },
+  { label: "GitHub", value: "JeremyLandaeta", href: SOCIALS.github, Icon: FaGithub, external: true },
+];
+
 export function Contact() {
   const { t } = useLang();
-
-  const links = [
-    { label: "Email", value: SOCIALS.email, href: `mailto:${SOCIALS.email}`, Icon: Mail },
-    { label: "LinkedIn", value: "in/jeremy-landaeta-lizama", href: SOCIALS.linkedin, Icon: FaLinkedin, external: true },
-    { label: "GitHub", value: "JeremyLandaeta", href: SOCIALS.github, Icon: FaGithub, external: true },
-  ];
 
   return (
     <section id="contacto" className="relative overflow-hidden px-4 py-20 sm:py-28">

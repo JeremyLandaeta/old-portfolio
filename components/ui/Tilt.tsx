@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { m, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { usePrefersReducedMotion } from "@/components/ui/usePrefersReducedMotion";
 
 /** Envoltorio con inclinación 3D que sigue el cursor (estilo carta holográfica). */
@@ -40,7 +40,7 @@ export function Tilt({
   }
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       onPointerMove={onMove}
       onPointerLeave={reset}
@@ -48,6 +48,6 @@ export function Tilt({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

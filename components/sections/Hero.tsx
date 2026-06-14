@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowDown, Download, MapPin } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { useLang } from "@/components/providers/LanguageProvider";
@@ -22,7 +22,7 @@ export function Hero() {
       <AuroraBackground />
 
       {/* Badge disponibilidad */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: easing }}
@@ -33,20 +33,20 @@ export function Hero() {
           <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
         </span>
         {t.hero.badge}
-      </motion.div>
+      </m.div>
 
       {/* Nombre */}
-      <motion.h1
+      <m.h1
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.1, ease: easing }}
         className="text-shimmer mt-6 max-w-4xl text-balance break-words text-[2rem] font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl"
       >
         {t.hero.name}
-      </motion.h1>
+      </m.h1>
 
       {/* Rol con efecto scramble */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.2, ease: easing }}
@@ -55,20 +55,20 @@ export function Hero() {
         <span className="text-muted">&lt;</span>
         <ScrambleText words={t.hero.roles} className="text-gradient-animated mx-2 min-w-[1ch] font-semibold" />
         <span className="text-muted">/&gt;</span>
-      </motion.div>
+      </m.div>
 
       {/* Tagline */}
-      <motion.p
+      <m.p
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.3, ease: easing }}
         className="mt-6 max-w-2xl text-pretty text-base text-muted sm:text-lg"
       >
         {t.hero.tagline}
-      </motion.p>
+      </m.p>
 
       {/* CTAs magnéticos */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.4, ease: easing }}
@@ -93,10 +93,10 @@ export function Hero() {
             {t.cta.cv}
           </a>
         </Magnetic>
-      </motion.div>
+      </m.div>
 
       {/* Social + ubicación */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.55 }}
@@ -112,23 +112,23 @@ export function Hero() {
         <span className="flex items-center gap-1.5 text-sm">
           <MapPin size={15} /> {t.hero.location}
         </span>
-      </motion.div>
+      </m.div>
 
       {/* Scroll hint */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.1 }}
         className="absolute bottom-6 left-1/2 -translate-x-1/2"
       >
-        <motion.div
+        <m.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
           className="text-muted"
         >
           <ArrowDown size={20} />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </section>
   );
 }

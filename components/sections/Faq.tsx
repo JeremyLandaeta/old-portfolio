@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Plus } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -26,6 +26,7 @@ export function Faq() {
                 }`}
               >
                 <button
+                  type="button"
                   id={`faq-trigger-${i}`}
                   onClick={() => setOpen(isOpen ? null : i)}
                   className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
@@ -33,7 +34,7 @@ export function Faq() {
                   aria-controls={`faq-panel-${i}`}
                 >
                   <span className="font-medium">{item.q}</span>
-                  <motion.span
+                  <m.span
                     animate={{ rotate: isOpen ? 45 : 0 }}
                     transition={{ duration: 0.25 }}
                     className={`grid h-7 w-7 shrink-0 place-items-center rounded-full transition-colors ${
@@ -41,12 +42,12 @@ export function Faq() {
                     }`}
                   >
                     <Plus size={16} />
-                  </motion.span>
+                  </m.span>
                 </button>
 
                 <AnimatePresence initial={false}>
                   {isOpen && (
-                    <motion.div
+                    <m.div
                       id={`faq-panel-${i}`}
                       role="region"
                       aria-labelledby={`faq-trigger-${i}`}
@@ -56,7 +57,7 @@ export function Faq() {
                       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     >
                       <p className="px-5 pb-5 text-pretty leading-relaxed text-muted">{item.a}</p>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext } from "react";
+import { createContext, use, useCallback, useMemo } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { dictionaries, type Content, type Lang } from "@/lib/content";
 
@@ -22,25 +22,31 @@ export function LanguageProvider({ lang, children }: { lang: Lang; children: Rea
   const router = useRouter();
   const pathname = usePathname();
 
-  const setLang = (next: Lang) => {
-    if (next === lang) return;
-    // Reemplaza el primer segmento de idioma: /es/proyectos/x → /en/proyectos/x
-    const rest = pathname.replace(/^\/(es|en)(?=\/|$)/, "");
-    const hash = typeof window !== "undefined" ? window.location.hash : "";
-    router.push(`/${next}${rest}${hash}`);
-  };
-
-  const toggle = () => setLang(lang === "es" ? "en" : "es");
-
-  return (
-    <LanguageContext.Provider value={{ lang, setLang, toggle, t: dictionaries[lang] }}>
-      {children}
-    </LanguageContext.Provider>
+  const setLang = useCallback(
+    (next: Lang) => {
+      if (next === lang) return;
+      // Reemplaza el primer segmento de idioma: /es/proyectos/x → /en/proyectos/x
+      const rest = pathname.replace(/^\/(es|en)(?=\/|$)/, "");
+      const hash = typeof window !== "undefined" ? window.location.hash : "";
+      router.push(`/${next}${rest}${hash}`);
+    },
+    [lang, pathname, router],
   );
+
+  const toggle = useCallback(() => setLang(lang === "es" ? "en" : "es"), [lang, setLang]);
+
+  // Memoizamos el value para que su identidad solo cambie cuando cambian sus
+  // dependencias reales y no se redibujen todos los consumidores en cada render.
+  const value = useMemo(
+    () => ({ lang, setLang, toggle, t: dictionaries[lang] }),
+    [lang, setLang, toggle],
+  );
+
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
 export function useLang() {
-  const ctx = useContext(LanguageContext);
+  const ctx = use(LanguageContext);
   if (!ctx) throw new Error("useLang debe usarse dentro de <LanguageProvider>");
   return ctx;
 }

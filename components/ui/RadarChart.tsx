@@ -1,10 +1,13 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { usePrefersReducedMotion } from "@/components/ui/usePrefersReducedMotion";
 
 type Datum = { label: string; value: number };
+
+/** Serializa puntos a la cadena de `points` de un polígono SVG. Pura: solo usa su parámetro. */
+const toStr = (pts: [number, number][]) => pts.map((p) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(" ");
 
 /** Radar/telaraña hexagonal de atributos estilo MOBA. Se dibuja al entrar en vista. */
 export function RadarChart({ data, size = 280 }: { data: Datum[]; size?: number }) {
@@ -22,8 +25,6 @@ export function RadarChart({ data, size = 280 }: { data: Datum[]; size?: number 
     cx + Math.cos(angle(i)) * radius,
     cy + Math.sin(angle(i)) * radius,
   ];
-  const toStr = (pts: [number, number][]) => pts.map((p) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(" ");
-
   const rings = [0.25, 0.5, 0.75, 1].map((f) => data.map((_, i) => at(i, R * f)));
   const valuePts = data.map((d, i) => at(i, R * (Math.max(0, Math.min(100, d.value)) / 100)));
 
@@ -56,7 +57,7 @@ export function RadarChart({ data, size = 280 }: { data: Datum[]; size?: number 
       })}
 
       {/* área de valores (animada) */}
-      <motion.polygon
+      <m.polygon
         points={toStr(valuePts)}
         fill="url(#radar-fill)"
         stroke="var(--accent-2)"
@@ -86,7 +87,7 @@ export function RadarChart({ data, size = 280 }: { data: Datum[]; size?: number 
             textAnchor={anchor}
             dominantBaseline="middle"
             className="fill-muted font-mono"
-            style={{ fontSize: 11 }}
+            style={{ fontSize: 12 }}
           >
             {d.label}
             <tspan className="fill-accent-2" dx="4" style={{ fontWeight: 700 }}>

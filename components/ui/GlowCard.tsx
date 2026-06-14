@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, type ReactNode, type PointerEvent } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { m, useMotionValue, useSpring } from "framer-motion";
 
 /**
  * Card con tilt 3D + borde glow + spotlight que sigue el cursor.
@@ -46,7 +46,7 @@ export function GlowCard({
   }
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       onPointerMove={handleMove}
       onPointerLeave={reset}
@@ -71,6 +71,6 @@ export function GlowCard({
       <div className="relative z-10 h-full" style={{ transform: "translateZ(40px)" }}>
         {children}
       </div>
-    </motion.div>
+    </m.div>
   );
 }

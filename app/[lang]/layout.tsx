@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "../globals.css";
 import { LanguageProvider } from "@/components/providers/LanguageProvider";
+import { MotionProvider } from "@/components/providers/MotionProvider";
 import { CursorGlow } from "@/components/ui/CursorGlow";
 import { GlobalParticles } from "@/components/ui/GlobalParticles";
 import type { Lang } from "@/lib/content";
@@ -107,9 +108,11 @@ export default async function LangLayout({
     >
       <body className="grain scanlines min-h-full flex flex-col bg-background text-foreground">
         <LanguageProvider lang={lang}>
-          <GlobalParticles />
-          <CursorGlow />
-          {children}
+          <MotionProvider>
+            <GlobalParticles />
+            <CursorGlow />
+            {children}
+          </MotionProvider>
         </LanguageProvider>
       </body>
     </html>

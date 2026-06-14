@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
 
 type RevealProps = {
@@ -33,7 +33,7 @@ function variants(direction: RevealProps["direction"], blur?: boolean): Variants
 }
 
 export function Reveal({ children, className, direction = "up", delay = 0, blur = false, as = "div" }: RevealProps) {
-  const MotionTag = motion[as];
+  const MotionTag = m[as];
   return (
     <MotionTag
       className={className}
@@ -45,31 +45,5 @@ export function Reveal({ children, className, direction = "up", delay = 0, blur 
     >
       {children}
     </MotionTag>
-  );
-}
-
-/** Contenedor que escalona la entrada de sus hijos <Reveal>/motion */
-export function StaggerGroup({
-  children,
-  className,
-  stagger = 0.08,
-}: {
-  children: ReactNode;
-  className?: string;
-  stagger?: number;
-}) {
-  return (
-    <motion.div
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={{
-        hidden: {},
-        visible: { transition: { staggerChildren: stagger } },
-      }}
-    >
-      {children}
-    </motion.div>
   );
 }

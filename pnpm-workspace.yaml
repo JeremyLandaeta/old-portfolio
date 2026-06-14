@@ -1,3 +1,11 @@
+# Hardening de cadena de suministro (react-doctor/require-pnpm-hardening).
+# Espera 7 días (10080 min) antes de instalar una versión recién publicada: así
+# el malware que se publica y se despublica en pocas horas nunca llega a instalarse.
+minimumReleaseAge: 10080
+# Rechaza un paquete si su evidencia de confianza (provenance/firma del publisher)
+# se debilita respecto a versiones anteriores — señal típica de una cuenta comprometida.
+trustPolicy: no-downgrade
+
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver

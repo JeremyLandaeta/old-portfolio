@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { MapPin, Hexagon, Rocket, Leaf, Languages, Award } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { useLang } from "@/components/providers/LanguageProvider";
@@ -42,11 +43,13 @@ export function ChampionCard() {
 
           {/* ventana de arte */}
           <div className="relative z-20 mt-3 aspect-square overflow-hidden rounded-xl border border-amber-300/20 bg-grid">
-            <img
+            <Image
               src="/pixel/jeremy-pixel.png"
               alt="Jeremy Landaeta — avatar pixel-art"
+              fill
+              sizes="(min-width: 640px) 320px, 90vw"
               draggable={false}
-              className="pixelated absolute inset-0 h-full w-full select-none object-cover object-top"
+              className="pixelated select-none object-cover object-top"
             />
             {/* tinte para fundir con la identidad cyan/azul */}
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-accent/15 via-transparent to-accent-2/20 mix-blend-overlay" />

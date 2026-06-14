@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { GraduationCap, Award } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -16,7 +16,7 @@ export function Experience() {
       <div className="relative mt-12 pl-8 sm:pl-10">
         {/* línea vertical con relleno animado */}
         <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border sm:left-[9px]" />
-        <motion.div
+        <m.div
           initial={{ scaleY: 0 }}
           whileInView={{ scaleY: 1 }}
           viewport={{ once: true, margin: "-120px" }}
