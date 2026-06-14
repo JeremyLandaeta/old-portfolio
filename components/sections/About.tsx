@@ -6,6 +6,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { AgeCounter } from "@/components/ui/AgeCounter";
 import { ChampionCard } from "@/components/ui/ChampionCard";
+import { MenuFrame } from "@/components/ui/MenuFrame";
 import { CharacterStats } from "@/components/sections/CharacterStats";
 import { PixelCampfireScene } from "@/components/sections/PixelCampfireScene";
 import { CurrentQuestCard } from "@/components/sections/CurrentQuestCard";
@@ -47,14 +48,8 @@ export function About() {
       <div className="mt-6 grid gap-6 lg:grid-cols-5 lg:items-stretch">
         {/* Lore / backstory */}
         <Reveal className="lg:col-span-3">
-          <div className="h-full rounded-2xl glass p-6">
-            <div className="flex items-center gap-2">
-              <BookOpen size={16} className="text-accent-2" />
-              <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-muted">
-                {g.loreLabel}
-              </h3>
-            </div>
-            <div className="mt-3 max-w-[68ch] space-y-3">
+          <MenuFrame title={g.loreLabel} icon={BookOpen} stamp="LORE.LOG" className="h-full p-6 pt-7">
+            <div className="max-w-[68ch] space-y-3">
               {t.about.paragraphs.map((p) => (
                 <p key={p} className="text-pretty leading-relaxed text-muted">{p}</p>
               ))}
@@ -88,7 +83,7 @@ export function About() {
             </div>
 
             <CurrentQuestCard />
-          </div>
+          </MenuFrame>
         </Reveal>
 
         {/* Habilidades */}
