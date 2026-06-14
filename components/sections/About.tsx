@@ -54,7 +54,7 @@ export function About() {
                 {g.loreLabel}
               </h3>
             </div>
-            <div className="mt-3 space-y-3">
+            <div className="mt-3 max-w-[68ch] space-y-3">
               {t.about.paragraphs.map((p) => (
                 <p key={p} className="text-pretty leading-relaxed text-muted">{p}</p>
               ))}

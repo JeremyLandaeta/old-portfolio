@@ -47,7 +47,7 @@ export function AbilityKit() {
                 >
                   <Icon size={18} />
                 </span>
-                <span className="absolute -bottom-1.5 -right-1.5 grid h-5 w-5 place-items-center rounded border border-border bg-background font-mono text-[10px] font-bold text-foreground">
+                <span className="absolute -bottom-1.5 -right-1.5 grid h-5 w-5 place-items-center rounded border border-border bg-background font-mono text-xs font-bold text-foreground">
                   {a.slot}
                 </span>
               </div>

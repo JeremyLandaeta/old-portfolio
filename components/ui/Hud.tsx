@@ -68,14 +68,14 @@ export function Hud() {
               </span>
             </div>
             <div className="mt-2 flex items-center gap-2">
-              <span className="text-[10px] uppercase text-muted">{g.xpLabel}</span>
+              <span className="text-xs uppercase text-muted">{g.xpLabel}</span>
               <div className="h-1.5 flex-1 overflow-hidden rounded-full border border-border bg-white/[0.06]">
                 <div
                   className="h-full rounded-full bg-gradient-to-r from-accent to-accent-2 transition-[width] duration-150 ease-out"
                   style={{ width: `${progress}%`, boxShadow: "0 0 8px -1px var(--accent-2)" }}
                 />
               </div>
-              <span className="w-9 text-right text-[10px] tabular-nums text-accent-2">{Math.round(progress)}%</span>
+              <span className="w-9 text-right text-xs tabular-nums text-accent-2">{Math.round(progress)}%</span>
             </div>
           </div>
         </div>

@@ -81,7 +81,7 @@ export function Projects() {
                 </div>
 
                 <h3 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">{featured.title}</h3>
-                <p className="mt-3 flex-1 text-pretty leading-relaxed text-muted">{featured.description}</p>
+                <p className="mt-3 max-w-[68ch] flex-1 text-pretty leading-relaxed text-muted">{featured.description}</p>
 
                 <div className="mt-5 flex flex-wrap items-center gap-2">
                   {featured.tags.map((tag) => (

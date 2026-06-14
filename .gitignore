@@ -38,6 +38,7 @@ yarn-error.log*
 
 # notas locales (no se versionan)
 REVISION-DEPLOY.md
+impeccable-report.txt
 
 # typescript
 *.tsbuildinfo

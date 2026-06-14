@@ -92,7 +92,7 @@ export function ChampionCard() {
                 <div key={h.label} className="rounded-lg border border-border bg-white/[0.02] p-2.5">
                   <Icon size={15} className="text-accent-2" />
                   <Counter value={h.value} className="mt-1 block text-gradient text-lg font-bold leading-none" />
-                  <p className="mt-0.5 text-[10px] leading-tight text-muted">{h.label}</p>
+                  <p className="mt-0.5 text-xs leading-tight text-muted">{h.label}</p>
                 </div>
               );
             })}
