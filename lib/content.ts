@@ -123,7 +123,7 @@ export type Content = {
   building: {
     heading: string;
     kicker: string;
-    items: { title: string; description: string; status: string }[];
+    items: { title: string; description: string; status: string; tags: string[]; progress: number }[];
   };
   github: {
     heading: string;
@@ -517,10 +517,10 @@ const es: Content = {
     kicker: "En construcción",
     heading: "Lo que estoy construyendo ahora",
     items: [
-      { title: "Newsletter automatizado con IA", description: "Generación y publicación de contenido con IA local y automatización de flujos.", status: "Activo" },
-      { title: "Este portafolio", description: "Sitio personal con Next.js, animaciones y diseño propio.", status: "Iterando" },
-      { title: "Side projects con IA", description: "Experimentos con OpenAI, Ollama y agentes.", status: "Explorando" },
-      { title: "Automatizaciones para Greensoft", description: "Herramientas internas para optimizar procesos del equipo.", status: "Activo" },
+      { title: "Newsletter automatizado con IA", description: "Generación y publicación de contenido con IA local y automatización de flujos.", status: "Activo", tags: ["IA local", "Ollama", "n8n", "RSS"], progress: 75 },
+      { title: "Este portafolio", description: "Sitio personal con Next.js, animaciones y diseño propio.", status: "Iterando", tags: ["Next.js", "Framer Motion", "Tailwind"], progress: 90 },
+      { title: "Side projects con IA", description: "Experimentos con OpenAI, Ollama y agentes.", status: "Explorando", tags: ["OpenAI", "Ollama", "Agentes"], progress: 35 },
+      { title: "Automatizaciones para Greensoft", description: "Herramientas internas para optimizar procesos del equipo.", status: "Activo", tags: ["Bitrix24", "APIs", "Scripts"], progress: 70 },
     ],
   },
   github: {
@@ -945,10 +945,10 @@ const en: Content = {
     kicker: "Currently building",
     heading: "What I'm building right now",
     items: [
-      { title: "AI-powered newsletter", description: "Content generation and publishing with local AI and workflow automation.", status: "Active" },
-      { title: "This portfolio", description: "Personal site built with Next.js, animations and a custom design.", status: "Iterating" },
-      { title: "AI side projects", description: "Experiments with OpenAI, Ollama and agents.", status: "Exploring" },
-      { title: "Automation for Greensoft", description: "Internal tools to streamline the team's processes.", status: "Active" },
+      { title: "AI-powered newsletter", description: "Content generation and publishing with local AI and workflow automation.", status: "Active", tags: ["Local AI", "Ollama", "n8n", "RSS"], progress: 75 },
+      { title: "This portfolio", description: "Personal site built with Next.js, animations and a custom design.", status: "Iterating", tags: ["Next.js", "Framer Motion", "Tailwind"], progress: 90 },
+      { title: "AI side projects", description: "Experiments with OpenAI, Ollama and agents.", status: "Exploring", tags: ["OpenAI", "Ollama", "Agents"], progress: 35 },
+      { title: "Automation for Greensoft", description: "Internal tools to streamline the team's processes.", status: "Active", tags: ["Bitrix24", "APIs", "Scripts"], progress: 70 },
     ],
   },
   github: {

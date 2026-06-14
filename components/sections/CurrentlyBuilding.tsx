@@ -5,6 +5,9 @@ import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { MenuFrame } from "@/components/ui/MenuFrame";
 
+/** Nº de bloques de la barra de progreso (estilo 8-bit). */
+const SEGMENTS = 14;
+
 export function CurrentlyBuilding() {
   const { t } = useLang();
 
@@ -32,16 +35,42 @@ export function CurrentlyBuilding() {
               {/* descripción (cuerpo) */}
               <p className="text-sm leading-relaxed text-muted">{item.description}</p>
 
-              {/* footer anclado abajo: estado + tag */}
-              <div className="mt-auto flex items-center justify-between gap-3 pt-5">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-300">
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              {/* tags de stack */}
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {item.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-md border border-border bg-white/3 px-2 py-0.5 font-mono text-[11px] text-muted"
+                  >
+                    {tag}
                   </span>
-                  {item.status}
-                </span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted/40">wip</span>
+                ))}
+              </div>
+
+              {/* footer anclado abajo: estado + progreso por bloques */}
+              <div className="mt-auto pt-5">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-300">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    </span>
+                    {item.status}
+                  </span>
+                  <span className="font-mono text-[11px] tabular-nums text-accent-2">{item.progress}%</span>
+                </div>
+                <div className="mt-2 flex gap-0.75">
+                  {Array.from({ length: SEGMENTS }).map((_, i) => (
+                    <span
+                      key={i}
+                      className={`h-1.5 flex-1 rounded-[1px] ${
+                        i < Math.round((item.progress / 100) * SEGMENTS)
+                          ? "bg-linear-to-r from-accent to-accent-2"
+                          : "bg-white/6"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* línea inferior sutil (se ilumina al hover) */}
