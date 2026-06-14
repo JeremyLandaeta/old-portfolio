@@ -1,6 +1,13 @@
 "use client";
 
-import { MapPin, GraduationCap, Languages, BadgeCheck, BookOpen, Swords } from "lucide-react";
+import {
+  MapPin,
+  GraduationCap,
+  Languages,
+  BadgeCheck,
+  BookOpen,
+  Swords,
+} from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
@@ -48,10 +55,17 @@ export function About() {
       <div className="mt-6 grid gap-6 lg:grid-cols-5 lg:items-stretch">
         {/* Lore / backstory */}
         <Reveal className="lg:col-span-3">
-          <MenuFrame title={g.loreLabel} icon={BookOpen} stamp="LORE.LOG" className="h-full px-6 pb-6 pt-7">
+          <MenuFrame
+            title={g.loreLabel}
+            icon={BookOpen}
+            stamp="LORE.LOG"
+            className="h-full px-6 pb-6 pt-7"
+          >
             <div className="max-w-[68ch] space-y-3">
               {t.about.paragraphs.map((p) => (
-                <p key={p} className="text-pretty leading-relaxed text-muted">{p}</p>
+                <p key={p} className="text-pretty leading-relaxed text-muted">
+                  {p}
+                </p>
               ))}
             </div>
 
@@ -78,7 +92,11 @@ export function About() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-2 opacity-75" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent-2" />
               </span>
-              <AgeCounter birth={BIRTH_DATE} decimals={9} className="tabular-nums text-foreground" />
+              <AgeCounter
+                birth={BIRTH_DATE}
+                decimals={9}
+                className="tabular-nums text-foreground"
+              />
               <span>{t.about.ageLabel}</span>
             </div>
 
@@ -88,7 +106,13 @@ export function About() {
 
         {/* Habilidades */}
         <Reveal delay={0.08} className="lg:col-span-2">
-          <MenuFrame title={g.abilitiesLabel} icon={Swords} stamp="SKILL.SET" accent="amber" className="h-full px-6 pb-6 pt-7">
+          <MenuFrame
+            title={g.abilitiesLabel}
+            icon={Swords}
+            stamp="SKILL.SET"
+            accent="amber"
+            className="h-full px-6 pb-6 pt-7"
+          >
             <AbilityKit />
           </MenuFrame>
         </Reveal>

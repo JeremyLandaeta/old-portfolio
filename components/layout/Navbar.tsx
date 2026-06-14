@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, m } from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
+import { useActiveSection } from "@/components/ui/useActiveSection";
 import { SOCIALS } from "@/lib/content";
 
 // Store externo para el estado de scroll: sin render extra al montar y
@@ -29,6 +30,8 @@ export function Navbar() {
   const isHome = pathname === `/${lang}`;
   // en otras páginas, los anclajes deben apuntar a la home del idioma (/es#seccion)
   const linkFor = (id: string) => (isHome ? `#${id}` : `/${lang}#${id}`);
+  // sección activa para el cursor ▸ (solo en la home; fuera, sin resaltado)
+  const activeId = useActiveSection(isHome ? t.nav.map((n) => n.id) : []);
   const scrolled = useSyncExternalStore(
     subscribeScroll,
     getScrolledSnapshot,
@@ -71,31 +74,44 @@ export function Navbar() {
         {/* Logo */}
         <Link href={isHome ? "#inicio" : `/${lang}`} className="group flex items-center gap-2 font-mono text-sm font-semibold">
           <span
-            className={`grid place-items-center rounded-lg bg-linear-to-br from-accent to-accent-2 text-background transition-all duration-300 ${
-              scrolled ? "h-7 w-7 text-xs" : "h-9 w-9 text-sm"
+            className={`grid place-items-center rounded-xs bg-linear-to-br from-accent to-accent-2 font-pixel text-background transition-all duration-300 ${
+              scrolled ? "h-7 w-7 text-[8px]" : "h-9 w-9 text-[10px]"
             }`}
           >
             JL
           </span>
-          <span className="hidden text-foreground transition-colors group-hover:text-accent-2 sm:inline">
+          <span className="hidden items-center text-foreground transition-colors group-hover:text-accent-2 sm:inline-flex">
             jeremy<span className="text-accent-2">.dev</span>
+            <span aria-hidden className="cursor-blink ml-1 inline-block h-3.5 w-1.5 bg-accent-2" />
           </span>
         </Link>
 
         {/* Links desktop */}
         <ul className="hidden items-center gap-1 md:flex">
-          {t.nav.map((item) => (
-            <li key={item.id}>
-              <Link
-                href={linkFor(item.id)}
-                className={`rounded-full text-muted transition-all duration-300 hover:bg-white/5 hover:text-foreground ${
-                  scrolled ? "px-2.5 py-1 text-[13px]" : "px-3 py-1.5 text-sm"
-                }`}
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
+          {t.nav.map((item) => {
+            const isActive = activeId === item.id;
+            return (
+              <li key={item.id}>
+                <Link
+                  href={linkFor(item.id)}
+                  aria-current={isActive ? "true" : undefined}
+                  className={`group/nav flex items-center gap-1 rounded-full transition-all duration-300 ${
+                    isActive ? "text-accent-2" : "text-muted hover:bg-white/5 hover:text-foreground"
+                  } ${scrolled ? "px-2.5 py-1 text-[13px]" : "px-3 py-1.5 text-sm"}`}
+                >
+                  <span
+                    aria-hidden
+                    className={`font-mono text-accent-2 transition-opacity duration-200 ${
+                      isActive ? "opacity-100" : "opacity-0 group-hover/nav:opacity-50"
+                    }`}
+                  >
+                    ▸
+                  </span>
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         {/* Acciones */}
@@ -154,8 +170,9 @@ export function Navbar() {
                   <Link
                     href={linkFor(item.id)}
                     onClick={() => setOpen(false)}
-                    className="block rounded-xl px-4 py-3 text-base text-foreground transition-colors hover:bg-white/5"
+                    className="flex items-center gap-2 rounded-xl px-4 py-3 text-base text-foreground transition-colors hover:bg-white/5 hover:text-accent-2"
                   >
+                    <span aria-hidden className="font-mono text-accent-2">{">"}</span>
                     {item.label}
                   </Link>
                 </li>
