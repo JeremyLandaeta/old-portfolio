@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Press_Start_2P } from "next/font/google";
 import "../globals.css";
 import { LanguageProvider } from "@/components/providers/LanguageProvider";
 import { MotionProvider } from "@/components/providers/MotionProvider";
@@ -16,6 +16,14 @@ const inter = Inter({
 
 const mono = JetBrains_Mono({
   variable: "--font-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+// Pixel-font 8-bit (solo para títulos/labels decorativos, no para cuerpo).
+const pixel = Press_Start_2P({
+  variable: "--font-press-start",
+  weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
@@ -104,7 +112,7 @@ export default async function LangLayout({
     <html
       lang={lang}
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${mono.variable} h-full antialiased`}
+      className={`${inter.variable} ${mono.variable} ${pixel.variable} h-full antialiased`}
     >
       <body className="grain scanlines min-h-full flex flex-col bg-background text-foreground">
         <LanguageProvider lang={lang}>

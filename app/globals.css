@@ -28,6 +28,7 @@
 
   --font-sans: var(--font-inter);
   --font-mono: var(--font-mono);
+  --font-pixel: var(--font-press-start);
 }
 
 * {

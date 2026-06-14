@@ -199,7 +199,11 @@ export type AboutGame = {
   loreLabel: string;
   attrLabels: Record<string, string>;
   abilities: Ability[];
-  currentQuest: { title: string; text: string; badge: string };
+  currentQuest: {
+    title: string;
+    badge: string;
+    objectives: { label: string; state: "done" | "active" | "todo" }[];
+  };
 };
 
 export const ABOUT_GAME: Record<Lang, AboutGame> = {
@@ -228,8 +232,13 @@ export const ABOUT_GAME: Record<Lang, AboutGame> = {
     ],
     currentQuest: {
       title: "Current Quest",
-      text: "Buscar nuevo equipo · Mejorar producto · Shippear proyectos",
       badge: "XP +100",
+      objectives: [
+        { label: "Shippear features de punta a punta", state: "done" },
+        { label: "Integrar IA en producto real", state: "done" },
+        { label: "Dominar arquitectura escalable", state: "active" },
+        { label: "Liderar más allá del código", state: "todo" },
+      ],
     },
   },
   en: {
@@ -257,8 +266,13 @@ export const ABOUT_GAME: Record<Lang, AboutGame> = {
     ],
     currentQuest: {
       title: "Current Quest",
-      text: "Find a new team · Improve product · Ship projects",
       badge: "XP +100",
+      objectives: [
+        { label: "Ship features end-to-end", state: "done" },
+        { label: "Integrate AI into real products", state: "done" },
+        { label: "Master scalable architecture", state: "active" },
+        { label: "Lead beyond the code", state: "todo" },
+      ],
     },
   },
 };
