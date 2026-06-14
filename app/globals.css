@@ -176,13 +176,6 @@ body {
   text-shadow: 0 0 24px var(--accent-glow);
 }
 
-/* Sombra dura cromática estilo arcade/8-bit. drop-shadow (no text-shadow)
-   porque funciona aunque el texto use background-clip:text (gradiente). */
-.text-8bit {
-  filter: drop-shadow(2px 2px 0 rgba(236, 72, 200, 0.55))
-    drop-shadow(-2px -2px 0 rgba(34, 211, 238, 0.4));
-}
-
 /* Texto con gradiente animado (sheen) */
 @keyframes sheen {
   0% { background-position: 0% 50%; }

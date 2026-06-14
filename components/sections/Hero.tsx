@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { m } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { ArrowDown, Download, MapPin } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { useLang } from "@/components/providers/LanguageProvider";
@@ -53,27 +53,36 @@ export function Hero() {
         {t.hero.badge}
       </m.div>
 
-      {/* Secuencia de boot (terminal) */}
-      <div
-        className="mt-6 min-h-[2.8em] font-mono text-xs leading-relaxed text-accent-2/70 sm:text-sm"
-        aria-hidden
-      >
-        <div>
-          <Typewriter text={BOOT[0]} start speed={26} onDone={() => setStep((s) => Math.max(s, 1))} />
-        </div>
-        <div>
-          <Typewriter
-            text={BOOT[1]}
-            start={step >= 1}
-            speed={26}
-            onDone={() => setStep((s) => Math.max(s, 2))}
-          />
-        </div>
-      </div>
+      {/* Secuencia de boot (terminal) — se limpia tras el whoami */}
+      <AnimatePresence>
+        {step < 2 && (
+          <m.div
+            key="boot"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.35, ease: easing }}
+            className="mt-6 min-h-[2.8em] font-mono text-xs leading-relaxed text-accent-2/70 sm:text-sm"
+            aria-hidden
+          >
+            <div>
+              <Typewriter text={BOOT[0]} start speed={26} onDone={() => setStep((s) => Math.max(s, 1))} />
+            </div>
+            <div>
+              <Typewriter
+                text={BOOT[1]}
+                start={step >= 1}
+                speed={26}
+                onDone={() => setTimeout(() => setStep((s) => Math.max(s, 2)), 550)}
+              />
+            </div>
+          </m.div>
+        )}
+      </AnimatePresence>
 
-      {/* Nombre: decode tipo Matrix como "respuesta" a whoami + sombra 8-bit.
-          El nombre real va en sr-only para SEO/accesibilidad. */}
-      <h1 className="text-shimmer text-8bit mt-3 min-h-[1.05em] max-w-4xl text-balance break-words text-[2rem] font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
+      {/* Nombre: 8-bit en pixel-font, revelado con decode tipo Matrix como
+          "respuesta" a whoami. El nombre real va en sr-only para SEO/a11y. */}
+      <h1 className="text-shimmer font-pixel mt-4 max-w-4xl text-balance break-words text-lg leading-[1.45] sm:text-2xl md:text-3xl">
         <span className="sr-only">{t.hero.name}</span>
         <span aria-hidden>
           <DecodeText
