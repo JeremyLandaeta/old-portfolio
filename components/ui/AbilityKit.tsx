@@ -1,6 +1,6 @@
 "use client";
 
-import { Compass, LayoutPanelTop, Server, BrainCircuit, Rocket, Swords } from "lucide-react";
+import { Compass, LayoutPanelTop, Server, BrainCircuit, Rocket } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { ABOUT_GAME } from "@/lib/gamer";
 
@@ -19,21 +19,14 @@ export function AbilityKit() {
 
   return (
     <div>
-      <div className="flex items-center gap-2">
-        <Swords size={16} className="text-accent-2" />
-        <h3 className="font-mono text-sm font-semibold uppercase tracking-wider text-muted">
-          {g.abilitiesLabel}
-        </h3>
-      </div>
-
-      <ul className="mt-3 space-y-2">
+      <ul className="space-y-2">
         {g.abilities.map((a) => {
           const Icon = ICONS[a.icon] ?? Compass;
           const isUlt = a.slot === "R";
           return (
             <li
               key={a.slot}
-              className={`group flex items-start gap-3 rounded-xl border bg-white/[0.02] p-3 transition-colors ${
+              className={`group flex items-start gap-3 rounded-xl border bg-white/2 p-3 transition-colors ${
                 isUlt ? "border-amber-400/30 hover:border-amber-300/50" : "border-border hover:border-accent-2/40"
               }`}
             >
@@ -41,8 +34,8 @@ export function AbilityKit() {
                 <span
                   className={`grid h-10 w-10 place-items-center rounded-lg ${
                     isUlt
-                      ? "bg-gradient-to-br from-amber-400/20 to-amber-500/20 text-amber-300"
-                      : "bg-gradient-to-br from-accent/20 to-accent-2/20 text-accent-2"
+                      ? "bg-linear-to-br from-amber-400/20 to-amber-500/20 text-amber-300"
+                      : "bg-linear-to-br from-accent/20 to-accent-2/20 text-accent-2"
                   }`}
                 >
                   <Icon size={18} />

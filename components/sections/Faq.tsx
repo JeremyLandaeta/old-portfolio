@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
-import { Plus } from "lucide-react";
+import { Plus, HelpCircle } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
+import { MenuFrame } from "@/components/ui/MenuFrame";
 
 export function Faq() {
   const { t } = useLang();
@@ -15,14 +16,21 @@ export function Faq() {
     <section id="faq" className="mx-auto max-w-3xl px-4 py-20 sm:py-28">
       <SectionHeading kicker={t.faq.kicker} title={t.faq.heading} align="center" />
 
-      <div className="mt-10 space-y-3">
-        {t.faq.items.map((item, i) => {
+      <MenuFrame
+        title="FAQ"
+        icon={HelpCircle}
+        accent="blue"
+        stamp="FAQ.DB"
+        className="mt-10 px-4 pb-4 pt-7 sm:px-5 sm:pb-5"
+      >
+        <div className="space-y-3">
+          {t.faq.items.map((item, i) => {
           const isOpen = open === i;
           return (
             <Reveal key={item.q} delay={i * 0.04}>
               <div
                 className={`overflow-hidden rounded-2xl border transition-colors ${
-                  isOpen ? "border-accent-2/40 glass" : "border-border bg-white/[0.02] hover:border-accent-2/30"
+                  isOpen ? "border-accent-2/40 glass" : "border-border bg-white/2 hover:border-accent-2/30"
                 }`}
               >
                 <button
@@ -38,7 +46,7 @@ export function Faq() {
                     animate={{ rotate: isOpen ? 45 : 0 }}
                     transition={{ duration: 0.25 }}
                     className={`grid h-7 w-7 shrink-0 place-items-center rounded-full transition-colors ${
-                      isOpen ? "bg-gradient-to-br from-accent to-accent-2 text-background" : "border border-border text-muted"
+                      isOpen ? "bg-linear-to-br from-accent to-accent-2 text-background" : "border border-border text-muted"
                     }`}
                   >
                     <Plus size={16} />
@@ -63,8 +71,9 @@ export function Faq() {
               </div>
             </Reveal>
           );
-        })}
-      </div>
+          })}
+        </div>
+      </MenuFrame>
     </section>
   );
 }

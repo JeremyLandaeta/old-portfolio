@@ -7,7 +7,7 @@ import { AnimatePresence, m } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { GlowCard } from "@/components/ui/GlowCard";
+import { MenuFrame } from "@/components/ui/MenuFrame";
 import { Reveal } from "@/components/ui/Reveal";
 import { usePrefersReducedMotion } from "@/components/ui/usePrefersReducedMotion";
 import { projectMedia } from "@/lib/projectMedia";
@@ -44,8 +44,12 @@ export function Projects() {
       >
         {/* Card destacada (rota) */}
         <Reveal className="lg:col-span-3">
-          <GlowCard beam className="h-full min-h-[380px]">
-            <div className={`pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-gradient-to-br ${accent.glow} to-transparent blur-2xl`} />
+          <MenuFrame
+            title={lang === "en" ? "FEATURED" : "DESTACADO"}
+            accent={featured.accent}
+            stamp="PROJECT"
+            className="h-full min-h-95 px-7 pb-7 pt-8"
+          >
             <AnimatePresence mode="wait">
               <m.div
                 key={featured.id}
@@ -53,10 +57,10 @@ export function Projects() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -14 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="flex h-full flex-col p-7"
+                className="flex h-full flex-col"
               >
                 {cover && (
-                  <div className="relative -mx-7 -mt-7 mb-5 h-40 overflow-hidden border-b border-border sm:h-48">
+                  <div className="relative mb-5 h-40 overflow-hidden rounded-lg border border-border sm:h-48">
                     <Image
                       src={cover}
                       alt={featured.title}
@@ -64,7 +68,7 @@ export function Projects() {
                       sizes="(min-width: 1024px) 60vw, 100vw"
                       className="object-cover object-top"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
                   </div>
                 )}
 
@@ -85,7 +89,7 @@ export function Projects() {
 
                 <div className="mt-5 flex flex-wrap items-center gap-2">
                   {featured.tags.map((tag) => (
-                    <span key={tag} className="rounded-md border border-border bg-white/[0.03] px-2 py-1 font-mono text-[11px] text-muted">
+                    <span key={tag} className="rounded-md border border-border bg-white/3 px-2 py-1 font-mono text-[11px] text-muted">
                       {tag}
                     </span>
                   ))}
@@ -100,7 +104,7 @@ export function Projects() {
                 </Link>
               </m.div>
             </AnimatePresence>
-          </GlowCard>
+          </MenuFrame>
         </Reveal>
 
         {/* Selector de proyectos */}
@@ -118,7 +122,7 @@ export function Projects() {
                   className={`group relative flex-1 overflow-hidden rounded-xl border px-4 py-3 text-left transition-all ${
                     isActive
                       ? "border-accent-2/50 glass"
-                      : "border-border bg-white/[0.02] opacity-70 hover:opacity-100 hover:border-accent-2/30"
+                      : "border-border bg-white/2 opacity-70 hover:opacity-100 hover:border-accent-2/30"
                   }`}
                 >
                   <div className="flex items-center gap-2">
@@ -131,7 +135,7 @@ export function Projects() {
                   {isActive && !reduce && (
                     <span
                       key={active}
-                      className="absolute bottom-0 left-0 h-0.5 w-full bg-gradient-to-r from-accent to-accent-2"
+                      className="absolute bottom-0 left-0 h-0.5 w-full bg-linear-to-r from-accent to-accent-2"
                       style={{
                         transformOrigin: "left",
                         animation: `progress-grow ${ROTATE_MS}ms linear forwards`,

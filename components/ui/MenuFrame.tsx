@@ -1,5 +1,7 @@
-import type { ReactNode } from "react";
-import type { LucideIcon } from "lucide-react";
+import type { ComponentType, ReactNode } from "react";
+
+/** Acepta íconos de lucide-react y react-icons (ambos toman size + className). */
+type IconType = ComponentType<{ size?: number; className?: string }>;
 
 /**
  * Skins de acento. Clases ESTÁTICAS y literales a propósito: Tailwind solo
@@ -10,6 +12,7 @@ const ACCENTS = {
   blue: { border: "border-accent/30", bracket: "border-accent/70", text: "text-accent" },
   amber: { border: "border-amber-400/25", bracket: "border-amber-400/70", text: "text-amber-300" },
   emerald: { border: "border-emerald-400/25", bracket: "border-emerald-400/70", text: "text-emerald-300" },
+  violet: { border: "border-violet-400/25", bracket: "border-violet-400/70", text: "text-violet-300" },
 } as const;
 
 type Accent = keyof typeof ACCENTS;
@@ -18,7 +21,7 @@ type MenuFrameProps = {
   /** Etiqueta incrustada en el borde superior (estilo menú de juego). */
   title: string;
   /** Ícono opcional junto al título. */
-  icon?: LucideIcon;
+  icon?: IconType;
   /** Sello decorativo opcional abajo a la derecha (ej. "LORE.LOG"). */
   stamp?: string;
   /** Skin de acento — distinto por sección para que no se vean todas iguales. */
@@ -46,7 +49,7 @@ export function MenuFrame({ title, icon: Icon, stamp, accent = "cyan", className
       <span aria-hidden className={`pointer-events-none absolute bottom-1 right-1 h-3 w-3 border-b-2 border-r-2 ${a.bracket}`} />
 
       {/* título incrustado en el borde superior */}
-      <div className="absolute -top-[9px] left-5 flex items-center gap-1.5 bg-background px-2">
+      <div className="absolute -top-2.25 left-5 flex items-center gap-1.5 bg-background px-2">
         {Icon && <Icon size={13} className={a.text} />}
         <span className={`font-pixel text-[0.5rem] uppercase tracking-wide ${a.text}`}>{title}</span>
       </div>

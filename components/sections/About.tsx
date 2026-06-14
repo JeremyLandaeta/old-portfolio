@@ -1,6 +1,6 @@
 "use client";
 
-import { MapPin, GraduationCap, Languages, BadgeCheck, BookOpen } from "lucide-react";
+import { MapPin, GraduationCap, Languages, BadgeCheck, BookOpen, Swords } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
@@ -48,7 +48,7 @@ export function About() {
       <div className="mt-6 grid gap-6 lg:grid-cols-5 lg:items-stretch">
         {/* Lore / backstory */}
         <Reveal className="lg:col-span-3">
-          <MenuFrame title={g.loreLabel} icon={BookOpen} stamp="LORE.LOG" className="h-full p-6 pt-7">
+          <MenuFrame title={g.loreLabel} icon={BookOpen} stamp="LORE.LOG" className="h-full px-6 pb-6 pt-7">
             <div className="max-w-[68ch] space-y-3">
               {t.about.paragraphs.map((p) => (
                 <p key={p} className="text-pretty leading-relaxed text-muted">{p}</p>
@@ -61,7 +61,7 @@ export function About() {
                 return (
                   <span
                     key={f.key}
-                    className="flex items-center gap-2 rounded-full border border-border bg-white/[0.03] px-3 py-1.5 text-sm text-muted"
+                    className="flex items-center gap-2 rounded-full border border-border bg-white/3 px-3 py-1.5 text-sm text-muted"
                   >
                     <Icon size={15} className="text-accent-2" />
                     {f.label}
@@ -71,7 +71,7 @@ export function About() {
             </div>
 
             <div
-              className="mt-4 inline-flex items-center gap-2 rounded-full border border-border bg-white/[0.02] px-3 py-1.5 font-mono text-xs text-muted"
+              className="mt-4 inline-flex items-center gap-2 rounded-full border border-border bg-white/2 px-3 py-1.5 font-mono text-xs text-muted"
               title={t.about.ageCaption}
             >
               <span className="relative flex h-1.5 w-1.5">
@@ -88,9 +88,9 @@ export function About() {
 
         {/* Habilidades */}
         <Reveal delay={0.08} className="lg:col-span-2">
-          <div className="h-full rounded-2xl glass p-6">
+          <MenuFrame title={g.abilitiesLabel} icon={Swords} stamp="SKILL.SET" accent="amber" className="h-full px-6 pb-6 pt-7">
             <AbilityKit />
-          </div>
+          </MenuFrame>
         </Reveal>
       </div>
     </section>

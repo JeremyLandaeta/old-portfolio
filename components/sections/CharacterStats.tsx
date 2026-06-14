@@ -4,6 +4,7 @@ import { Gamepad2, Hexagon } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { StatBar } from "@/components/ui/StatBar";
 import { RadarChart } from "@/components/ui/RadarChart";
+import { MenuFrame } from "@/components/ui/MenuFrame";
 import { PixelSprite } from "@/components/ui/PixelSprite";
 import { SKILL_STATS, RADAR, GAMER_COPY, ABOUT_GAME, PLAYER_LEVEL } from "@/lib/gamer";
 
@@ -15,21 +16,21 @@ export function CharacterStats() {
   const radarData = RADAR.map((r) => ({ label: ag.attrLabels[r.key] ?? r.key, value: r.value }));
 
   return (
-    <div className="flex h-full flex-col rounded-2xl glass p-6 sm:p-7">
-      {/* Skill bars */}
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-accent/20 to-accent-2/20 text-accent-2">
-            <Gamepad2 size={18} />
-          </span>
-          <h3 className="font-semibold leading-tight">{g.statsHeading}</h3>
-        </div>
+    <MenuFrame
+      title="STATS"
+      icon={Gamepad2}
+      stamp="SYS.STATS"
+      accent="blue"
+      className="flex h-full flex-col px-6 pb-6 pt-7 sm:px-7 sm:pb-7"
+    >
+      {/* nivel del personaje */}
+      <div className="flex items-center justify-end">
         <span className="shrink-0 rounded-full border border-accent-2/30 bg-accent-2/10 px-3 py-1 font-mono text-xs font-semibold text-accent-2">
           {g.levelLabel} {PLAYER_LEVEL}
         </span>
       </div>
 
-      <div className="mt-5 grid gap-x-8 gap-y-4 sm:grid-cols-2">
+      <div className="mt-4 grid gap-x-8 gap-y-4 sm:grid-cols-2">
         {SKILL_STATS.map((s, i) => (
           <StatBar key={s.name} name={s.name} level={s.level} delay={i * 0.05} />
         ))}
@@ -54,6 +55,6 @@ export function CharacterStats() {
         <PixelSprite name="star" cell={2} className="pixel-twinkle absolute left-14 top-1/2" style={{ animationDelay: "2.1s" }} />
         <RadarChart data={radarData} size={320} />
       </div>
-    </div>
+    </MenuFrame>
   );
 }

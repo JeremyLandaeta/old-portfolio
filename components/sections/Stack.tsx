@@ -12,6 +12,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Marquee } from "@/components/ui/Marquee";
 import { TechOrbit } from "@/components/ui/TechOrbit";
+import { MenuFrame } from "@/components/ui/MenuFrame";
 
 const categoryIcon: Record<string, typeof Layers> = {
   frontend: Layers,
@@ -20,6 +21,9 @@ const categoryIcon: Record<string, typeof Layers> = {
   ia: Brain,
   tools: Wrench,
 };
+
+/** Acentos rotando para que cada categoría tenga su propio skin. */
+const FRAME_ACCENTS = ["cyan", "blue", "amber", "emerald"] as const;
 
 /** Logos para el marquee */
 const marqueeTech: { name: string; Icon: IconType }[] = [
@@ -65,24 +69,23 @@ export function Stack() {
           const Icon = categoryIcon[cat.key] ?? Layers;
           return (
             <Reveal key={cat.key} delay={i * 0.06}>
-              <div className="h-full rounded-2xl glass p-5">
-                <div className="flex items-center gap-2.5">
-                  <span className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-accent/20 to-accent-2/20 text-accent-2">
-                    <Icon size={18} />
-                  </span>
-                  <h3 className="font-semibold">{cat.label}</h3>
-                </div>
-                <div className="mt-4 flex flex-wrap gap-2">
+              <MenuFrame
+                title={cat.label}
+                icon={Icon}
+                accent={FRAME_ACCENTS[i % FRAME_ACCENTS.length]}
+                className="h-full px-5 pb-5 pt-7"
+              >
+                <div className="flex flex-wrap gap-2">
                   {cat.items.map((item) => (
                     <span
                       key={item}
-                      className="rounded-lg border border-border bg-white/[0.03] px-2.5 py-1 text-sm text-muted transition-colors hover:border-accent-2 hover:text-foreground"
+                      className="rounded-lg border border-border bg-white/3 px-2.5 py-1 text-sm text-muted transition-colors hover:border-accent-2 hover:text-foreground"
                     >
                       {item}
                     </span>
                   ))}
                 </div>
-              </div>
+              </MenuFrame>
             </Reveal>
           );
         })}
@@ -94,7 +97,7 @@ export function Stack() {
           {marqueeTech.map(({ name, Icon }) => (
             <div
               key={name}
-              className="flex items-center gap-2.5 rounded-xl border border-border bg-white/[0.02] px-4 py-3 text-muted transition-colors hover:text-foreground"
+              className="flex items-center gap-2.5 rounded-xl border border-border bg-white/2 px-4 py-3 text-muted transition-colors hover:text-foreground"
             >
               <Icon size={22} />
               <span className="font-mono text-sm">{name}</span>

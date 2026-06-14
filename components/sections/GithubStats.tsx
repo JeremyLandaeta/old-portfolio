@@ -7,6 +7,7 @@ import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Counter } from "@/components/ui/Counter";
+import { MenuFrame } from "@/components/ui/MenuFrame";
 import { SOCIALS } from "@/lib/content";
 
 type Day = { date: string; count: number; level: number };
@@ -155,7 +156,7 @@ export function GithubStats() {
       <SectionHeading kicker={g.kicker} title={g.heading} />
 
       <Reveal className="mt-10">
-        <div className="relative overflow-hidden rounded-3xl glass p-6 sm:p-8">
+        <MenuFrame title="GITHUB" accent="emerald" stamp="GIT.LOG" className="px-6 pb-6 pt-8 sm:px-8 sm:pb-8">
           {/* Cabecera */}
           <div className="flex flex-wrap items-center justify-between gap-3">
             <a
@@ -180,17 +181,17 @@ export function GithubStats() {
             <div className="mt-8 animate-pulse space-y-6">
               <div className="grid grid-cols-3 gap-4">
                 {[0, 1, 2].map((i) => (
-                  <div key={i} className="h-20 rounded-2xl bg-white/[0.04]" />
+                  <div key={i} className="h-20 rounded-2xl bg-white/4" />
                 ))}
               </div>
-              <div className="h-28 rounded-2xl bg-white/[0.04]" />
+              <div className="h-28 rounded-2xl bg-white/4" />
             </div>
           ) : (
             <>
               {/* Contadores */}
               <div className={`mt-6 grid gap-3 sm:gap-4 ${counters.length === 3 ? "grid-cols-3" : "grid-cols-2"}`}>
                 {counters.map((stat) => (
-                  <div key={stat.label} className="rounded-2xl border border-border bg-white/[0.02] p-4 text-center">
+                  <div key={stat.label} className="rounded-2xl border border-border bg-white/2 p-4 text-center">
                     <Counter
                       value={String(stat.value)}
                       className="text-2xl font-bold tabular-nums text-gradient sm:text-3xl"
@@ -203,9 +204,9 @@ export function GithubStats() {
               {/* Heatmap de contribuciones (best-effort) */}
               {stats.weeks.length > 0 && (
                 <div className="mt-6 overflow-x-auto pb-1">
-                  <div className="flex gap-[3px]" style={{ minWidth: "max-content" }}>
+                  <div className="flex gap-0.75" style={{ minWidth: "max-content" }}>
                     {stats.weeks.map((week, wi) => (
-                      <div key={wi} className="flex flex-col gap-[3px]">
+                      <div key={wi} className="flex flex-col gap-0.75">
                         {week.map((day) => (
                           <span
                             key={day.date}
@@ -253,7 +254,7 @@ export function GithubStats() {
               )}
             </>
           )}
-        </div>
+        </MenuFrame>
       </Reveal>
     </section>
   );

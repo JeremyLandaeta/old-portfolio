@@ -1,10 +1,11 @@
 "use client";
 
 import { m } from "framer-motion";
-import { GraduationCap, Award } from "lucide-react";
+import { GraduationCap, Award, Briefcase } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
+import { MenuFrame } from "@/components/ui/MenuFrame";
 
 export function Experience() {
   const { t } = useLang();
@@ -15,14 +16,14 @@ export function Experience() {
 
       <div className="relative mt-12 pl-8 sm:pl-10">
         {/* línea vertical con relleno animado */}
-        <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border sm:left-[9px]" />
+        <div className="absolute left-1.75 top-2 bottom-2 w-px bg-border sm:left-2.25" />
         <m.div
           initial={{ scaleY: 0 }}
           whileInView={{ scaleY: 1 }}
           viewport={{ once: true, margin: "-120px" }}
           transition={{ duration: 1.1, ease: "easeOut" }}
           style={{ transformOrigin: "top" }}
-          className="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-accent to-accent-2 sm:left-[9px]"
+          className="absolute left-1.75 top-2 bottom-2 w-px bg-linear-to-b from-accent to-accent-2 sm:left-2.25"
         />
 
         <div className="space-y-10">
@@ -39,7 +40,12 @@ export function Experience() {
                 )}
               </span>
 
-              <div className="rounded-2xl glass p-5 sm:p-6">
+              <MenuFrame
+                title={item.company}
+                icon={Briefcase}
+                accent={item.current ? "emerald" : "cyan"}
+                className="px-5 pb-5 pt-7 sm:px-6 sm:pb-6"
+              >
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                   <h3 className="text-lg font-semibold">{item.role}</h3>
                   {item.current && (
@@ -48,11 +54,7 @@ export function Experience() {
                     </span>
                   )}
                 </div>
-                <div className="mt-0.5 flex flex-wrap items-center gap-x-2 text-sm text-accent-2">
-                  <span className="font-medium">{item.company}</span>
-                  <span className="text-muted">·</span>
-                  <span className="font-mono text-muted">{item.period}</span>
-                </div>
+                <div className="mt-0.5 font-mono text-sm text-muted">{item.period}</div>
                 <ul className="mt-4 space-y-2">
                   {item.bullets.map((b, j) => (
                     <li key={j} className="flex gap-2 text-sm leading-relaxed text-muted">
@@ -66,14 +68,14 @@ export function Experience() {
                     {item.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-md border border-border bg-white/[0.03] px-2 py-1 font-mono text-[11px] text-muted"
+                        className="rounded-md border border-border bg-white/3 px-2 py-1 font-mono text-[11px] text-muted"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
                 )}
-              </div>
+              </MenuFrame>
             </Reveal>
           ))}
 
@@ -82,21 +84,21 @@ export function Experience() {
             <span className="absolute -left-8 top-1.5 grid h-4 w-4 place-items-center rounded-full border-2 border-accent bg-background sm:-left-10">
               <GraduationCap size={9} className="text-accent" />
             </span>
-            <div className="rounded-2xl glass p-5 sm:p-6">
+            <MenuFrame title="EDU" icon={GraduationCap} accent="amber" className="px-5 pb-5 pt-7 sm:px-6 sm:pb-6">
               <h3 className="text-lg font-semibold">{t.experience.education.title}</h3>
               <p className="mt-0.5 font-mono text-sm text-accent-2">{t.experience.education.subtitle}</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {t.experience.education.certs.map((c) => (
                   <span
                     key={c}
-                    className="flex items-center gap-1.5 rounded-full border border-border bg-white/[0.03] px-3 py-1 text-xs text-muted"
+                    className="flex items-center gap-1.5 rounded-full border border-border bg-white/3 px-3 py-1 text-xs text-muted"
                   >
                     <Award size={13} className="text-accent-2" />
                     {c}
                   </span>
                 ))}
               </div>
-            </div>
+            </MenuFrame>
           </Reveal>
         </div>
       </div>
