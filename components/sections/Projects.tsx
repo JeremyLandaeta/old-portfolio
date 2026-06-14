@@ -76,9 +76,11 @@ export function Projects() {
                       <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
                     </>
                   ) : (
-                    <div className="grid h-full w-full place-items-center bg-grid">
+                    <div className="grid h-full w-full place-items-center bg-grid px-5">
                       <div className={`pointer-events-none absolute inset-0 bg-linear-to-br ${accent.glow} to-transparent`} />
-                      <span className="relative font-pixel text-3xl text-muted/30">{"</>"}</span>
+                      <span className="relative text-balance text-center font-pixel text-base uppercase leading-snug text-foreground/85 sm:text-lg md:text-xl">
+                        {featured.title}
+                      </span>
                     </div>
                   )}
                 </div>
