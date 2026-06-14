@@ -61,18 +61,27 @@ export function Projects() {
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="flex h-full flex-col"
               >
-                {cover && (
-                  <div className="relative mb-5 h-40 overflow-hidden rounded-lg border border-border sm:h-48">
-                    <Image
-                      src={cover}
-                      alt={featured.title}
-                      fill
-                      sizes="(min-width: 1024px) 60vw, 100vw"
-                      className="object-cover object-top"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
-                  </div>
-                )}
+                {/* franja de imagen — siempre presente (placeholder si no hay
+                    cover) para que todas las cards midan igual */}
+                <div className="relative mb-5 h-40 overflow-hidden rounded-lg border border-border sm:h-48">
+                  {cover ? (
+                    <>
+                      <Image
+                        src={cover}
+                        alt={featured.title}
+                        fill
+                        sizes="(min-width: 1024px) 60vw, 100vw"
+                        className="object-cover object-top"
+                      />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
+                    </>
+                  ) : (
+                    <div className="grid h-full w-full place-items-center bg-grid">
+                      <div className={`pointer-events-none absolute inset-0 bg-linear-to-br ${accent.glow} to-transparent`} />
+                      <span className="relative font-pixel text-3xl text-muted/30">{"</>"}</span>
+                    </div>
+                  )}
+                </div>
 
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-2">
