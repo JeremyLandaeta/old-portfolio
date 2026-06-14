@@ -134,18 +134,29 @@ export function Projects() {
                   </div>
                   <p className="mt-0.5 pl-4 text-xs text-muted">{p.tagline}</p>
 
-                  {/* barra de progreso (sincroniza el avance al terminar) */}
+                  {/* barra-timer 8-bit por bloques (su avance dispara el cambio) */}
                   {isActive && !reduce && (
                     <span
-                      key={active}
-                      className="absolute bottom-0 left-0 h-0.5 w-full bg-linear-to-r from-accent to-accent-2"
+                      aria-hidden
+                      className="absolute inset-x-0 bottom-0 h-1.5 bg-white/10"
                       style={{
-                        transformOrigin: "left",
-                        animation: `progress-grow ${ROTATE_MS}ms linear forwards`,
-                        animationPlayState: paused ? "paused" : "running",
+                        WebkitMaskImage:
+                          "repeating-linear-gradient(90deg, #000 0 10px, transparent 10px 14px)",
+                        maskImage:
+                          "repeating-linear-gradient(90deg, #000 0 10px, transparent 10px 14px)",
                       }}
-                      onAnimationEnd={() => setActive((v) => (v + 1) % items.length)}
-                    />
+                    >
+                      <span
+                        key={active}
+                        className="block h-full w-full bg-linear-to-r from-accent to-accent-2"
+                        style={{
+                          transformOrigin: "left",
+                          animation: `progress-grow ${ROTATE_MS}ms linear forwards`,
+                          animationPlayState: paused ? "paused" : "running",
+                        }}
+                        onAnimationEnd={() => setActive((v) => (v + 1) % items.length)}
+                      />
+                    </span>
                   )}
                 </button>
               );
