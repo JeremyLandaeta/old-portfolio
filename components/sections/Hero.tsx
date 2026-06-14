@@ -77,7 +77,7 @@ export function Hero() {
         <Magnetic>
           <a
             href="#proyectos"
-            className="btn-glow btn-shine group flex items-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-6 py-3 font-semibold text-background"
+            className="btn-glow btn-shine group flex items-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-6 py-3 font-semibold text-background"
           >
             {t.cta.projects}
             <ArrowDown size={18} className="transition-transform group-hover:translate-y-0.5" />

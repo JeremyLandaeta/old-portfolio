@@ -71,7 +71,7 @@ export function Navbar() {
         {/* Logo */}
         <Link href={isHome ? "#inicio" : `/${lang}`} className="group flex items-center gap-2 font-mono text-sm font-semibold">
           <span
-            className={`grid place-items-center rounded-lg bg-gradient-to-br from-accent to-accent-2 text-background transition-all duration-300 ${
+            className={`grid place-items-center rounded-lg bg-linear-to-br from-accent to-accent-2 text-background transition-all duration-300 ${
               scrolled ? "h-7 w-7 text-xs" : "h-9 w-9 text-sm"
             }`}
           >
@@ -116,7 +116,7 @@ export function Navbar() {
           <a
             href={SOCIALS.cv}
             download
-            className={`btn-shine hidden items-center gap-1.5 rounded-full bg-gradient-to-r from-accent to-accent-2 font-semibold text-background transition-all duration-300 hover:scale-[1.03] sm:flex ${
+            className={`btn-shine hidden items-center gap-1.5 rounded-full bg-linear-to-r from-accent to-accent-2 font-semibold text-background transition-all duration-300 hover:scale-[1.03] sm:flex ${
               scrolled ? "px-3 py-1 text-[13px]" : "px-4 py-2 text-sm"
             }`}
           >
@@ -165,7 +165,7 @@ export function Navbar() {
                   href={SOCIALS.cv}
                   download
                   onClick={() => setOpen(false)}
-                  className="mt-1 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent-2 px-4 py-3 font-semibold text-background"
+                  className="mt-1 flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-accent to-accent-2 px-4 py-3 font-semibold text-background"
                 >
                   <Download size={16} />
                   {t.cta.cv}

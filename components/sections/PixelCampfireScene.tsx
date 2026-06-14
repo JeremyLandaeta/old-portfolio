@@ -49,7 +49,7 @@ export function PixelCampfireScene() {
   return (
     <div
       aria-hidden="true"
-      className="pixel-scene relative h-[150px] w-full overflow-hidden rounded-xl sm:h-[180px] lg:h-[205px]"
+      className="pixel-scene relative h-37.5 w-full overflow-hidden rounded-xl sm:h-45 lg:h-51.25"
     >
       {/* Fallback siempre presente detrás de la imagen: si el .webp no existe,
           la escena queda oscura/ambiental en vez de romperse. */}
@@ -79,8 +79,8 @@ export function PixelCampfireScene() {
       )}
 
       {/* Fades superior/inferior para integrar con el fondo */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-background via-background/45 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-background via-background/30 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-linear-to-b from-background via-background/45 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-linear-to-t from-background via-background/30 to-transparent" />
 
       {/* Glow cálido de la fogata */}
       <m.div
@@ -105,7 +105,7 @@ export function PixelCampfireScene() {
 
       {/* Scanlines / pulse del terminal (oculto en mobile) */}
       <m.div
-        className="pointer-events-none absolute bottom-[34%] right-[8%] hidden h-[48px] w-[118px] rounded-sm bg-[repeating-linear-gradient(to_bottom,rgba(0,255,140,0.12)_0_1px,transparent_1px_3px)] mix-blend-screen sm:block"
+        className="pointer-events-none absolute bottom-[34%] right-[8%] hidden h-12 w-29.5 rounded-sm bg-[repeating-linear-gradient(to_bottom,rgba(0,255,140,0.12)_0_1px,transparent_1px_3px)] mix-blend-screen sm:block"
         animate={reduceMotion ? { opacity: 0.3 } : { opacity: [0.18, 0.42, 0.24] }}
         transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -141,8 +141,8 @@ export function PixelCampfireScene() {
         ))}
 
       {/* Vignette lateral para fundir la escena */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-linear-to-r from-background to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-linear-to-l from-background to-transparent" />
     </div>
   );
 }

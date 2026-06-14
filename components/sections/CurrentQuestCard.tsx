@@ -25,7 +25,7 @@ export function CurrentQuestCard() {
   const filled = Math.round((progress / 100) * SEGMENTS);
 
   return (
-    <div className="current-quest mt-5 rounded-xl border border-accent-2/30 bg-accent-2/[0.05] p-4 shadow-[0_0_24px_-12px_rgba(6,182,212,0.6)]">
+    <div className="current-quest mt-5 rounded-xl border border-accent-2/30 bg-accent-2/5 p-4 shadow-[0_0_24px_-12px_rgba(6,182,212,0.6)]">
       {/* header */}
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
@@ -46,15 +46,15 @@ export function CurrentQuestCard() {
         {quest.objectives.map((o) => (
           <li key={o.label} className="flex items-center gap-2.5">
             {o.state === "done" ? (
-              <span className="grid h-3.5 w-3.5 shrink-0 place-items-center rounded-[2px] bg-accent-2 text-background">
+              <span className="grid h-3.5 w-3.5 shrink-0 place-items-center rounded-xs bg-accent-2 text-background">
                 <Check size={10} strokeWidth={3.5} />
               </span>
             ) : o.state === "active" ? (
-              <span className="grid h-3.5 w-3.5 shrink-0 place-items-center rounded-[2px] border border-accent-2">
+              <span className="grid h-3.5 w-3.5 shrink-0 place-items-center rounded-xs border border-accent-2">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-[1px] bg-accent-2" />
               </span>
             ) : (
-              <span className="h-3.5 w-3.5 shrink-0 rounded-[2px] border border-border" />
+              <span className="h-3.5 w-3.5 shrink-0 rounded-xs border border-border" />
             )}
             <span
               className={
@@ -74,7 +74,7 @@ export function CurrentQuestCard() {
       {/* barra de progreso por bloques (8-bit) */}
       <div className="mt-4 flex items-center gap-2.5">
         <div
-          className="flex flex-1 gap-[3px]"
+          className="flex flex-1 gap-0.75"
           role="progressbar"
           aria-valuenow={progress}
           aria-valuemin={0}
@@ -85,8 +85,8 @@ export function CurrentQuestCard() {
               key={i}
               className={`h-2 flex-1 rounded-[1px] ${
                 i < filled
-                  ? "bg-gradient-to-b from-accent to-accent-2 shadow-[0_0_6px_-2px_var(--accent-2)]"
-                  : "bg-white/[0.06]"
+                  ? "bg-linear-to-b from-accent to-accent-2 shadow-[0_0_6px_-2px_var(--accent-2)]"
+                  : "bg-white/6"
               }`}
             />
           ))}

@@ -29,7 +29,7 @@ function Block({
   return (
     <Reveal className="rounded-2xl glass p-6">
       <div className="flex items-center gap-2.5">
-        <span className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-accent/20 to-accent-2/20 text-accent-2">
+        <span className="grid h-9 w-9 place-items-center rounded-lg bg-linear-to-br from-accent/20 to-accent-2/20 text-accent-2">
           {icon}
         </span>
         <h2 className="text-lg font-semibold">{label}</h2>
@@ -55,7 +55,7 @@ function Bullets({ items }: { items: string[] }) {
 /** Barra superior estilo ventana de navegador. */
 function WindowBar({ caption }: { caption: string }) {
   return (
-    <div className="flex items-center gap-1.5 border-b border-border bg-white/[0.03] px-3 py-2">
+    <div className="flex items-center gap-1.5 border-b border-border bg-white/3 px-3 py-2">
       <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
       <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
       <span className="h-2.5 w-2.5 rounded-full bg-green-500/70" />
@@ -88,7 +88,7 @@ function Mockup({ caption, title }: { caption: string; title: string }) {
     <div className="overflow-hidden rounded-xl border border-border bg-background-soft">
       <WindowBar caption={caption} />
       <div className="relative grid h-44 place-items-center bg-grid">
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-accent-2/10" />
+        <div className="absolute inset-0 bg-linear-to-br from-accent/10 via-transparent to-accent-2/10" />
         <div className="absolute left-4 right-4 top-4 space-y-2 opacity-40">
           <div className="h-2 w-1/3 rounded-full bg-white/25" />
           <div className="h-2 w-2/3 rounded-full bg-white/15" />
@@ -120,7 +120,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
           <p className="mt-4 text-lg text-muted">{L.notFound}</p>
           <Link
             href={`/${lang}#proyectos`}
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-5 py-2.5 font-semibold text-background"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-5 py-2.5 font-semibold text-background"
           >
             <ArrowLeft size={16} /> {L.backHome}
           </Link>
@@ -164,7 +164,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-md border border-border bg-white/[0.03] px-2.5 py-1 font-mono text-xs text-muted"
+                className="rounded-md border border-border bg-white/3 px-2.5 py-1 font-mono text-xs text-muted"
               >
                 {tag}
               </span>
@@ -178,7 +178,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
                   href={study.links.demo}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-5 py-2.5 text-sm font-semibold text-background transition-transform hover:scale-[1.03]"
+                  className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-5 py-2.5 text-sm font-semibold text-background transition-transform hover:scale-[1.03]"
                 >
                   {L.viewDemo} <ArrowUpRight size={16} />
                 </a>
@@ -237,7 +237,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
 
         {/* Resultado destacado */}
         <Reveal>
-          <div className="relative overflow-hidden rounded-2xl border border-accent-2/30 bg-gradient-to-br from-accent/10 to-accent-2/10 p-6">
+          <div className="relative overflow-hidden rounded-2xl border border-accent-2/30 bg-linear-to-br from-accent/10 to-accent-2/10 p-6">
             <div className="flex items-center gap-2.5">
               <span className="grid h-9 w-9 place-items-center rounded-lg bg-accent-2/20 text-accent-2">
                 <CheckCircle2 size={18} />

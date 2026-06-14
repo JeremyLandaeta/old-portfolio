@@ -48,9 +48,9 @@ export function StatBar({
         <span className="text-foreground/90">{name}</span>
         <span className="text-accent-2 tabular-nums">{reduce ? level : display}<span className="text-muted">/100</span></span>
       </div>
-      <div className="mt-1.5 h-2.5 overflow-hidden rounded-full border border-border bg-white/[0.04]">
+      <div className="mt-1.5 h-2.5 overflow-hidden rounded-full border border-border bg-white/4">
         <m.div
-          className="relative h-full rounded-full bg-gradient-to-r from-accent to-accent-2"
+          className="relative h-full rounded-full bg-linear-to-r from-accent to-accent-2"
           style={{
             // muescas tipo segmento para el toque retro-HUD
             backgroundImage:

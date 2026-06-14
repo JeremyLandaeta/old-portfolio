@@ -142,7 +142,7 @@ export function KonamiEgg() {
 
             {/* Sprite estrella grande */}
             <div className="mt-5 grid place-items-center">
-              <div className="grid h-24 w-24 place-items-center rounded-2xl bg-gradient-to-br from-accent/20 to-accent-2/20">
+              <div className="grid h-24 w-24 place-items-center rounded-2xl bg-linear-to-br from-accent/20 to-accent-2/20">
                 <PixelSprite name="diamond" cell={9} className={reduced ? "" : "pixel-idle"} />
               </div>
             </div>
@@ -152,7 +152,7 @@ export function KonamiEgg() {
 
             <p className="mt-4 font-mono text-base tracking-widest text-foreground">{c.hint}</p>
 
-            <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-4 py-1.5 font-mono text-xs font-semibold text-background">
+            <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-4 py-1.5 font-mono text-xs font-semibold text-background">
               {c.reward}
             </div>
           </m.div>

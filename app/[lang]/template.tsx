@@ -11,7 +11,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
     <>
       {/* Wipe de salida */}
       <m.div
-        className="pointer-events-none fixed inset-0 z-[80] origin-top bg-gradient-to-b from-accent via-accent-2 to-accent"
+        className="pointer-events-none fixed inset-0 z-[80] origin-top bg-linear-to-b from-accent via-accent-2 to-accent"
         initial={{ scaleY: 1 }}
         animate={{ scaleY: 0 }}
         transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}

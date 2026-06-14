@@ -17,7 +17,7 @@ export function Footer() {
       <div className="mx-auto max-w-5xl">
         {/* Terminal */}
         <div className="overflow-hidden rounded-xl border border-border bg-background-soft font-mono text-sm">
-          <div className="flex items-center gap-2 border-b border-border bg-white/[0.03] px-4 py-2.5">
+          <div className="flex items-center gap-2 border-b border-border bg-white/3 px-4 py-2.5">
             <span className="h-3 w-3 rounded-full bg-red-500/80" />
             <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
             <span className="h-3 w-3 rounded-full bg-green-500/80" />

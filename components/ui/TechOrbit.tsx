@@ -125,7 +125,7 @@ export function TechOrbit() {
 
   // tamaño responsive vía useSyncExternalStore: el ResizeObserver es la
   // suscripción y getSnapshot mide el ancho actual. 440 es el snapshot de
-  // servidor (= max-w-[440px]), así hidrata limpio sin un render extra.
+  // servidor (= max-w-110), así hidrata limpio sin un render extra.
   const size = useSyncExternalStore(
     (onChange) => {
       const el = containerRef.current;
@@ -159,7 +159,7 @@ export function TechOrbit() {
   return (
     <div
       ref={containerRef}
-      className="relative mx-auto aspect-square w-full max-w-[440px]"
+      className="relative mx-auto aspect-square w-full max-w-110"
       onMouseEnter={() => { pausedRef.current = true; }}
       onMouseLeave={() => { pausedRef.current = false; }}
     >
@@ -172,7 +172,7 @@ export function TechOrbit() {
       ))}
 
       {/* núcleo */}
-      <div className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-2xl bg-gradient-to-br from-accent to-accent-2 shadow-[0_0_30px_var(--accent-glow)]">
+      <div className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-2xl bg-linear-to-br from-accent to-accent-2 shadow-[0_0_30px_var(--accent-glow)]">
         <span className="font-mono text-lg font-bold text-background">{"</>"}</span>
       </div>
 

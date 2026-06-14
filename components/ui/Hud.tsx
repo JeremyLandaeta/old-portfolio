@@ -58,7 +58,7 @@ export function Hud() {
           {/* Retrato del jugador: sprite pixel-art (casco de explorador) */}
           <PixelAvatar
             cell={2}
-            className="shrink-0 rounded-md border border-border bg-white/[0.03] p-1"
+            className="shrink-0 rounded-md border border-border bg-white/3 p-1"
           />
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between text-xs">
@@ -69,9 +69,9 @@ export function Hud() {
             </div>
             <div className="mt-2 flex items-center gap-2">
               <span className="text-xs uppercase text-muted">{g.xpLabel}</span>
-              <div className="h-1.5 flex-1 overflow-hidden rounded-full border border-border bg-white/[0.06]">
+              <div className="h-1.5 flex-1 overflow-hidden rounded-full border border-border bg-white/6">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-accent to-accent-2 transition-[width] duration-150 ease-out"
+                  className="h-full rounded-full bg-linear-to-r from-accent to-accent-2 transition-[width] duration-150 ease-out"
                   style={{ width: `${progress}%`, boxShadow: "0 0 8px -1px var(--accent-2)" }}
                 />
               </div>

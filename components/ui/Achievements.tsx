@@ -72,7 +72,7 @@ export function Achievements() {
               }}
             />
             <div className="relative flex items-center gap-3">
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-accent/25 to-accent-2/25 text-xl">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-linear-to-br from-accent/25 to-accent-2/25 text-xl">
                 {t.icon}
               </span>
               <div className="min-w-0">

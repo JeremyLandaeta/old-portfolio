@@ -46,7 +46,7 @@ export function Contact() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <a
               href={`mailto:${SOCIALS.email}`}
-              className="btn-shine flex items-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-6 py-3 font-semibold text-background transition-transform hover:scale-[1.03]"
+              className="btn-shine flex items-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-6 py-3 font-semibold text-background transition-transform hover:scale-[1.03]"
             >
               <Mail size={18} />
               {t.contact.emailLabel}

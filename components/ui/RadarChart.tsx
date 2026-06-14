@@ -50,7 +50,7 @@ export function RadarChart({
       viewBox={`0 0 ${w} ${size}`}
       width={w}
       height={size}
-      className="mx-auto block h-auto w-full max-w-[600px]"
+      className="mx-auto block h-auto w-full max-w-150"
       role="img"
       aria-label="Radar de atributos"
     >
