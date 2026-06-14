@@ -7,34 +7,50 @@ import { usePrefersReducedMotion } from "@/components/ui/usePrefersReducedMotion
 type Datum = { label: string; value: number };
 
 /** Serializa puntos a la cadena de `points` de un polígono SVG. Pura: solo usa su parámetro. */
-const toStr = (pts: [number, number][]) => pts.map((p) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(" ");
+const toStr = (pts: [number, number][]) =>
+  pts.map((p) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(" ");
 
 /** Radar/telaraña hexagonal de atributos estilo MOBA. Se dibuja al entrar en vista. */
-export function RadarChart({ data, size = 280 }: { data: Datum[]; size?: number }) {
+export function RadarChart({
+  data,
+  size = 280,
+}: {
+  data: Datum[];
+  size?: number;
+}) {
   const ref = useRef<SVGSVGElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const reduce = usePrefersReducedMotion();
 
   const n = data.length;
-  const cx = size / 2;
+  // viewBox más ancho que alto: deja aire horizontal para las etiquetas
+  // laterales (Backend, Equipo, Resolución…) que antes se salían del borde.
+  const padX = 112;
+  const w = size + padX * 2;
+  const cx = w / 2;
   const cy = size / 2;
-  const R = size / 2 - 44; // margen para etiquetas
+  const R = size / 2 - 28; // margen vertical para las etiquetas de arriba/abajo
+  const labelR = R + 16;
 
   const angle = (i: number) => (-90 + (360 / n) * i) * (Math.PI / 180);
   const at = (i: number, radius: number): [number, number] => [
     cx + Math.cos(angle(i)) * radius,
     cy + Math.sin(angle(i)) * radius,
   ];
-  const rings = [0.25, 0.5, 0.75, 1].map((f) => data.map((_, i) => at(i, R * f)));
-  const valuePts = data.map((d, i) => at(i, R * (Math.max(0, Math.min(100, d.value)) / 100)));
+  const rings = [0.25, 0.5, 0.75, 1].map((f) =>
+    data.map((_, i) => at(i, R * f)),
+  );
+  const valuePts = data.map((d, i) =>
+    at(i, R * (Math.max(0, Math.min(100, d.value)) / 100)),
+  );
 
   return (
     <svg
       ref={ref}
-      viewBox={`0 0 ${size} ${size}`}
-      width={size}
+      viewBox={`0 0 ${w} ${size}`}
+      width={w}
       height={size}
-      className="mx-auto block h-auto w-full max-w-[380px]"
+      className="mx-auto block h-auto w-full max-w-[600px]"
       role="img"
       aria-label="Radar de atributos"
     >
@@ -47,13 +63,29 @@ export function RadarChart({ data, size = 280 }: { data: Datum[]; size?: number 
 
       {/* anillos de la grilla */}
       {rings.map((ring, idx) => (
-        <polygon key={idx} points={toStr(ring)} fill="none" stroke="var(--border)" strokeWidth={1} />
+        <polygon
+          key={idx}
+          points={toStr(ring)}
+          fill="none"
+          stroke="var(--border)"
+          strokeWidth={1}
+        />
       ))}
 
       {/* radios */}
       {data.map((_, i) => {
         const [x, y] = at(i, R);
-        return <line key={i} x1={cx} y1={cy} x2={x} y2={y} stroke="var(--border)" strokeWidth={1} />;
+        return (
+          <line
+            key={i}
+            x1={cx}
+            y1={cy}
+            x2={x}
+            y2={y}
+            stroke="var(--border)"
+            strokeWidth={1}
+          />
+        );
       })}
 
       {/* área de valores (animada) */}
@@ -63,7 +95,11 @@ export function RadarChart({ data, size = 280 }: { data: Datum[]; size?: number 
         stroke="var(--accent-2)"
         strokeWidth={2}
         strokeLinejoin="round"
-        style={{ transformBox: "fill-box", transformOrigin: "center", filter: "drop-shadow(0 0 6px rgba(34,211,238,0.4))" }}
+        style={{
+          transformBox: "fill-box",
+          transformOrigin: "center",
+          filter: "drop-shadow(0 0 6px rgba(34,211,238,0.4))",
+        }}
         initial={{ scale: reduce ? 1 : 0, opacity: reduce ? 1 : 0 }}
         animate={inView ? { scale: 1, opacity: 1 } : undefined}
         transition={{ duration: reduce ? 0 : 0.85, ease: [0.22, 1, 0.36, 1] }}
@@ -77,8 +113,9 @@ export function RadarChart({ data, size = 280 }: { data: Datum[]; size?: number 
 
       {/* etiquetas */}
       {data.map((d, i) => {
-        const [lx, ly] = at(i, R + 20);
-        const anchor = Math.abs(lx - cx) < 4 ? "middle" : lx < cx ? "end" : "start";
+        const [lx, ly] = at(i, labelR);
+        const anchor =
+          Math.abs(lx - cx) < 4 ? "middle" : lx < cx ? "end" : "start";
         return (
           <text
             key={i}

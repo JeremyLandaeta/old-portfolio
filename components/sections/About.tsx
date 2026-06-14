@@ -28,8 +28,8 @@ export function About() {
     <section className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
       <SectionHeading kicker={t.about.kicker} title={t.about.heading} />
 
-      {/* Fila 1: Carta + Panel de stats */}
-      <div className="mt-10 grid gap-6 lg:grid-cols-5 lg:items-start">
+      {/* Fila 1: Carta + Panel de stats — alturas igualadas (stretch) */}
+      <div className="mt-10 grid gap-6 lg:grid-cols-5 lg:items-stretch">
         <Reveal blur direction="left" className="lg:col-span-2">
           <ChampionCard />
         </Reveal>
@@ -43,8 +43,8 @@ export function About() {
         <PixelCampfireScene />
       </Reveal>
 
-      {/* Fila 2: Lore + Habilidades */}
-      <div className="mt-6 grid gap-6 lg:grid-cols-5 lg:items-start">
+      {/* Fila 2: Lore + Habilidades — alturas igualadas (stretch) */}
+      <div className="mt-6 grid gap-6 lg:grid-cols-5 lg:items-stretch">
         {/* Lore / backstory */}
         <Reveal className="lg:col-span-3">
           <div className="h-full rounded-2xl glass p-6">
