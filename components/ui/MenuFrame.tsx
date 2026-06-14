@@ -1,4 +1,5 @@
 import type { ComponentType, ReactNode } from "react";
+import { CornerBrackets } from "@/components/ui/CornerBrackets";
 
 /** Acepta íconos de lucide-react y react-icons (ambos toman size + className). */
 type IconType = ComponentType<{ size?: number; className?: string }>;
@@ -47,10 +48,7 @@ export function MenuFrame({ title, icon: Icon, stamp, accent = "cyan", headingLe
       className={`relative border ${a.border} bg-[rgba(11,16,30,0.55)] shadow-[0_0_44px_-26px_var(--accent-glow)] backdrop-blur-sm ${className}`}
     >
       {/* corner brackets */}
-      <span aria-hidden className={`pointer-events-none absolute left-1 top-1 h-3 w-3 border-l-2 border-t-2 ${a.bracket}`} />
-      <span aria-hidden className={`pointer-events-none absolute right-1 top-1 h-3 w-3 border-r-2 border-t-2 ${a.bracket}`} />
-      <span aria-hidden className={`pointer-events-none absolute bottom-1 left-1 h-3 w-3 border-b-2 border-l-2 ${a.bracket}`} />
-      <span aria-hidden className={`pointer-events-none absolute bottom-1 right-1 h-3 w-3 border-b-2 border-r-2 ${a.bracket}`} />
+      <CornerBrackets color={a.bracket} />
 
       {/* título incrustado en el borde superior */}
       <div className="absolute -top-2.25 left-5 flex items-center gap-1.5 bg-background px-2">

@@ -8,6 +8,7 @@ import { ArrowUpRight } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { MenuFrame } from "@/components/ui/MenuFrame";
+import { CornerBrackets } from "@/components/ui/CornerBrackets";
 import { Reveal } from "@/components/ui/Reveal";
 import { usePrefersReducedMotion } from "@/components/ui/usePrefersReducedMotion";
 import { projectMedia } from "@/lib/projectMedia";
@@ -126,6 +127,7 @@ export function Projects() {
                       : "border-border bg-white/2 opacity-70 hover:opacity-100 hover:border-accent-2/30"
                   }`}
                 >
+                  <CornerBrackets color="border-accent-2/70" size="h-2 w-2" />
                   <div className="flex items-center gap-2">
                     <span className={`h-2 w-2 shrink-0 rounded-full ${a.dot}`} />
                     <span className="text-sm font-semibold">{p.title}</span>
