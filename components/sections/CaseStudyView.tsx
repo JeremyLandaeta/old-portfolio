@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, ArrowUpRight, Lightbulb, Target, Wrench, CheckCircle2 } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { AuroraBackground } from "@/components/ui/AuroraBackground";
 import { ReadingProgress } from "@/components/ui/ReadingProgress";
+import { projectMedia } from "@/lib/projectMedia";
 
 const accentDot: Record<string, string> = {
   blue: "bg-blue-400",
@@ -50,19 +52,51 @@ function Bullets({ items }: { items: string[] }) {
   );
 }
 
-/** Mockup placeholder estilo ventana de navegador (sin datos reales). */
+/** Barra superior estilo ventana de navegador. */
+function WindowBar({ caption }: { caption: string }) {
+  return (
+    <div className="flex items-center gap-1.5 border-b border-border bg-white/[0.03] px-3 py-2">
+      <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
+      <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
+      <span className="h-2.5 w-2.5 rounded-full bg-green-500/70" />
+      <span className="ml-2 truncate font-mono text-[11px] text-muted">{caption}</span>
+    </div>
+  );
+}
+
+/** Captura real del sitio en vivo, enmarcada como ventana de navegador. */
+function RealShot({ src, caption }: { src: string; caption: string }) {
+  return (
+    <figure className="group overflow-hidden rounded-xl border border-border bg-background-soft">
+      <WindowBar caption={caption} />
+      <div className="relative aspect-[16/10] w-full overflow-hidden">
+        <Image
+          src={src}
+          alt={caption}
+          fill
+          sizes="(min-width: 640px) 50vw, 100vw"
+          className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+        />
+      </div>
+    </figure>
+  );
+}
+
+/** Mockup estilizado para proyectos sin captura pública (interno/confidencial). */
 function Mockup({ caption, title }: { caption: string; title: string }) {
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-background-soft">
-      <div className="flex items-center gap-1.5 border-b border-border bg-white/[0.03] px-3 py-2">
-        <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
-        <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
-        <span className="h-2.5 w-2.5 rounded-full bg-green-500/70" />
-        <span className="ml-2 truncate font-mono text-[11px] text-muted">{caption}</span>
-      </div>
+      <WindowBar caption={caption} />
       <div className="relative grid h-44 place-items-center bg-grid">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-accent-2/10" />
-        <span className="relative px-4 text-center font-mono text-sm text-muted">{caption}</span>
+        <div className="absolute left-4 right-4 top-4 space-y-2 opacity-40">
+          <div className="h-2 w-1/3 rounded-full bg-white/25" />
+          <div className="h-2 w-2/3 rounded-full bg-white/15" />
+          <div className="h-2 w-1/2 rounded-full bg-white/10" />
+        </div>
+        <span className="relative rounded-md border border-border bg-background/60 px-3 py-1.5 text-center font-mono text-xs text-muted backdrop-blur-sm">
+          {caption}
+        </span>
         <span className="pointer-events-none absolute bottom-2 right-3 font-mono text-[10px] uppercase tracking-widest text-muted/50">
           {title}
         </span>
@@ -76,6 +110,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
   const L = t.caseStudyLabels;
   const project = t.projects.items.find((p) => p.id === slug);
   const study = t.caseStudies[slug];
+  const shots = projectMedia[slug]?.shots;
 
   if (!project || !study) {
     return (
@@ -181,14 +216,18 @@ export function CaseStudyView({ slug }: { slug: string }) {
           <Bullets items={study.solution} />
         </Block>
 
-        {/* Galería de mockups */}
+        {/* Galería: capturas reales si existen, mockup estilizado si no */}
         <Reveal className="rounded-2xl glass p-6">
           <h2 className="text-lg font-semibold">{L.gallery}</h2>
-          <p className="mt-1 font-mono text-xs text-muted">{L.mockupNote}</p>
+          <p className="mt-1 font-mono text-xs text-muted">{shots ? L.liveNote : L.mockupNote}</p>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            {study.gallery.map((cap) => (
-              <Mockup key={cap} caption={cap} title={project.title} />
-            ))}
+            {study.gallery.map((cap, i) =>
+              shots?.[i] ? (
+                <RealShot key={cap} src={shots[i]} caption={cap} />
+              ) : (
+                <Mockup key={cap} caption={cap} title={project.title} />
+              ),
+            )}
           </div>
         </Reveal>
 

@@ -73,6 +73,7 @@ export type CaseStudyLabels = {
   tech: string;
   gallery: string;
   mockupNote: string;
+  liveNote: string;
   learnings: string;
   result: string;
   viewDemo: string;
@@ -167,6 +168,7 @@ const es: Content = {
     tech: "Tecnologías",
     gallery: "Vistas",
     mockupNote: "Mockups representativos · sin datos reales por confidencialidad",
+    liveNote: "Capturas del sitio en vivo",
     learnings: "Aprendizajes",
     result: "Resultado",
     viewDemo: "Ver demo",
@@ -177,138 +179,154 @@ const es: Content = {
   caseStudies: {
     lexy: {
       problem:
-        "Acceder a información legal clara es lento y costoso: las consultas básicas saturan a los equipos de atención y los usuarios no saben a quién preguntar.",
+        "Los abogados de una firma pierden tiempo respondiendo las mismas consultas básicas una y otra vez, mientras los usuarios no saben a quién preguntar ni cómo empezar.",
       context:
-        "Proyecto de título: un chatbot orientado a responder preguntas legales, acompañado de un backoffice administrativo para gestionar el conocimiento y los usuarios.",
+        "Proyecto de título en equipo (Duoc UC, 2024). Una plataforma legal que combina un chatbot con IA para resolver dudas generales y derivar los casos complejos a un abogado, con un backoffice donde el equipo recibe la consulta y le hace seguimiento.",
       role: [
-        "Diseñé y desarrollé la solución de extremo a extremo (chatbot + backoffice).",
-        "Modelé el flujo de preguntas y respuestas y la administración de usuarios.",
-        "Integré IA para mejorar la interacción y apoyar el flujo de atención.",
+        "Construí el frontend del sitio público: hero, servicios, equipo de abogados y formulario de contacto, con Next.js, Tailwind y shadcn/ui.",
+        "Trabajé en equipo dentro de un proyecto end-to-end (chatbot + backoffice), integrando mi parte con el resto de la app.",
+        "Colaboré en la puesta a punto de la IA: ajustar el system prompt y el contexto para que respondiera solo dentro del dominio legal.",
       ],
       solution: [
-        "Chatbot conversacional que responde consultas legales de forma guiada.",
-        "Backoffice para crear y mantener preguntas, respuestas y usuarios.",
-        "Capa de IA que mejora la comprensión y la calidad de las respuestas.",
+        "Sitio público que presenta a la firma y sus servicios, con el chatbot Lexy como puerta de entrada.",
+        "Chatbot con la API de OpenAI para resolver consultas generales; los casos específicos se derivan a un abogado.",
+        "Backoffice para recibir la consulta derivada y contactar directamente a la persona.",
+        "Autenticación con NextAuth y datos persistidos en MongoDB.",
       ],
       learnings: [
-        "Diseño conversacional y manejo de prompts para un dominio sensible.",
-        "Separar el contenido editable del modelo para iterar sin tocar código.",
+        "Primera vez conectando un producto a una IA: acotar respuestas con system prompt y contexto en un dominio sensible.",
+        "Trabajo en equipo real sobre una base de código compartida, integrando mi parte con la del resto.",
       ],
       result:
-        "Prototipo funcional que responde consultas legales y permite administrar el conocimiento desde el backoffice.",
-      gallery: ["Chat de consulta", "Backoffice de preguntas", "Gestión de usuarios"],
+        "Plataforma desplegada en Vercel y presentada como proyecto de título. El sitio sigue en línea y funcional.",
+      gallery: ["Hero — Confía en la justicia", "Servicios legales", "Equipo de abogados", "Contacto"],
+      links: {
+        demo: "https://lexy-lime.vercel.app",
+        repo: "https://github.com/Francolin09/LexyBien",
+      },
     },
     greensoft: {
       problem:
-        "Las empresas necesitan medir su huella de carbono y cumplir con la normativa REP, pero los cálculos son complejos, manuales y propensos a error.",
+        "Cumplir la Ley REP y reportar huella de carbono implica registrar, validar y trazar mucha información (residuos por período, documentos, estados) de forma manual y propensa a error.",
       context:
-        "Producto real en Vínculo Verde / Greensoft. Calculadoras ambientales interactivas desplegadas en producción para clientes.",
+        "Producto interno de Ambientalia desarrollado en Greensoft (mi trabajo actual). Dos plataformas: EcoREP, para la trazabilidad de residuos y el cumplimiento de la Ley REP, y 0 Carbono, para medir la huella de carbono de eventos.",
       role: [
-        "Lideré técnicamente el desarrollo frontend de las calculadoras.",
-        "Integré la lógica de negocio con React, Next.js y TypeScript.",
-        "Aporté nuevas funcionalidades a EcoREP, incluyendo un gestor de archivos.",
+        "En 0 Carbono tomé las decisiones de diseño y construí el frontend prácticamente solo.",
+        "En EcoREP sumé vistas nuevas y mejoré la interfaz para que se entendiera a la primera.",
+        "Implementé un gestor de archivos por período: cada Excel cargado queda asignado a su período, así se revisa la trazabilidad de los residuos de cada mes.",
       ],
       solution: [
-        "Calculadoras de Carbono y REP responsivas y fáciles de usar.",
-        "Consumo de APIs y manejo de estados complejos del formulario.",
-        "Despliegue continuo en Vercel con flujo de trabajo en GitHub.",
+        "Formularios de varias capas rediseñados para que el usuario los entienda al primer vistazo.",
+        "Manejo de estados según lo que carga el usuario: residuos pendientes, listos u homologados.",
+        "Gestor de archivos que organiza los Excels por período y mantiene la trazabilidad.",
+        "Frontend en React, Next.js y TypeScript, desplegado en Vercel.",
       ],
       learnings: [
-        "Traducir requerimientos ambientales en interfaces utilizables.",
-        "Cuidar rendimiento y validaciones en formularios extensos.",
+        "Traducir requisitos normativos (Ley REP, huella de carbono) en interfaces usables.",
+        "Diseñar formularios extensos y máquinas de estado que no confundan al usuario.",
       ],
       result:
-        "Dos calculadoras ambientales en producción, usadas por clientes reales para sus procesos de carbono y REP.",
-      gallery: ["Calculadora de Carbono", "Flujo REP", "Gestor de archivos (EcoREP)"],
+        "Dos plataformas en producción usadas internamente por Ambientalia para procesos reales de Ley REP y huella de carbono.",
+      gallery: ["EcoREP — trazabilidad de residuos", "Gestor de archivos por período", "Estados de residuos", "0 Carbono — huella de eventos"],
     },
     orbix: {
       problem:
-        "Crear borradores de noticias para LinkedIn consumía tiempo valioso del equipo y rompía el ritmo de publicación.",
+        "Ambientalia tiene varios productos (leyrep.cl, ambientalia.cl) que reciben las mismas consultas por WhatsApp, y además necesita un flujo constante de comunicaciones. Hecho a mano, todo eso consume tiempo del equipo.",
       context:
-        "Herramienta interna: un asistente con IA generativa integrado a Bitrix24 como CRM.",
+        "Herramienta interna desarrollada en Greensoft. Orbix es “un agente que orbita” los productos de Ambientalia: por un lado responde WhatsApps con IA, por otro automatiza la generación de noticias. La planeé y construí solo.",
       role: [
-        "Diseñé e implementé Orbix de extremo a extremo.",
-        "Definí el enfoque de generación de contenido con IA.",
-        "Integré el asistente con Bitrix24.",
+        "Planeé la solución completa y desarrollé el backend (sin interfaz gráfica, corre server-side).",
+        "Construí los chatbots de WhatsApp con IA (LaravelAI) para leyrep.cl y ambientalia.cl (Greensoft.cl en camino).",
+        "Armé el pipeline de noticias: scraping en Python (Scrapling) + un modelo local de Ollama (qwen), conectado a Bitrix24 por webhook.",
       ],
       solution: [
-        "IA generativa que produce borradores de noticias listos para revisar.",
-        "Integración con Bitrix24 para conectar el contenido con el CRM.",
-        "Flujo que reduce el trabajo manual de redacción.",
+        "Chatbots que responden las consultas por WhatsApp de cada sitio con IA.",
+        "Un cron busca noticias de Ley REP en las fuentes configuradas; si no hay, trae medioambientales.",
+        "El modelo local resume cada noticia en un borrador con hashtags y CTA, listo para revisar en Bitrix24.",
+        "IA local con Ollama para mantener el costo y los datos dentro del servidor.",
       ],
       learnings: [
-        "Prompt engineering aplicado a un caso de negocio concreto.",
-        "Integración con un CRM y automatización de contenido.",
+        "Integrar un scraping confiable fue lo más tedioso del proyecto.",
+        "Diseñar un único agente que cubre varios productos y canales (WhatsApp + comunicaciones).",
       ],
       result:
-        "Borradores generados automáticamente, liberando tiempo del equipo y agilizando la creación de contenido.",
-      gallery: ["Generación de borrador", "Integración Bitrix24"],
-    },
-    "chatbot-wsp": {
-      problem:
-        "Atender consultas por WhatsApp de forma continua sin depender de servicios externos de pago ni exponer datos sensibles.",
-      context:
-        "Iniciativa interna: un chatbot de WhatsApp con IA local (on-premise) mediante Ollama.",
-      role: [
-        "Impulsé y coordiné el desarrollo del chatbot.",
-        "Investigué alternativas de implementación y definí el enfoque técnico.",
-        "Delegué y distribuí tareas dentro del equipo.",
-      ],
-      solution: [
-        "IA local con Ollama para mantener los datos dentro de la organización.",
-        "Enfoque on-premise priorizando privacidad y costo.",
-        "Definición técnica que guió el desarrollo del equipo.",
-      ],
-      learnings: [
-        "Liderazgo técnico y delegación efectiva.",
-        "Evaluar IA local vs. en la nube según privacidad y costo.",
-      ],
-      result:
-        "Enfoque técnico definido y desarrollo coordinado en equipo para una solución de IA local.",
-      gallery: ["Conversación WhatsApp", "Arquitectura IA local"],
+        "En uso interno: responde los WhatsApps de los sitios de Ambientalia y sigue generando borradores de noticias listos para revisar en Bitrix24.",
+      gallery: ["Chatbot de WhatsApp", "Pipeline de scraping", "Borrador generado", "Revisión en Bitrix24"],
     },
     pagos: {
       problem:
-        "Vender dominios requería un flujo de compra confiable y un manejo correcto de los pagos.",
+        "Un cliente quería vender varios dominios online y necesitaba una web con catálogo y pago integrado, en vez de gestionar cada venta a mano.",
       context:
-        "Plataforma de venta de dominios con base de datos e integración de pasarela de pago.",
+        "Encargo individual: tu-dominio.cl, una web para vender dominios. La construí solo de punta a punta.",
       role: [
-        "Desarrollé la plataforma y su base de datos.",
-        "Integré la pasarela de pago con Mercado Pago.",
+        "Desarrollé todo: frontend, backend y base de datos.",
+        "Integré Mercado Pago (en modo de prueba) y manejé el estado de cada dominio.",
+        "Modelé los datos en Supabase (Postgres).",
       ],
       solution: [
-        "Catálogo de dominios con persistencia en base de datos.",
-        "Pagos integrados mediante Mercado Pago.",
-        "Manejo de los estados del flujo de compra.",
+        "Catálogo de dominios con un estado por dominio: al seleccionarlo pasa a “pendiente”.",
+        "Si el pago resulta satisfactorio, el dominio cambia a “vendido”.",
+        "Tras la venta, el equipo contacta al usuario para transferir el dominio vía nic.cl.",
+        "Frontend en React/Next.js y base de datos en Supabase/Postgres.",
       ],
       learnings: [
-        "Integración de pasarelas y manejo de estados de pago.",
-        "Diseño de datos para un flujo transaccional.",
+        "Integrar una pasarela de pago y reaccionar a su resultado para mover el estado de la orden.",
+        "Dejar un producto funcional terminado, aunque el despliegue dependa de terceros.",
       ],
-      result: "Plataforma funcional de venta de dominios con pagos integrados.",
-      gallery: ["Catálogo de dominios", "Checkout con Mercado Pago"],
+      result:
+        "Plataforma funcional con pagos en modo de prueba. No llegó a producción porque el cliente no envió los términos y condiciones requeridos.",
+      gallery: ["Catálogo de dominios", "Estados pendiente/vendido", "Checkout con Mercado Pago"],
     },
     landings: {
       problem:
-        "Marcas digitales necesitaban una presencia web atractiva para su presentación comercial.",
+        "Dos emprendimientos pequeños (aros de arcilla y productos en madera) necesitaban presencia web para mostrarse y recibir ventas por WhatsApp, sin la complejidad de un e-commerce.",
       context:
-        "Landing pages a medida para BaoBlue y Anrra, con foco en diseño y conversión.",
+        "Dos landing pages freelance hechas en mi tiempo libre para personas cercanas. Diseñé y desarrollé ambas solo, ajustando el tono a cada negocio y personalidad.",
       role: [
-        "Diseñé y desarrollé el frontend de los sitios.",
-        "Implementé animaciones y componentes reutilizables.",
-        "Gestioné el despliegue en Vercel con flujo en GitHub.",
+        "Diseñé y desarrollé las dos landings de punta a punta.",
+        "Adapté el estilo a cada marca: BaoBlue (aros de arcilla) con colores vibrantes; Anrra (productos en madera) más cálida.",
+        "Conecté el CTA directo al WhatsApp del encargado de ventas, sin formulario intermedio.",
       ],
       solution: [
-        "Sitios responsivos con diseño personalizado por marca.",
-        "Animaciones y componentes reutilizables para acelerar el desarrollo.",
-        "Despliegue en Vercel con integración continua.",
+        "Sitios responsivos en React/Next.js con animaciones (Framer Motion) y componentes reutilizables.",
+        "BaoBlue: catálogo de aros con hover, proceso de compra en 3 pasos, testimonios y FAQ.",
+        "Paleta vibrante pero armoniosa, con las animaciones que más me gustan del proyecto.",
+        "Despliegue en Vercel con flujo en GitHub.",
       ],
       learnings: [
-        "Criterio visual y animaciones performantes.",
-        "Reutilización de componentes entre proyectos.",
+        "Traducir la personalidad de cada persona y negocio en decisiones visuales.",
+        "Mantener animaciones llamativas sin romper la armonía visual.",
       ],
-      result: "Sitios desplegados en producción para presentación comercial de las marcas.",
-      gallery: ["BaoBlue — landing", "Anrra — landing"],
+      result:
+        "BaoBlue está en vivo y en uso. Anrra quedó terminada a nivel de desarrollo, a la espera de que el cliente enviara las fotos del contenido.",
+      gallery: ["BaoBlue — Aros únicos para personas únicas", "Catálogo de aros (hover)", "Cómo comprar en 3 pasos", "Testimonios de clientas"],
+      links: {
+        demo: "https://baoblue-web.vercel.app/",
+      },
+    },
+    portfolio: {
+      problem:
+        "Un portafolio genérico no dice nada de cómo trabajo. Quería uno que demostrara criterio de diseño, frontend moderno y personalidad, no una plantilla más.",
+      context:
+        "Este mismo sitio. Lo diseñé y desarrollé solo, de cero, como carta de presentación técnica.",
+      role: [
+        "Diseño y desarrollo completos, sin plantillas ni librerías de UI.",
+        "Arquitectura en Next.js 16 (App Router) y React 19, con i18n es/en basada en URL para SEO.",
+        "Capa de interacción a medida: animaciones con Framer Motion, partículas, cursor glow y tilt 3D en las cards.",
+      ],
+      solution: [
+        "Una capa “gamer” opcional (RPG/MOBA/TCG): stats de personaje, card estilo campeón con kit de habilidades y una “Current Quest”.",
+        "Escena pixel-art propia (samurái + fogata) animada.",
+        "Contador de edad en tiempo real y secciones de experiencia, stack y FAQ.",
+        "Diseño responsivo, cuidando el rendimiento y las animaciones.",
+      ],
+      learnings: [
+        "Aprender Next.js 16 y React 19 desde su documentación, no desde la memoria.",
+        "Equilibrar una identidad llamativa con rendimiento y legibilidad.",
+      ],
+      result:
+        "El portafolio que estás viendo: un sitio propio, sin plantillas, que funciona como demo viva de mi frontend.",
+      gallery: ["Hero + HUD", "Sobre mí — stats de personaje", "Proyectos", "Escena pixel-art"],
     },
   },
   hero: {
@@ -351,8 +369,8 @@ const es: Content = {
         title: "LEXY — Soluciones Legales",
         tagline: "Chatbot legal + backoffice",
         description:
-          "Chatbot orientado a responder preguntas legales con un backoffice administrativo para gestionar preguntas, respuestas y usuarios. Integración de IA para mejorar la interacción y apoyar el flujo de atención. Proyecto de título.",
-        tags: ["Next.js", "TypeScript", "IA", "Backoffice"],
+          "Plataforma legal que combina un chatbot con IA y un backoffice: resuelve dudas generales y deriva los casos complejos a un abogado, que les hace seguimiento. Proyecto de título en equipo; mi foco fue el frontend del sitio público.",
+        tags: ["Next.js", "TypeScript", "MongoDB", "OpenAI", "Tailwind"],
         span: "lg",
         badge: "Proyecto de título",
         accent: "blue",
@@ -360,9 +378,9 @@ const es: Content = {
       {
         id: "greensoft",
         title: "Greensoft · EcoREP · 0 Carbono",
-        tagline: "Calculadoras ambientales en producción",
+        tagline: "Plataformas ambientales en producción",
         description:
-          "Lideré técnicamente el frontend de calculadoras ambientales interactivas (Carbono y REP), integrando lógica de negocio con React, Next.js y TypeScript. Aporté nuevas funcionalidades en EcoREP, incluyendo un gestor de archivos.",
+          "Dos plataformas internas de Ambientalia: EcoREP, para la trazabilidad de residuos y el cumplimiento de la Ley REP, y 0 Carbono, para medir la huella de carbono de eventos. Armé el frontend de 0 Carbono casi solo (decisiones de diseño incluidas) y sumé vistas nuevas y un gestor de archivos por período en EcoREP.",
         tags: ["React", "Next.js", "TypeScript", "APIs", "Vercel"],
         span: "lg",
         badge: "En producción",
@@ -371,31 +389,22 @@ const es: Content = {
       {
         id: "orbix",
         title: "Orbix",
-        tagline: "Asistente interno con IA generativa",
+        tagline: "Un agente que orbita los productos",
         description:
-          "Diseñé e implementé Orbix, un asistente con IA generativa para crear borradores automatizados de noticias para LinkedIn, integrado con Bitrix24 como CRM.",
-        tags: ["OpenAI", "Bitrix24", "Automatización"],
+          "Agente interno que “orbita” los productos de Ambientalia (leyrep.cl, ambientalia.cl): responde WhatsApps con IA (LaravelAI) y automatiza comunicaciones — un cron en Python scrapea noticias y un modelo local (Ollama) arma los borradores en Bitrix24. Lo planeé y construí solo.",
+        tags: ["Python", "Laravel", "Ollama", "Bitrix24"],
         span: "md",
         accent: "violet",
       },
       {
-        id: "chatbot-wsp",
-        title: "Chatbot WhatsApp · IA local",
-        tagline: "Ollama + delegación de equipo",
-        description:
-          "Impulsé y coordiné un chatbot de WhatsApp con IA local mediante Ollama: investigué alternativas, definí el enfoque técnico y delegué tareas dentro del equipo.",
-        tags: ["Ollama", "WhatsApp", "Node.js"],
-        span: "md",
-        accent: "emerald",
-      },
-      {
         id: "pagos",
-        title: "Venta de dominios + pagos",
-        tagline: "Pasarela con Mercado Pago",
+        title: "tu-dominio.cl",
+        tagline: "E-commerce de dominios + pagos",
         description:
-          "Plataforma de venta de dominios con base de datos e integración de pasarela de pago mediante Mercado Pago.",
-        tags: ["Next.js", "Mercado Pago", "SQL"],
+          "Web para vender dominios, construida solo de punta a punta: catálogo con estados por dominio (pendiente → vendido), Mercado Pago en modo de prueba y Supabase/Postgres. Funcional, pero sin desplegar por documentos pendientes del cliente.",
+        tags: ["Next.js", "Supabase", "Mercado Pago"],
         span: "sm",
+        badge: "Prototipo funcional",
         accent: "blue",
       },
       {
@@ -403,10 +412,22 @@ const es: Content = {
         title: "BaoBlue · Anrra",
         tagline: "Landing pages a medida",
         description:
-          "Sitios web personalizados para marcas digitales: diseño responsivo, animaciones, componentes reutilizables, despliegue en Vercel y flujo con GitHub.",
-        tags: ["React", "Tailwind", "Framer Motion", "Vercel"],
+          "Dos landings freelance diseñadas y desarrolladas solo, ajustando el tono a cada negocio. BaoBlue (aros de arcilla) está en vivo, con animaciones vibrantes pero armoniosas; Anrra (madera) quedó a la espera del contenido del cliente. El CTA lleva directo al WhatsApp de ventas.",
+        tags: ["React", "Next.js", "Tailwind", "Framer Motion"],
         span: "sm",
+        badge: "En vivo",
         accent: "cyan",
+      },
+      {
+        id: "portfolio",
+        title: "Este portafolio",
+        tagline: "Next.js 16 + capa gamer",
+        description:
+          "El sitio que estás viendo. Lo diseñé y construí solo con Next.js 16 y React 19: i18n es/en por URL, animaciones con Framer Motion y una capa “gamer” (RPG/MOBA/TCG) con escena pixel-art, stats de personaje y cards estilo campeón. Sin plantillas.",
+        tags: ["Next.js 16", "React 19", "Framer Motion", "Tailwind"],
+        span: "md",
+        badge: "Hecho a mano",
+        accent: "emerald",
       },
     ],
   },
@@ -563,6 +584,7 @@ const en: Content = {
     tech: "Tech stack",
     gallery: "Views",
     mockupNote: "Representative mockups · no real data, for confidentiality",
+    liveNote: "Screenshots from the live site",
     learnings: "Learnings",
     result: "Result",
     viewDemo: "View demo",
@@ -573,138 +595,154 @@ const en: Content = {
   caseStudies: {
     lexy: {
       problem:
-        "Getting clear legal information is slow and expensive: basic questions overload support teams and users don't know who to ask.",
+        "Lawyers at a firm waste time answering the same basic questions over and over, while users don't know who to ask or how to start.",
       context:
-        "Capstone project: a chatbot built to answer legal questions, paired with an admin back office to manage the knowledge base and users.",
+        "Team capstone project (Duoc UC, 2024). A legal platform pairing an AI chatbot to handle general questions and route complex cases to a lawyer, with a back office where the team picks up the query and follows up.",
       role: [
-        "Designed and built the solution end to end (chatbot + back office).",
-        "Modeled the question/answer flow and user management.",
-        "Integrated AI to improve interaction and support the service flow.",
+        "Built the frontend of the public site: hero, services, lawyer team and contact form, with Next.js, Tailwind and shadcn/ui.",
+        "Worked within a team on an end-to-end project (chatbot + back office), integrating my part with the rest of the app.",
+        "Helped tune the AI: adjusting the system prompt and context so it answered only within the legal domain.",
       ],
       solution: [
-        "Conversational chatbot that answers legal questions in a guided way.",
-        "Back office to create and maintain questions, answers and users.",
-        "AI layer that improves understanding and answer quality.",
+        "Public site that introduces the firm and its services, with the Lexy chatbot as the entry point.",
+        "Chatbot powered by the OpenAI API for general questions; specific cases are routed to a lawyer.",
+        "Back office to receive the routed query and contact the person directly.",
+        "Authentication with NextAuth and data persisted in MongoDB.",
       ],
       learnings: [
-        "Conversational design and prompt handling for a sensitive domain.",
-        "Separating editable content from the model to iterate without touching code.",
+        "First time wiring a product to an AI: constraining answers with a system prompt and context in a sensitive domain.",
+        "Real teamwork on a shared codebase, integrating my part with everyone else's.",
       ],
       result:
-        "A working prototype that answers legal questions and lets admins manage the knowledge base.",
-      gallery: ["Query chat", "Questions back office", "User management"],
+        "Platform deployed on Vercel and presented as a capstone project. The site is still live and working.",
+      gallery: ["Hero — Trust in justice", "Legal services", "Lawyer team", "Contact"],
+      links: {
+        demo: "https://lexy-lime.vercel.app",
+        repo: "https://github.com/Francolin09/LexyBien",
+      },
     },
     greensoft: {
       problem:
-        "Companies need to measure their carbon footprint and comply with EPR regulation, but the calculations are complex, manual and error-prone.",
+        "Complying with the EPR law and reporting a carbon footprint means recording, validating and tracing a lot of information (waste per period, documents, states) manually and error-prone.",
       context:
-        "A real product at Vínculo Verde / Greensoft. Interactive environmental calculators deployed to production for clients.",
+        "An internal product for Ambientalia, built at Greensoft (my current job). Two platforms: EcoREP, for waste traceability and EPR-law compliance, and 0 Carbono, to measure the carbon footprint of events.",
       role: [
-        "Led the frontend development of the calculators.",
-        "Wired business logic with React, Next.js and TypeScript.",
-        "Added new features to EcoREP, including a file manager.",
+        "On 0 Carbono I made the design decisions and built the frontend almost solo.",
+        "On EcoREP I added new views and improved the UI so users got it at first glance.",
+        "Built a per-period file manager: each uploaded Excel is assigned to its period, so you can review each month's waste traceability.",
       ],
       solution: [
-        "Responsive, easy-to-use Carbon and EPR calculators.",
-        "API consumption and complex form-state handling.",
-        "Continuous deployment on Vercel with a GitHub workflow.",
+        "Multi-layer forms redesigned so users understand them at first glance.",
+        "State handling driven by what the user uploads: waste pending, ready or approved.",
+        "File manager that organizes Excels by period and keeps traceability.",
+        "Frontend in React, Next.js and TypeScript, deployed on Vercel.",
       ],
       learnings: [
-        "Translating environmental requirements into usable interfaces.",
-        "Caring about performance and validation in large forms.",
+        "Translating regulatory requirements (EPR law, carbon footprint) into usable interfaces.",
+        "Designing large forms and state machines that don't confuse the user.",
       ],
       result:
-        "Two environmental calculators in production, used by real clients for their carbon and EPR processes.",
-      gallery: ["Carbon calculator", "EPR flow", "File manager (EcoREP)"],
+        "Two platforms in production, used internally by Ambientalia for real EPR-law and carbon-footprint processes.",
+      gallery: ["EcoREP — waste traceability", "Per-period file manager", "Waste states", "0 Carbono — event footprint"],
     },
     orbix: {
       problem:
-        "Drafting LinkedIn news posts consumed valuable team time and broke the publishing rhythm.",
+        "Ambientalia has several products (leyrep.cl, ambientalia.cl) that get the same WhatsApp questions, and it also needs a steady stream of communications. Done by hand, all of that eats team time.",
       context:
-        "An internal tool: a generative-AI assistant integrated with Bitrix24 as the CRM.",
+        "An internal tool built at Greensoft. Orbix is “an agent that orbits” Ambientalia's products: on one side it answers WhatsApps with AI, on the other it automates news generation. I planned and built it solo.",
       role: [
-        "Designed and built Orbix end to end.",
-        "Defined the AI content-generation approach.",
-        "Integrated the assistant with Bitrix24.",
+        "Planned the whole solution and built the backend (no GUI, it runs server-side).",
+        "Built the WhatsApp AI chatbots (LaravelAI) for leyrep.cl and ambientalia.cl (Greensoft.cl on the way).",
+        "Built the news pipeline: scraping in Python (Scrapling) + a local Ollama model (qwen), wired to Bitrix24 over a webhook.",
       ],
       solution: [
-        "Generative AI that produces ready-to-review news drafts.",
-        "Bitrix24 integration to connect content with the CRM.",
-        "A flow that cuts manual writing work.",
+        "Chatbots that answer each site's WhatsApp questions with AI.",
+        "A cron looks for EPR-law news in the configured sources; if there's none, it pulls environmental news.",
+        "The local model summarizes each item into a draft with hashtags and CTA, ready to review in Bitrix24.",
+        "Local AI with Ollama to keep cost and data inside the server.",
       ],
       learnings: [
-        "Prompt engineering applied to a concrete business case.",
-        "CRM integration and content automation.",
+        "Building reliable scraping was the most tedious part of the project.",
+        "Designing a single agent that covers several products and channels (WhatsApp + communications).",
       ],
       result:
-        "Drafts generated automatically, freeing up team time and speeding up content creation.",
-      gallery: ["Draft generation", "Bitrix24 integration"],
-    },
-    "chatbot-wsp": {
-      problem:
-        "Serve WhatsApp inquiries continuously without relying on paid external services or exposing sensitive data.",
-      context:
-        "An internal initiative: a WhatsApp chatbot powered by local (on-premise) AI via Ollama.",
-      role: [
-        "Drove and coordinated the chatbot development.",
-        "Researched implementation alternatives and defined the technical approach.",
-        "Delegated and distributed tasks across the team.",
-      ],
-      solution: [
-        "Local AI with Ollama to keep data inside the organization.",
-        "On-premise approach prioritizing privacy and cost.",
-        "Technical definition that guided the team's work.",
-      ],
-      learnings: [
-        "Technical leadership and effective delegation.",
-        "Evaluating local vs. cloud AI based on privacy and cost.",
-      ],
-      result:
-        "A defined technical approach and coordinated team development for a local-AI solution.",
-      gallery: ["WhatsApp conversation", "Local-AI architecture"],
+        "In internal use: it answers WhatsApps for Ambientalia's sites and keeps generating news drafts, ready to review in Bitrix24.",
+      gallery: ["WhatsApp chatbot", "Scraping pipeline", "Generated draft", "Review in Bitrix24"],
     },
     pagos: {
       problem:
-        "Selling domains required a reliable purchase flow and correct payment handling.",
+        "A client wanted to sell several domains online and needed a site with a catalog and integrated payment, instead of handling each sale by hand.",
       context:
-        "A domain-selling platform with a database and payment-gateway integration.",
+        "A solo commission: tu-dominio.cl, a site to sell domains. I built it solo, end to end.",
       role: [
-        "Built the platform and its database.",
-        "Integrated the payment gateway with Mercado Pago.",
+        "Built everything: frontend, backend and database.",
+        "Integrated Mercado Pago (in test mode) and handled each domain's state.",
+        "Modeled the data in Supabase (Postgres).",
       ],
       solution: [
-        "Domain catalog with database persistence.",
-        "Payments integrated through Mercado Pago.",
-        "Handling of the purchase-flow states.",
+        "Domain catalog with a state per domain: selecting one moves it to “pending”.",
+        "If the payment succeeds, the domain changes to “sold”.",
+        "After the sale, the team contacts the user to transfer the domain via nic.cl.",
+        "Frontend in React/Next.js and database in Supabase/Postgres.",
       ],
       learnings: [
-        "Gateway integration and payment-state handling.",
-        "Data design for a transactional flow.",
+        "Integrating a payment gateway and reacting to its result to move the order state.",
+        "Leaving a finished, functional product even when deployment depends on third parties.",
       ],
-      result: "A working domain-selling platform with integrated payments.",
-      gallery: ["Domain catalog", "Mercado Pago checkout"],
+      result:
+        "A functional platform with payments in test mode. It never reached production because the client didn't send the required terms and conditions.",
+      gallery: ["Domain catalog", "Pending/sold states", "Mercado Pago checkout"],
     },
     landings: {
       problem:
-        "Digital brands needed an attractive web presence for their commercial pitch.",
+        "Two small businesses (clay earrings and woodwork) needed a web presence to show themselves off and take sales over WhatsApp, without the complexity of an e-commerce.",
       context:
-        "Custom landing pages for BaoBlue and Anrra, focused on design and conversion.",
+        "Two freelance landing pages built in my free time for people close to me. I designed and built both solo, tuning the tone to each business and personality.",
       role: [
-        "Designed and built the frontend of the sites.",
-        "Implemented animations and reusable components.",
-        "Managed deployment on Vercel with a GitHub workflow.",
+        "Designed and built both landings end to end.",
+        "Tailored the style to each brand: BaoBlue (clay earrings) with vibrant colors; Anrra (woodwork) warmer.",
+        "Wired the CTA straight to the salesperson's WhatsApp, with no intermediate form.",
       ],
       solution: [
-        "Responsive sites with per-brand custom design.",
-        "Animations and reusable components to speed up development.",
-        "Vercel deployment with continuous integration.",
+        "Responsive sites in React/Next.js with animations (Framer Motion) and reusable components.",
+        "BaoBlue: earring catalog with hover, a 3-step buying process, testimonials and FAQ.",
+        "A vibrant yet harmonious palette, with the animations I like most in the project.",
+        "Deployment on Vercel with a GitHub workflow.",
       ],
       learnings: [
-        "Visual craft and performant animations.",
-        "Component reuse across projects.",
+        "Translating each person's and business's personality into visual decisions.",
+        "Keeping eye-catching animations without breaking visual harmony.",
       ],
-      result: "Sites deployed to production for the brands' commercial presentation.",
-      gallery: ["BaoBlue — landing", "Anrra — landing"],
+      result:
+        "BaoBlue is live and in use. Anrra is finished on the development side, waiting for the client to send the content photos.",
+      gallery: ["BaoBlue — Unique earrings for unique people", "Earring catalog (hover)", "How to buy in 3 steps", "Customer testimonials"],
+      links: {
+        demo: "https://baoblue-web.vercel.app/",
+      },
+    },
+    portfolio: {
+      problem:
+        "A generic portfolio says nothing about how I work. I wanted one that showed design judgment, modern frontend and personality, not yet another template.",
+      context:
+        "This very site. I designed and built it solo, from scratch, as a technical calling card.",
+      role: [
+        "Full design and development, with no templates or UI libraries.",
+        "Architecture on Next.js 16 (App Router) and React 19, with URL-based es/en i18n for SEO.",
+        "A custom interaction layer: Framer Motion animations, particles, cursor glow and 3D tilt on the cards.",
+      ],
+      solution: [
+        "An optional “gamer” layer (RPG/MOBA/TCG): character stats, a champion-style card with an ability kit and a “Current Quest”.",
+        "A custom animated pixel-art scene (samurai + campfire).",
+        "A real-time age counter and experience, stack and FAQ sections.",
+        "Responsive design, mindful of performance and animations.",
+      ],
+      learnings: [
+        "Learning Next.js 16 and React 19 from their docs, not from memory.",
+        "Balancing a bold identity with performance and readability.",
+      ],
+      result:
+        "The portfolio you're looking at: a site of my own, no templates, that works as a live demo of my frontend.",
+      gallery: ["Hero + HUD", "About — character stats", "Projects", "Pixel-art scene"],
     },
   },
   hero: {
@@ -747,8 +785,8 @@ const en: Content = {
         title: "LEXY — Legal Solutions",
         tagline: "Legal chatbot + back office",
         description:
-          "A chatbot built to answer legal questions, with an admin back office to manage questions, answers and users. AI integration to improve interaction and support the service flow. Capstone project.",
-        tags: ["Next.js", "TypeScript", "AI", "Back office"],
+          "A legal platform pairing an AI chatbot with a back office: it answers general questions and routes complex cases to a lawyer who follows up. Team capstone project; my focus was the frontend of the public site.",
+        tags: ["Next.js", "TypeScript", "MongoDB", "OpenAI", "Tailwind"],
         span: "lg",
         badge: "Capstone project",
         accent: "blue",
@@ -756,9 +794,9 @@ const en: Content = {
       {
         id: "greensoft",
         title: "Greensoft · EcoREP · 0 Carbono",
-        tagline: "Environmental calculators in production",
+        tagline: "Environmental platforms in production",
         description:
-          "I led the frontend of interactive environmental calculators (Carbon and EPR), wiring business logic with React, Next.js and TypeScript. I added new features to EcoREP, including a file manager.",
+          "Two internal platforms for Ambientalia: EcoREP, for waste traceability and EPR-law compliance, and 0 Carbono, to measure the carbon footprint of events. I built the 0 Carbono frontend almost solo (design decisions included) and added new views plus a per-period file manager to EcoREP.",
         tags: ["React", "Next.js", "TypeScript", "APIs", "Vercel"],
         span: "lg",
         badge: "In production",
@@ -767,31 +805,22 @@ const en: Content = {
       {
         id: "orbix",
         title: "Orbix",
-        tagline: "Internal generative-AI assistant",
+        tagline: "An agent that orbits the products",
         description:
-          "I designed and built Orbix, a generative-AI assistant that creates automated LinkedIn news drafts, integrated with Bitrix24 as the CRM.",
-        tags: ["OpenAI", "Bitrix24", "Automation"],
+          "An internal agent that “orbits” Ambientalia's products (leyrep.cl, ambientalia.cl): it answers WhatsApps with AI (LaravelAI) and automates communications — a Python cron scrapes news and a local model (Ollama) builds the drafts in Bitrix24. I planned and built it solo.",
+        tags: ["Python", "Laravel", "Ollama", "Bitrix24"],
         span: "md",
         accent: "violet",
       },
       {
-        id: "chatbot-wsp",
-        title: "WhatsApp chatbot · local AI",
-        tagline: "Ollama + team delegation",
-        description:
-          "I drove and coordinated a WhatsApp chatbot powered by local AI via Ollama: researched alternatives, defined the technical approach and delegated tasks across the team.",
-        tags: ["Ollama", "WhatsApp", "Node.js"],
-        span: "md",
-        accent: "emerald",
-      },
-      {
         id: "pagos",
-        title: "Domain sales + payments",
-        tagline: "Mercado Pago gateway",
+        title: "tu-dominio.cl",
+        tagline: "Domain e-commerce + payments",
         description:
-          "A domain-selling platform with a database and payment gateway integration through Mercado Pago.",
-        tags: ["Next.js", "Mercado Pago", "SQL"],
+          "A site to sell domains, built solo end to end: a catalog with per-domain states (pending → sold), Mercado Pago in test mode and Supabase/Postgres. Functional, but never deployed because the client's documents never arrived.",
+        tags: ["Next.js", "Supabase", "Mercado Pago"],
         span: "sm",
+        badge: "Functional prototype",
         accent: "blue",
       },
       {
@@ -799,10 +828,22 @@ const en: Content = {
         title: "BaoBlue · Anrra",
         tagline: "Custom landing pages",
         description:
-          "Custom websites for digital brands: responsive design, animations, reusable components, deployment on Vercel and a GitHub workflow.",
-        tags: ["React", "Tailwind", "Framer Motion", "Vercel"],
+          "Two freelance landings designed and built solo, tuning the tone to each business. BaoBlue (clay earrings) is live, with vibrant yet harmonious animations; Anrra (woodwork) is waiting on the client's content. The CTA goes straight to the sales WhatsApp.",
+        tags: ["React", "Next.js", "Tailwind", "Framer Motion"],
         span: "sm",
+        badge: "Live",
         accent: "cyan",
+      },
+      {
+        id: "portfolio",
+        title: "This portfolio",
+        tagline: "Next.js 16 + a gamer layer",
+        description:
+          "The site you're looking at. I designed and built it solo with Next.js 16 and React 19: URL-based es/en i18n, Framer Motion animations and a “gamer” layer (RPG/MOBA/TCG) with a pixel-art scene, character stats and champion-style cards. No templates.",
+        tags: ["Next.js 16", "React 19", "Framer Motion", "Tailwind"],
+        span: "md",
+        badge: "Handcrafted",
+        accent: "emerald",
       },
     ],
   },

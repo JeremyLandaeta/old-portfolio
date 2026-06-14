@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -9,6 +10,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { usePrefersReducedMotion } from "@/components/ui/usePrefersReducedMotion";
+import { projectMedia } from "@/lib/projectMedia";
 import type { Project } from "@/lib/content";
 
 const ROTATE_MS = 5200;
@@ -29,6 +31,7 @@ export function Projects() {
 
   const featured = items[active];
   const accent = accentMap[featured.accent];
+  const cover = projectMedia[featured.id]?.cover;
 
   return (
     <section id="proyectos" className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
@@ -52,6 +55,19 @@ export function Projects() {
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="flex h-full flex-col p-7"
               >
+                {cover && (
+                  <div className="relative -mx-7 -mt-7 mb-5 h-40 overflow-hidden border-b border-border sm:h-48">
+                    <Image
+                      src={cover}
+                      alt={featured.title}
+                      fill
+                      sizes="(min-width: 1024px) 60vw, 100vw"
+                      className="object-cover object-top"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  </div>
+                )}
+
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-2">
                     <span className={`h-2 w-2 rounded-full ${accent.dot}`} />
