@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { m } from "framer-motion";
 import { ArrowDown, Download, MapPin } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
@@ -8,11 +9,27 @@ import { SOCIALS } from "@/lib/content";
 import { AuroraBackground } from "@/components/ui/AuroraBackground";
 import { ScrambleText } from "@/components/ui/ScrambleText";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { Typewriter } from "@/components/ui/Typewriter";
+import { usePrefersReducedMotion } from "@/components/ui/usePrefersReducedMotion";
 
 const easing = [0.22, 1, 0.36, 1] as const;
 
+// Líneas de "arranque" (neutras/tech, estilo consola). La última (whoami)
+// encadena con el nombre, que aparece como su "respuesta".
+const BOOT = ["> booting jeremy.dev ...... OK", "> whoami"] as const;
+
 export function Hero() {
   const { t } = useLang();
+  const reduce = usePrefersReducedMotion();
+  // step 0-1: tipeando boot · 2: tipeando nombre · 3: contenido revelado.
+  const [step, setStep] = useState(reduce ? 3 : 0);
+
+  // props de revelado para lo que aparece después del boot+nombre
+  const reveal = (delay: number) => ({
+    initial: { opacity: 0, y: 14 },
+    animate: step >= 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 },
+    transition: { duration: 0.5, delay: reduce ? 0 : delay, ease: easing },
+  });
 
   return (
     <section
@@ -26,7 +43,7 @@ export function Hero() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: easing }}
-        className="flex max-w-[90vw] items-center gap-2 rounded-full glass px-4 py-1.5 text-center text-xs text-muted sm:text-sm"
+        className="flex max-w-[90vw] items-center gap-2 rounded-full glass px-4 py-1.5 text-center font-mono text-xs text-muted sm:text-sm"
       >
         <span className="relative flex h-2 w-2 shrink-0">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -35,21 +52,39 @@ export function Hero() {
         {t.hero.badge}
       </m.div>
 
-      {/* Nombre */}
-      <m.h1
-        initial={{ opacity: 0, y: 18 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.1, ease: easing }}
-        className="text-shimmer mt-6 max-w-4xl text-balance break-words text-[2rem] font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl"
+      {/* Secuencia de boot (terminal) */}
+      <div
+        className="mt-6 min-h-[2.8em] font-mono text-xs leading-relaxed text-accent-2/70 sm:text-sm"
+        aria-hidden
       >
-        {t.hero.name}
-      </m.h1>
+        <div>
+          <Typewriter text={BOOT[0]} start onDone={() => setStep((s) => Math.max(s, 1))} />
+        </div>
+        <div>
+          <Typewriter
+            text={BOOT[1]}
+            start={step >= 1}
+            onDone={() => setStep((s) => Math.max(s, 2))}
+          />
+        </div>
+      </div>
+
+      {/* Nombre (se tipea como respuesta a whoami; nombre real en sr-only para SEO) */}
+      <h1 className="text-shimmer mt-3 min-h-[1.05em] max-w-4xl text-balance break-words text-[2rem] font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
+        <span className="sr-only">{t.hero.name}</span>
+        <span aria-hidden>
+          <Typewriter
+            text={t.hero.name}
+            start={step >= 2}
+            speed={55}
+            onDone={() => setStep((s) => Math.max(s, 3))}
+          />
+        </span>
+      </h1>
 
       {/* Rol con efecto scramble */}
       <m.div
-        initial={{ opacity: 0, y: 18 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2, ease: easing }}
+        {...reveal(0)}
         className="mt-4 flex h-10 items-center justify-center font-mono text-xl sm:text-2xl md:text-3xl"
       >
         <span className="text-muted">&lt;</span>
@@ -57,23 +92,17 @@ export function Hero() {
         <span className="text-muted">/&gt;</span>
       </m.div>
 
-      {/* Tagline */}
+      {/* Tagline (estilo comentario de código) */}
       <m.p
-        initial={{ opacity: 0, y: 18 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.3, ease: easing }}
-        className="mt-6 max-w-2xl text-pretty text-base text-muted sm:text-lg"
+        {...reveal(0.08)}
+        className="mt-6 max-w-2xl text-pretty font-mono text-sm text-muted sm:text-base"
       >
+        <span className="text-accent-2/70">{"// "}</span>
         {t.hero.tagline}
       </m.p>
 
       {/* CTAs magnéticos */}
-      <m.div
-        initial={{ opacity: 0, y: 18 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.4, ease: easing }}
-        className="mt-8 flex flex-wrap items-center justify-center gap-3"
-      >
+      <m.div {...reveal(0.16)} className="mt-8 flex flex-wrap items-center justify-center gap-3">
         <Magnetic>
           <a
             href="#proyectos"
@@ -97,9 +126,7 @@ export function Hero() {
 
       {/* Social + ubicación */}
       <m.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.7, delay: 0.55 }}
+        {...reveal(0.24)}
         className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-muted"
       >
         <a href={SOCIALS.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="transition-colors hover:text-accent-2">
@@ -117,10 +144,11 @@ export function Hero() {
       {/* Scroll hint */}
       <m.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.1 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2"
+        animate={{ opacity: step >= 3 ? 1 : 0 }}
+        transition={{ delay: reduce ? 0 : 0.4 }}
+        className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1"
       >
+        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted/60">scroll</span>
         <m.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
