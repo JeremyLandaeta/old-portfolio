@@ -95,13 +95,14 @@ export function Navbar() {
                 <Link
                   href={linkFor(item.id)}
                   aria-current={isActive ? "true" : undefined}
-                  className={`group/nav flex items-center gap-1 rounded-full transition-all duration-300 ${
+                  className={`group/nav relative rounded-full transition-all duration-300 ${
                     isActive ? "text-accent-2" : "text-muted hover:bg-white/5 hover:text-foreground"
                   } ${scrolled ? "px-2.5 py-1 text-[13px]" : "px-3 py-1.5 text-sm"}`}
                 >
+                  {/* cursor de selección — absoluto para no sumar ancho al link */}
                   <span
                     aria-hidden
-                    className={`font-mono text-accent-2 transition-opacity duration-200 ${
+                    className={`pointer-events-none absolute right-full top-1/2 mr-0.5 -translate-y-1/2 font-mono text-accent-2 transition-opacity duration-200 ${
                       isActive ? "opacity-100" : "opacity-0 group-hover/nav:opacity-50"
                     }`}
                   >
@@ -132,7 +133,7 @@ export function Navbar() {
           <a
             href={SOCIALS.cv}
             download
-            className={`btn-shine hidden items-center gap-1.5 rounded-full bg-linear-to-r from-accent to-accent-2 font-semibold text-background transition-all duration-300 hover:scale-[1.03] sm:flex ${
+            className={`btn-shine hidden shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-linear-to-r from-accent to-accent-2 font-semibold text-background transition-all duration-300 hover:scale-[1.03] sm:flex ${
               scrolled ? "px-3 py-1 text-[13px]" : "px-4 py-2 text-sm"
             }`}
           >
