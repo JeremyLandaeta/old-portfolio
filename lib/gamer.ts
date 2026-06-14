@@ -91,6 +91,44 @@ export const GAMER_COPY: Record<Lang, GamerCopy> = {
 // Orden de zonas para el HUD (coincide con los ids de sección).
 export const ZONE_ORDER = ["inicio", "proyectos", "experiencia", "stack", "faq", "contacto"];
 
+// ── Easter egg: código Konami (↑↑↓↓←→←→ B A) ──
+export const KONAMI_SEQUENCE = [
+  "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
+  "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
+  "b", "a",
+] as const;
+
+export type KonamiCopy = {
+  unlocked: string;
+  rarity: string;
+  title: string;
+  flavor: string;
+  hint: string;
+  reward: string;
+  close: string;
+};
+
+export const KONAMI_COPY: Record<Lang, KonamiCopy> = {
+  es: {
+    unlocked: "Logro secreto desbloqueado",
+    rarity: "Mítica",
+    title: "Maestro del Konami",
+    flavor: "Pocos llegan hasta acá. Si conoces este código, hablamos el mismo idioma.",
+    hint: "↑ ↑ ↓ ↓ ← → ← → B A",
+    reward: "+1000 XP · party invitation",
+    close: "Cerrar",
+  },
+  en: {
+    unlocked: "Secret achievement unlocked",
+    rarity: "Mythic",
+    title: "Konami Master",
+    flavor: "Few make it this far. If you know this code, we speak the same language.",
+    hint: "↑ ↑ ↓ ↓ ← → ← → B A",
+    reward: "+1000 XP · party invitation",
+    close: "Close",
+  },
+};
+
 /**
  * Sprite pixel-art: casco de astronauta (explorador) con visor cian.
  * Cada char = una celda; el componente PixelAvatar lo mapea a <rect>.

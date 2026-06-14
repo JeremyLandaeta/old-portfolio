@@ -125,6 +125,18 @@ export type Content = {
     kicker: string;
     items: { title: string; description: string; status: string }[];
   };
+  github: {
+    heading: string;
+    kicker: string;
+    username: string;
+    repos: string;
+    contributions: string;
+    followers: string;
+    languages: string;
+    lastYear: string;
+    viewProfile: string;
+    error: string;
+  };
   faq: {
     heading: string;
     kicker: string;
@@ -510,6 +522,18 @@ const es: Content = {
       { title: "Side projects con IA", description: "Experimentos con OpenAI, Ollama y agentes.", status: "Explorando" },
       { title: "Automatizaciones para Greensoft", description: "Herramientas internas para optimizar procesos del equipo.", status: "Activo" },
     ],
+  },
+  github: {
+    kicker: "Actividad en vivo",
+    heading: "Lo que pasa en mi GitHub",
+    username: "JeremyLandaeta",
+    repos: "Repos públicos",
+    contributions: "Contribuciones",
+    followers: "Seguidores",
+    languages: "Lenguajes más usados",
+    lastYear: "Último año",
+    viewProfile: "Ver perfil en GitHub",
+    error: "No se pudo cargar la actividad de GitHub ahora mismo.",
   },
   faq: {
     kicker: "FAQ",
@@ -926,6 +950,18 @@ const en: Content = {
       { title: "AI side projects", description: "Experiments with OpenAI, Ollama and agents.", status: "Exploring" },
       { title: "Automation for Greensoft", description: "Internal tools to streamline the team's processes.", status: "Active" },
     ],
+  },
+  github: {
+    kicker: "Live activity",
+    heading: "What's happening on my GitHub",
+    username: "JeremyLandaeta",
+    repos: "Public repos",
+    contributions: "Contributions",
+    followers: "Followers",
+    languages: "Most used languages",
+    lastYear: "Last year",
+    viewProfile: "View GitHub profile",
+    error: "Couldn't load GitHub activity right now.",
   },
   faq: {
     kicker: "FAQ",
