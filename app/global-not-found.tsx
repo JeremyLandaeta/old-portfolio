@@ -47,12 +47,13 @@ export default function GlobalNotFound() {
 
           <h1 className="text-shimmer mt-6 font-pixel text-5xl leading-none sm:text-7xl">404</h1>
 
-          <p className="mt-6 font-pixel text-xs uppercase leading-relaxed text-muted sm:text-sm">
-            Zona no encontrada
-          </p>
+          <h2 className="mt-7 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            El sendero se perdió
+          </h2>
 
-          <p className="mt-5 max-w-md text-pretty leading-relaxed text-muted">
-            Estás fuera de los límites del mapa, vuelve a la zona jugable.
+          <p className="mt-4 max-w-md text-pretty leading-relaxed text-muted">
+            Incluso el mejor guerrero toma un camino equivocado. Lo importante es seguir
+            avanzando.
           </p>
 
           {/* <a> normal: global-not-found vive fuera del router, <Link> no navega aquí */}
@@ -61,7 +62,7 @@ export default function GlobalNotFound() {
             href="/es"
             className="btn-shine mt-9 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-6 py-3 font-semibold text-background"
           >
-            ▸ Volver al inicio
+            ▸ Retomar el camino
           </a>
         </div>
       </body>
