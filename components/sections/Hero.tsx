@@ -35,7 +35,7 @@ export function Hero() {
   return (
     <section
       id="inicio"
-      className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 pt-28 pb-16 text-center"
+      className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-4 pt-28 pb-16 text-center"
     >
       <AuroraBackground />
 
@@ -82,7 +82,7 @@ export function Hero() {
 
       {/* Nombre: 8-bit en pixel-font, revelado con decode tipo Matrix como
           "respuesta" a whoami. El nombre real va en sr-only para SEO/a11y. */}
-      <h1 className="text-shimmer font-pixel mt-4 max-w-4xl text-balance break-words text-lg uppercase leading-[1.45] sm:text-2xl md:text-3xl">
+      <h1 className="text-shimmer font-pixel mt-4 max-w-4xl text-balance wrap-break-word text-lg uppercase leading-[1.45] sm:text-2xl md:text-3xl">
         <span className="sr-only">{t.hero.name}</span>
         <span aria-hidden>
           <DecodeText
