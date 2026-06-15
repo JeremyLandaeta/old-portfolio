@@ -12,7 +12,7 @@ export function CurrentlyBuilding() {
   const { t } = useLang();
 
   return (
-    <section className="mx-auto max-w-5xl px-4 py-20 sm:py-28">
+    <section className="mx-auto max-w-5xl px-4 py-14 sm:py-28">
       <SectionHeading kicker={t.building.kicker} title={t.building.heading} />
 
       <m.div

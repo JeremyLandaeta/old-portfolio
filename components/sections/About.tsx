@@ -33,7 +33,7 @@ export function About() {
   const g = ABOUT_GAME[lang];
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
+    <section className="mx-auto max-w-6xl px-4 py-14 sm:py-28">
       <SectionHeading kicker={t.about.kicker} title={t.about.heading} />
 
       {/* Fila 1: Carta + Panel de stats — alturas igualadas (stretch) */}
@@ -46,8 +46,8 @@ export function About() {
         </Reveal>
       </div>
 
-      {/* Escena pixel-art: ronin + fogata (decorativa, full width) */}
-      <Reveal delay={0.05} className="mt-6">
+      {/* Escena pixel-art: ronin + fogata (decorativa) — oculta en mobile para aligerar */}
+      <Reveal delay={0.05} className="mt-6 hidden sm:block">
         <PixelCampfireScene />
       </Reveal>
 

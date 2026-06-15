@@ -55,7 +55,7 @@ export function Stack() {
   const { t } = useLang();
 
   return (
-    <section id="stack" className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
+    <section id="stack" className="mx-auto max-w-6xl px-4 py-14 sm:py-28">
       <SectionHeading kicker={t.stack.kicker} title={t.stack.heading} />
 
       {/* Órbita de tecnologías */}

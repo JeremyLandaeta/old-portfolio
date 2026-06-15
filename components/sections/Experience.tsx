@@ -11,7 +11,7 @@ export function Experience() {
   const { t } = useLang();
 
   return (
-    <section id="experiencia" className="mx-auto max-w-5xl px-4 py-20 sm:py-28">
+    <section id="experiencia" className="mx-auto max-w-5xl px-4 py-14 sm:py-28">
       <SectionHeading kicker={t.experience.kicker} title={t.experience.heading} />
 
       <div className="relative mt-12 pl-8 sm:pl-10">

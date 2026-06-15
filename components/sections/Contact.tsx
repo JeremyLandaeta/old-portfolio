@@ -20,7 +20,7 @@ export function Contact() {
   const { t } = useLang();
 
   return (
-    <section id="contacto" className="relative overflow-hidden px-4 py-20 sm:py-28">
+    <section id="contacto" className="relative overflow-hidden px-4 py-14 sm:py-28">
       <AuroraBackground className="opacity-50" />
       <Meteors number={16} className="-z-10" />
 

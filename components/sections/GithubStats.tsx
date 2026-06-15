@@ -152,7 +152,7 @@ export function GithubStats() {
     : [];
 
   return (
-    <section id="github" className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
+    <section id="github" className="mx-auto max-w-6xl px-4 py-14 sm:py-28">
       <SectionHeading kicker={g.kicker} title={g.heading} />
 
       <Reveal className="mt-10">

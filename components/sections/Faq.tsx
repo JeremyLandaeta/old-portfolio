@@ -13,7 +13,7 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="mx-auto max-w-3xl px-4 py-20 sm:py-28">
+    <section id="faq" className="mx-auto max-w-3xl px-4 py-14 sm:py-28">
       <SectionHeading kicker={t.faq.kicker} title={t.faq.heading} align="center" />
 
       <MenuFrame

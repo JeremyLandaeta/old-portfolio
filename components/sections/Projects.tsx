@@ -35,7 +35,7 @@ export function Projects() {
   const cover = projectMedia[featured.id]?.cover;
 
   return (
-    <section id="proyectos" className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
+    <section id="proyectos" className="mx-auto max-w-6xl px-4 py-14 sm:py-28">
       <SectionHeading kicker={t.projects.kicker} title={t.projects.heading} />
 
       <div
