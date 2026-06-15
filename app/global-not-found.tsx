@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Inter, JetBrains_Mono, Press_Start_2P } from "next/font/google";
 import "./globals.css";
 
@@ -49,12 +48,14 @@ export default function GlobalNotFound() {
             avanzando.
           </p>
 
-          <Link
+          {/* <a> normal: global-not-found vive fuera del router, así que <Link> no navega aquí */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a
             href="/es"
             className="btn-shine mt-9 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-6 py-3 font-semibold text-background"
           >
             ▸ Retomar el camino
-          </Link>
+          </a>
         </div>
       </body>
     </html>
