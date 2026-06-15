@@ -3,8 +3,16 @@ import { Inter, JetBrains_Mono, Press_Start_2P } from "next/font/google";
 import "./globals.css";
 
 // global-not-found reemplaza el layout, así que carga sus propias fuentes.
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
-const mono = JetBrains_Mono({ variable: "--font-mono", subsets: ["latin"], display: "swap" });
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+const mono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
 const pixel = Press_Start_2P({
   variable: "--font-press-start",
   weight: "400",
@@ -39,22 +47,21 @@ export default function GlobalNotFound() {
 
           <h1 className="text-shimmer mt-6 font-pixel text-5xl leading-none sm:text-7xl">404</h1>
 
-          <h2 className="mt-7 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            El sendero se perdió
-          </h2>
-
-          <p className="mt-4 max-w-md text-pretty leading-relaxed text-muted">
-            Incluso el mejor guerrero toma un camino equivocado. Lo importante es seguir
-            avanzando.
+          <p className="mt-6 font-pixel text-xs uppercase leading-relaxed text-muted sm:text-sm">
+            Zona no encontrada
           </p>
 
-          {/* <a> normal: global-not-found vive fuera del router, así que <Link> no navega aquí */}
+          <p className="mt-5 max-w-md text-pretty leading-relaxed text-muted">
+            Estás fuera de los límites del mapa, vuelve a la zona jugable.
+          </p>
+
+          {/* <a> normal: global-not-found vive fuera del router, <Link> no navega aquí */}
           {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a
             href="/es"
             className="btn-shine mt-9 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-6 py-3 font-semibold text-background"
           >
-            ▸ Retomar el camino
+            ▸ Volver al inicio
           </a>
         </div>
       </body>
