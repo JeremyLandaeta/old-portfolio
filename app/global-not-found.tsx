@@ -28,7 +28,7 @@ export default function GlobalNotFound() {
         {/* Kanji 道 ("el camino") de fondo, tenue */}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 grid select-none place-items-center font-serif text-[clamp(11rem,46vh,30rem)] leading-none text-foreground/5"
+          className="pointer-events-none absolute inset-0 grid select-none place-items-center font-serif text-[clamp(11rem,46vh,28rem)] leading-none text-foreground/10"
         >
           道
         </span>
