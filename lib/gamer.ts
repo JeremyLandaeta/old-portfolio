@@ -5,30 +5,64 @@ import type { Lang } from "@/lib/content";
  * pixel-art. Aislada de content.ts para mantener esa fuente principal limpia.
  */
 
-// Stats de habilidad (0–100). Subjetivo — ajusta a gusto.
-export type Skill = { name: string; level: number };
-export const SKILL_STATS: Skill[] = [
-  { name: "React", level: 80 },
-  { name: "Next.js", level: 75 },
-  { name: "TypeScript", level: 76 },
-  { name: "Tailwind CSS", level: 82 },
-  { name: "Node · NestJS", level: 66 },
-  { name: "IA · OpenAI", level: 70 },
-  { name: "PostgreSQL", level: 66 },
-  { name: "Git · DevOps", level: 72 },
+// Habilidades respaldadas por EVIDENCIA: cada tech apunta a los ids de proyecto
+// donde se aplicó (verificable, sin % subjetivos). Agrupadas por nivel de uso.
+export type SkillUse = { name: string; projects: string[] };
+export type SkillGroup = { key: "core" | "projects" | "exploring"; skills: SkillUse[] };
+export const SKILL_GROUPS: SkillGroup[] = [
+  {
+    key: "core",
+    skills: [
+      { name: "React", projects: ["greensoft", "pagos", "landings", "portfolio"] },
+      { name: "Next.js", projects: ["lexy", "greensoft", "pagos", "landings", "portfolio"] },
+      { name: "TypeScript", projects: ["lexy", "greensoft", "portfolio"] },
+      { name: "Tailwind CSS", projects: ["lexy", "landings", "portfolio"] },
+    ],
+  },
+  {
+    key: "projects",
+    skills: [
+      { name: "Framer Motion", projects: ["landings", "portfolio"] },
+      { name: "IA · OpenAI / Ollama", projects: ["lexy", "orbix"] },
+      { name: "PostgreSQL", projects: ["pagos"] },
+      { name: "MongoDB", projects: ["lexy"] },
+      { name: "Mercado Pago", projects: ["pagos"] },
+      { name: "Python", projects: ["orbix"] },
+    ],
+  },
+  {
+    key: "exploring",
+    skills: [
+      { name: "NestJS", projects: [] },
+      { name: "n8n", projects: [] },
+      { name: "Agentes IA", projects: [] },
+    ],
+  },
 ];
+
+// Etiquetas de cada grupo (bilingüe).
+export const SKILL_GROUP_LABELS: Record<Lang, Record<string, string>> = {
+  es: { core: "Especialidad", projects: "En proyectos", exploring: "Explorando" },
+  en: { core: "Specialty", projects: "In projects", exploring: "Exploring" },
+};
+
+// Etiqueta corta de cada proyecto para los chips de evidencia (linkean al caso).
+export const PROJECT_SHORT: Record<Lang, Record<string, string>> = {
+  es: { lexy: "Lexy", greensoft: "Greensoft", orbix: "Orbix", pagos: "tu-dominio.cl", landings: "BaoBlue", portfolio: "Portafolio" },
+  en: { lexy: "Lexy", greensoft: "Greensoft", orbix: "Orbix", pagos: "tu-dominio.cl", landings: "BaoBlue", portfolio: "Portfolio" },
+};
 
 // "Nivel" del jugador = edad actual de Jeremy (nacido 2002-12-22).
 export const PLAYER_LEVEL = 23;
 
 export type GamerCopy = {
-  statsKicker: string;
-  statsHeading: string;
+  focusHeading: string;
+  focusCaption: string;
+  flipHint: string;
+  usedIn: string;
   levelLabel: string;
   xpLabel: string;
   zoneLabel: string;
-  classLabel: string;
-  className: string;
   achievementUnlocked: string;
   // por id de sección
   zones: Record<string, string>;
@@ -37,13 +71,13 @@ export type GamerCopy = {
 
 export const GAMER_COPY: Record<Lang, GamerCopy> = {
   es: {
-    statsKicker: "Hoja de personaje",
-    statsHeading: "Stats de habilidad",
+    focusHeading: "Mapa de foco",
+    focusCaption: "Áreas de trabajo · el número son proyectos reales",
+    flipHint: "Voltea cada tecnología para ver dónde la apliqué",
+    usedIn: "Aplicado en",
     levelLabel: "Nivel",
     xpLabel: "XP",
     zoneLabel: "Zona",
-    classLabel: "Clase",
-    className: "Fullstack · IA",
     achievementUnlocked: "¡Logro desbloqueado!",
     zones: {
       inicio: "Inicio",
@@ -62,13 +96,13 @@ export const GAMER_COPY: Record<Lang, GamerCopy> = {
     },
   },
   en: {
-    statsKicker: "Character sheet",
-    statsHeading: "Skill stats",
+    focusHeading: "Focus map",
+    focusCaption: "Areas of work · the number is real projects",
+    flipHint: "Flip each tech to see where I applied it",
+    usedIn: "Used in",
     levelLabel: "Level",
     xpLabel: "XP",
     zoneLabel: "Zone",
-    classLabel: "Class",
-    className: "Fullstack · AI",
     achievementUnlocked: "Achievement unlocked!",
     zones: {
       inicio: "Home",
@@ -177,27 +211,31 @@ export const SPRITES: Record<string, { grid: string[]; palette: Record<string, s
 
 // ── Sección "Sobre mí" estilo Champion Profile (TCG + MOBA + RPG) ──
 
-// Atributos del radar (valores neutrales 0–100; las etiquetas van por idioma).
-export const RADAR: { key: string; value: number }[] = [
-  { key: "frontend", value: 80 },
-  { key: "backend", value: 64 },
-  { key: "ia", value: 70 },
-  { key: "uiux", value: 74 },
-  { key: "problem", value: 76 },
-  { key: "teamwork", value: 78 },
+// "Mapa de foco": el radar se dibuja desde EVIDENCIA, no autoevaluación.
+// Cada eje es un área de trabajo; su valor = nº de proyectos que la tocan.
+export const TOTAL_PROJECTS = 6;
+export const FOCUS_AREAS: { key: string; projects: string[] }[] = [
+  { key: "frontend", projects: ["lexy", "greensoft", "pagos", "landings", "portfolio"] },
+  { key: "backend", projects: ["greensoft", "orbix", "pagos"] },
+  { key: "ia", projects: ["lexy", "orbix"] },
+  { key: "data", projects: ["lexy", "pagos"] },
+  { key: "integrations", projects: ["lexy", "orbix", "pagos"] },
+  { key: "deploy", projects: ["lexy", "greensoft", "pagos", "landings", "portfolio"] },
 ];
+export const FOCUS_LABELS: Record<Lang, Record<string, string>> = {
+  es: { frontend: "Frontend", backend: "Backend", ia: "IA", data: "Bases de datos", integrations: "Integraciones", deploy: "Deploy" },
+  en: { frontend: "Frontend", backend: "Backend", ia: "AI", data: "Databases", integrations: "Integrations", deploy: "Deploy" },
+};
 
 export type Ability = { slot: string; icon: string; name: string; desc: string };
 
 export type AboutGame = {
   cardRole: string;
+  cardSub: string;
   rarity: string;
-  cardFlavor: string;
   traits: string[];
-  attrsLabel: string;
   abilitiesLabel: string;
   loreLabel: string;
-  attrLabels: Record<string, string>;
   abilities: Ability[];
   currentQuest: {
     title: string;
@@ -208,21 +246,12 @@ export type AboutGame = {
 
 export const ABOUT_GAME: Record<Lang, AboutGame> = {
   es: {
-    cardRole: "Roamer · Fullstack · IA",
+    cardRole: "Frontend Developer · React · Next.js · TypeScript",
+    cardSub: "Me muevo entre frontend, backend e integraciones cuando el producto lo requiere.",
     rarity: "Legendaria",
-    cardFlavor: "Se mueve por todo el mapa: del frontend al backend, donde haga falta.",
     traits: ["Builder", "Bilingüe", "Curioso", "Adaptable"],
-    attrsLabel: "Atributos",
     abilitiesLabel: "Habilidades",
     loreLabel: "Lore",
-    attrLabels: {
-      frontend: "Frontend",
-      backend: "Backend",
-      ia: "IA",
-      uiux: "UI/UX",
-      problem: "Resolución",
-      teamwork: "Equipo",
-    },
     abilities: [
       { slot: "P", icon: "compass", name: "Aprendiz eterno", desc: "Cada proyecto sube de nivel: aprende rápido y se adapta al stack." },
       { slot: "Q", icon: "layout", name: "Frontend Craft", desc: "Interfaces modernas y pulidas con React, Next.js y Tailwind." },
@@ -234,29 +263,20 @@ export const ABOUT_GAME: Record<Lang, AboutGame> = {
       title: "Current Quest",
       badge: "XP +100",
       objectives: [
-        { label: "Shippear features de punta a punta", state: "done" },
-        { label: "Integrar IA en producto real", state: "done" },
-        { label: "Dominar arquitectura escalable", state: "active" },
-        { label: "Liderar más allá del código", state: "todo" },
+        { label: "Integrar IA útil en flujos reales", state: "done" },
+        { label: "Mejorar arquitectura frontend", state: "active" },
+        { label: "Profundizar buenas prácticas de producto", state: "active" },
+        { label: "Shippear proyectos con mejor criterio técnico", state: "todo" },
       ],
     },
   },
   en: {
-    cardRole: "Roamer · Fullstack · AI",
+    cardRole: "Frontend Developer · React · Next.js · TypeScript",
+    cardSub: "I move between frontend, backend and integrations when the product needs it.",
     rarity: "Legendary",
-    cardFlavor: "Roams the whole map: from frontend to backend, wherever needed.",
     traits: ["Builder", "Bilingual", "Curious", "Adaptable"],
-    attrsLabel: "Attributes",
     abilitiesLabel: "Abilities",
     loreLabel: "Lore",
-    attrLabels: {
-      frontend: "Frontend",
-      backend: "Backend",
-      ia: "AI",
-      uiux: "UI/UX",
-      problem: "Problem-solving",
-      teamwork: "Teamwork",
-    },
     abilities: [
       { slot: "P", icon: "compass", name: "Eternal Learner", desc: "Every project levels up: learns fast and adapts to the stack." },
       { slot: "Q", icon: "layout", name: "Frontend Craft", desc: "Modern, polished interfaces with React, Next.js and Tailwind." },
@@ -268,10 +288,10 @@ export const ABOUT_GAME: Record<Lang, AboutGame> = {
       title: "Current Quest",
       badge: "XP +100",
       objectives: [
-        { label: "Ship features end-to-end", state: "done" },
-        { label: "Integrate AI into real products", state: "done" },
-        { label: "Master scalable architecture", state: "active" },
-        { label: "Lead beyond the code", state: "todo" },
+        { label: "Integrate useful AI into real flows", state: "done" },
+        { label: "Improve frontend architecture", state: "active" },
+        { label: "Go deeper on product best practices", state: "active" },
+        { label: "Ship projects with better technical judgment", state: "todo" },
       ],
     },
   },

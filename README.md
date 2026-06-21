@@ -50,10 +50,10 @@ app/
 components/
   providers/            # LanguageProvider (idioma desde la ruta)
   layout/               # Navbar flotante + Footer terminal
-  sections/             # Hero, About, Projects, Experience, Stack,
-                        #   CurrentlyBuilding, Faq, Contact, CaseStudyView, CharacterStats
-  ui/                   # Reveal, GlowCard, Marquee, AuroraBackground, RadarChart,
-                        #   ChampionCard, StatBar, PixelAvatar/PixelSprite, Hud, Achievements…
+  sections/             # Hero, Snapshot, ProjectCarousel, AboutLore, Experience,
+                        #   Stack, CurrentlyBuilding, Faq, Contact, CaseStudyView, CharacterStats
+  ui/                   # Reveal, GlowCard, AuroraBackground, RadarChart, TechFlipCard,
+                        #   ChampionCard, PixelAvatar/PixelSprite, Hud, Achievements…
 lib/
   content.ts            # contenido bilingüe, tipado
   gamer.ts              # capa gamer: stats, atributos, habilidades, sprites pixel-art

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { MapPin, Hexagon, Rocket, Leaf, Languages, Award } from "lucide-react";
-import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { PixelSprite } from "@/components/ui/PixelSprite";
 import { Counter } from "@/components/ui/Counter";
@@ -21,7 +20,7 @@ export function ChampionCard() {
     <Tilt className="group h-full transform-3d">
       {/* borde de rareza (foil dorado legendario) */}
       <div className="relative h-full rounded-2xl bg-linear-to-b from-amber-300/60 via-accent-2/40 to-accent/50 p-0.375 shadow-xl shadow-black/50">
-        <div className="relative h-full overflow-hidden rounded-[15px] bg-background-soft p-4">
+        <div className="relative flex h-full flex-col overflow-hidden rounded-[15px] bg-background-soft p-4">
           {/* foil holográfico */}
           <span className="holo-foil absolute inset-0 z-30 rounded-[15px]" />
 
@@ -42,7 +41,7 @@ export function ChampionCard() {
           </div>
 
           {/* ventana de arte */}
-          <div className="relative z-20 mt-3 aspect-square overflow-hidden rounded-xl border border-amber-300/20 bg-grid">
+          <div className="relative z-20 mt-3 aspect-4/3 overflow-hidden rounded-xl border border-amber-300/20 bg-grid">
             <Image
               src="/pixel/jeremy-pixel.png"
               alt="Jeremy Landaeta — avatar pixel-art"
@@ -80,13 +79,13 @@ export function ChampionCard() {
           {/* type line: nombre + clase */}
           <div className="relative z-20 mt-3 rounded-lg border border-border bg-white/3 px-3 py-2">
             <h3 className="text-lg font-bold leading-tight">Jeremy Landaeta</h3>
-            <p className="font-mono text-xs text-accent-2">{g.cardRole}</p>
+            <p className="font-mono text-[11px] leading-snug text-accent-2">
+              {g.cardRole}
+            </p>
+            <p className="mt-1 text-[11px] leading-snug text-muted">
+              {g.cardSub}
+            </p>
           </div>
-
-          {/* flavor / lore corto */}
-          <p className="relative z-20 mt-3 text-sm italic leading-snug text-muted">
-            “{g.cardFlavor}”
-          </p>
 
           {/* traits */}
           <div className="relative z-20 mt-3 flex flex-wrap gap-1.5">
@@ -123,37 +122,17 @@ export function ChampionCard() {
           </div>
 
           {/* footer: ubicación + acciones */}
-          <div className="relative z-20 mt-4 flex items-center justify-between gap-2 border-t border-border pt-3">
+          <div className="relative z-20 mt-auto flex items-center justify-between gap-2 border-t border-border pt-3">
             <span className="flex items-center gap-1.5 text-xs text-muted">
               <MapPin size={13} /> {t.hero.location}
             </span>
-            <div className="flex items-center gap-1.5">
-              <a
-                href={SOCIALS.github}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub"
-                className="grid h-8 w-8 place-items-center rounded-full border border-border text-muted transition-colors hover:border-accent-2 hover:text-foreground"
-              >
-                <FaGithub size={15} />
-              </a>
-              <a
-                href={SOCIALS.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LinkedIn"
-                className="grid h-8 w-8 place-items-center rounded-full border border-border text-muted transition-colors hover:border-accent-2 hover:text-foreground"
-              >
-                <FaLinkedin size={15} />
-              </a>
-              <a
-                href={SOCIALS.cv}
-                download
-                className="btn-shine flex h-8 items-center gap-1.5 rounded-full bg-linear-to-r from-accent to-accent-2 px-3.5 text-sm font-semibold text-background"
-              >
-                {t.cta.cv}
-              </a>
-            </div>
+            <a
+              href={SOCIALS.cv}
+              download
+              className="btn-shine flex h-8 items-center gap-1.5 rounded-full bg-linear-to-r from-accent to-accent-2 px-3.5 text-sm font-semibold text-background"
+            >
+              {t.cta.cv}
+            </a>
           </div>
         </div>
       </div>

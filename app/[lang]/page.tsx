@@ -5,11 +5,10 @@ import { Hud } from "@/components/ui/Hud";
 import { Achievements } from "@/components/ui/Achievements";
 import { KonamiEgg } from "@/components/ui/KonamiEgg";
 import { Hero } from "@/components/sections/Hero";
-import { About } from "@/components/sections/About";
-import { Projects } from "@/components/sections/Projects";
+import { Snapshot } from "@/components/sections/Snapshot";
 import { Experience } from "@/components/sections/Experience";
+import { AboutLore } from "@/components/sections/AboutLore";
 import { Stack } from "@/components/sections/Stack";
-import { GithubStats } from "@/components/sections/GithubStats";
 import { CurrentlyBuilding } from "@/components/sections/CurrentlyBuilding";
 import { Faq } from "@/components/sections/Faq";
 import { Contact } from "@/components/sections/Contact";
@@ -24,11 +23,10 @@ export default function Home() {
       <KonamiEgg />
       <main className="flex-1">
         <Hero />
-        <About />
-        <Projects />
+        <Snapshot />
         <Experience />
+        <AboutLore />
         <Stack />
-        <GithubStats />
         <CurrentlyBuilding />
         <Faq />
         <Contact />

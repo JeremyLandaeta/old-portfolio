@@ -24,6 +24,8 @@ export function Hero() {
   const reduce = usePrefersReducedMotion();
   // step 0-1: tipeando boot · 2: tipeando nombre · 3: contenido revelado.
   const [step, setStep] = useState(reduce ? 3 : 0);
+  // palabra más larga del stack → reserva de ancho para evitar layout shift.
+  const longestStack = t.hero.stack.reduce((a, b) => (b.length > a.length ? b : a), "");
 
   // props de revelado para lo que aparece después del boot+nombre
   const reveal = (delay: number) => ({
@@ -39,7 +41,7 @@ export function Hero() {
     >
       <AuroraBackground />
 
-      {/* Badge disponibilidad */}
+      {/* Badge de posicionamiento */}
       <m.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -93,22 +95,33 @@ export function Hero() {
         </span>
       </h1>
 
-      {/* Rol — scramble en pixel-font (8-bit) */}
+      {/* Rol — título fijo (especialidad) + scramble del stack core */}
       <m.div
         {...reveal(0)}
-        className="mt-5 flex min-h-[2.4em] items-center justify-center font-pixel text-xs leading-relaxed sm:text-sm md:text-base"
+        className="mt-5 flex min-h-[2.4em] flex-wrap items-center justify-center gap-x-2.5 gap-y-1 font-pixel text-xs leading-relaxed sm:text-sm md:text-base"
       >
-        <span className="text-muted">&lt;</span>
-        <ScrambleText words={t.hero.roles} className="text-gradient-animated mx-2 min-w-[1ch] font-semibold" />
-        <span className="text-muted">/&gt;</span>
+        <span className="text-gradient-animated font-semibold">{t.hero.title}</span>
+        <span className="inline-flex items-center whitespace-nowrap text-accent-2">
+          <span className="text-muted">&lt;</span>
+          {/* sizer invisible: reserva el ancho de la palabra más larga → sin salto */}
+          <span className="mx-1.5 inline-grid font-semibold">
+            <ScrambleText
+              words={t.hero.stack}
+              className="col-start-1 row-start-1 justify-self-center"
+            />
+            <span aria-hidden className="invisible col-start-1 row-start-1">
+              {longestStack}
+            </span>
+          </span>
+          <span className="text-muted">/&gt;</span>
+        </span>
       </m.div>
 
-      {/* Tagline (estilo comentario de código) */}
+      {/* Tagline */}
       <m.p
         {...reveal(0.08)}
         className="mt-6 max-w-2xl text-pretty font-mono text-sm text-muted sm:text-base"
       >
-        <span className="text-accent-2/70">{"// "}</span>
         {t.hero.tagline}
       </m.p>
 
