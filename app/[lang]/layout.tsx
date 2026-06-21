@@ -6,7 +6,7 @@ import { LanguageProvider } from "@/components/providers/LanguageProvider";
 import { MotionProvider } from "@/components/providers/MotionProvider";
 import { CursorGlow } from "@/components/ui/CursorGlow";
 import { GlobalParticles } from "@/components/ui/GlobalParticles";
-import type { Lang } from "@/lib/content";
+import { SOCIALS, type Lang } from "@/lib/content";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,7 +28,7 @@ const pixel = Press_Start_2P({
   display: "swap",
 });
 
-const SITE_URL = "https://jeremylandaeta.dev";
+const SITE_URL = "https://jlandaeta.dev";
 const LOCALES: Lang[] = ["es", "en"];
 
 // Solo se generan /es y /en; cualquier otro idioma devuelve 404.
@@ -108,6 +108,37 @@ export default async function LangLayout({
   const { lang } = await params;
   if (lang !== "es" && lang !== "en") notFound();
 
+  // Datos estructurados (JSON-LD): ayudan a Google/IA a entender a Jeremy como
+  // entidad (Person) y al sitio (WebSite). Validar en search.google.com/test/rich-results.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": `${SITE_URL}/#person`,
+        name: "Jeremy Landaeta Lizama",
+        alternateName: "Jeremy Landaeta",
+        url: SITE_URL,
+        image: `${SITE_URL}/pixel/jeremy-pixel.png`,
+        jobTitle: "Frontend Developer",
+        description: META[lang].description,
+        address: { "@type": "PostalAddress", addressLocality: "Santiago", addressCountry: "CL" },
+        alumniOf: { "@type": "CollegeOrUniversity", name: "Duoc UC" },
+        knowsAbout: ["React", "Next.js", "TypeScript", "Node.js", "Tailwind CSS", "AI integrations"],
+        sameAs: [SOCIALS.linkedin, SOCIALS.github],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: "Jeremy Landaeta — Portafolio",
+        inLanguage: ["es", "en"],
+        author: { "@id": `${SITE_URL}/#person` },
+        publisher: { "@id": `${SITE_URL}/#person` },
+      },
+    ],
+  };
+
   return (
     <html
       lang={lang}
@@ -115,6 +146,12 @@ export default async function LangLayout({
       className={`${inter.variable} ${mono.variable} ${pixel.variable} h-full antialiased`}
     >
       <body className="grain scanlines min-h-full flex flex-col bg-background text-foreground">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <LanguageProvider lang={lang}>
           <MotionProvider>
             <GlobalParticles />

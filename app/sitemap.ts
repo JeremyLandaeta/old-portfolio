@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { dictionaries, type Lang } from "@/lib/content";
 
-const SITE_URL = "https://jeremylandaeta.dev";
+const SITE_URL = "https://jlandaeta.dev";
 const LOCALES: Lang[] = ["es", "en"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
