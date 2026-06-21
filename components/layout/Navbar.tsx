@@ -89,7 +89,7 @@ export function Navbar() {
         </Link>
 
         {/* Links desktop */}
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-0.5 md:flex lg:gap-1">
           {t.nav.map((item) => {
             const isActive = activeId === item.id;
             return (
@@ -99,7 +99,7 @@ export function Navbar() {
                   aria-current={isActive ? "true" : undefined}
                   className={`group/nav relative rounded-full transition-all duration-300 ${
                     isActive ? "text-accent-2" : "text-muted hover:bg-white/5 hover:text-foreground"
-                  } ${scrolled ? "px-2.5 py-1 text-[13px]" : "px-3 py-1.5 text-sm"}`}
+                  } ${scrolled ? "px-2 py-1 text-[13px]" : "px-2.5 py-1.5 text-sm"}`}
                 >
                   {/* cursor de selección — absoluto para no sumar ancho al link */}
                   <span

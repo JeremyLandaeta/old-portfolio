@@ -139,6 +139,7 @@ const es: Content = {
     { id: "proyectos", label: "Proyectos" },
     { id: "experiencia", label: "Experiencia" },
     { id: "stack", label: "Stack" },
+    { id: "faq", label: "FAQ" },
     { id: "contacto", label: "Contacto" },
   ],
   cta: {
@@ -551,6 +552,7 @@ const en: Content = {
     { id: "proyectos", label: "Projects" },
     { id: "experiencia", label: "Experience" },
     { id: "stack", label: "Stack" },
+    { id: "faq", label: "FAQ" },
     { id: "contacto", label: "Contact" },
   ],
   cta: {
