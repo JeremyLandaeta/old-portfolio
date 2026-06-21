@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, m } from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
@@ -73,13 +74,14 @@ export function Navbar() {
       >
         {/* Logo */}
         <Link href={isHome ? "#inicio" : `/${lang}`} className="group flex items-center gap-2 font-mono text-sm font-semibold">
-          <span
-            className={`grid place-items-center rounded-xs bg-linear-to-br from-accent to-accent-2 font-pixel text-background transition-all duration-300 ${
-              scrolled ? "h-7 w-7 text-[8px]" : "h-9 w-9 text-[10px]"
-            }`}
-          >
-            JL
-          </span>
+          <Image
+            src="/jl-logo.png"
+            alt="Jeremy Landaeta — logo"
+            width={44}
+            height={44}
+            priority
+            className={`shrink-0 transition-all duration-300 ${scrolled ? "h-9 w-9" : "h-11 w-11"}`}
+          />
           <span className="hidden items-center text-foreground transition-colors group-hover:text-accent-2 sm:inline-flex">
             jeremy<span className="text-accent-2">.dev</span>
             <span aria-hidden className="cursor-blink ml-1 inline-block h-3.5 w-1.5 bg-accent-2" />
