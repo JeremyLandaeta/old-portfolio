@@ -4,54 +4,45 @@ import {
   MapPin,
   GraduationCap,
   Languages,
-  BadgeCheck,
+  BriefcaseBusiness,
   BookOpen,
   Swords,
 } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
-import { AgeCounter } from "@/components/ui/AgeCounter";
-import { ChampionCard } from "@/components/ui/ChampionCard";
 import { MenuFrame } from "@/components/ui/MenuFrame";
-import { CharacterStats } from "@/components/sections/CharacterStats";
 import { PixelCampfireScene } from "@/components/sections/PixelCampfireScene";
 import { CurrentQuestCard } from "@/components/sections/CurrentQuestCard";
 import { AbilityKit } from "@/components/ui/AbilityKit";
-import { BIRTH_DATE } from "@/lib/content";
 import { ABOUT_GAME } from "@/lib/gamer";
 
 const factIcon: Record<string, typeof MapPin> = {
   location: MapPin,
   education: GraduationCap,
   languages: Languages,
-  availability: BadgeCheck,
+  current: BriefcaseBusiness,
 };
 
-export function About() {
+/**
+ * Lore extendido (después de proyectos): backstory, datos, Current Quest y el
+ * kit de habilidades. La identidad visual compacta vive en Snapshot/ChampionCard,
+ * arriba, junto a la evidencia profesional.
+ */
+export function AboutLore() {
   const { t, lang } = useLang();
   const g = ABOUT_GAME[lang];
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-14 sm:py-28">
-      <SectionHeading kicker={t.about.kicker} title={t.about.heading} />
-
-      {/* Fila 1: Carta + Panel de stats — alturas igualadas (stretch) */}
-      <div className="mt-10 grid gap-6 lg:grid-cols-5 lg:items-stretch">
-        <Reveal blur direction="left" className="lg:col-span-2">
-          <ChampionCard />
-        </Reveal>
-        <Reveal className="lg:col-span-3">
-          <CharacterStats />
-        </Reveal>
-      </div>
+      <SectionHeading kicker={t.about.loreKicker} title={t.about.loreHeading} />
 
       {/* Escena pixel-art: ronin + fogata (decorativa) — oculta en mobile para aligerar */}
-      <Reveal delay={0.05} className="mt-6 hidden sm:block">
+      <Reveal delay={0.05} className="mt-10 hidden sm:block">
         <PixelCampfireScene />
       </Reveal>
 
-      {/* Fila 2: Lore + Habilidades — alturas igualadas (stretch) */}
+      {/* Lore + Habilidades — alturas igualadas (stretch) */}
       <div className="mt-6 grid gap-6 lg:grid-cols-5 lg:items-stretch">
         {/* Lore / backstory */}
         <Reveal className="lg:col-span-3">
@@ -82,22 +73,6 @@ export function About() {
                   </span>
                 );
               })}
-            </div>
-
-            <div
-              className="mt-4 inline-flex items-center gap-2 rounded-full border border-border bg-white/2 px-3 py-1.5 font-mono text-xs text-muted"
-              title={t.about.ageCaption}
-            >
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-2 opacity-75" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent-2" />
-              </span>
-              <AgeCounter
-                birth={BIRTH_DATE}
-                decimals={9}
-                className="tabular-nums text-foreground"
-              />
-              <span>{t.about.ageLabel}</span>
             </div>
 
             <CurrentQuestCard />

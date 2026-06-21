@@ -14,9 +14,15 @@ const toStr = (pts: [number, number][]) =>
 export function RadarChart({
   data,
   size = 280,
+  max = 100,
+  label,
 }: {
   data: Datum[];
   size?: number;
+  /** Escala del eje: el valor se normaliza por `max` (ej. nº total de proyectos). */
+  max?: number;
+  /** Nombre accesible del gráfico (bilingüe, con los valores). */
+  label?: string;
 }) {
   const ref = useRef<SVGSVGElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
@@ -41,7 +47,7 @@ export function RadarChart({
     data.map((_, i) => at(i, R * f)),
   );
   const valuePts = data.map((d, i) =>
-    at(i, R * (Math.max(0, Math.min(100, d.value)) / 100)),
+    at(i, R * (Math.max(0, Math.min(max, d.value)) / max)),
   );
 
   return (
@@ -52,7 +58,7 @@ export function RadarChart({
       height={size}
       className="mx-auto block h-auto w-full max-w-150"
       role="img"
-      aria-label="Radar de atributos"
+      aria-label={label ?? "Radar de atributos"}
     >
       <defs>
         <linearGradient id="radar-fill" x1="0" y1="0" x2="1" y2="1">

@@ -1,6 +1,6 @@
 "use client";
 
-import { Mail, Download, ArrowUpRight } from "lucide-react";
+import { Mail, Download } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -9,13 +9,10 @@ import { AuroraBackground } from "@/components/ui/AuroraBackground";
 import { Meteors } from "@/components/ui/Meteors";
 import { SOCIALS } from "@/lib/content";
 
-// Estatico: solo referencia imports de modulo (SOCIALS e iconos), no usa t/props/estado.
-const links = [
-  { label: "Email", value: SOCIALS.email, href: `mailto:${SOCIALS.email}`, Icon: Mail },
-  { label: "LinkedIn", value: "in/jeremy-landaeta-lizama", href: SOCIALS.linkedin, Icon: FaLinkedin, external: true },
-  { label: "GitHub", value: "JeremyLandaeta", href: SOCIALS.github, Icon: FaGithub, external: true },
-];
-
+/**
+ * Cierre único del sitio: estética terminal (status + links) + CTA.
+ * El <Footer> quedó reducido a créditos para no duplicar este bloque.
+ */
 export function Contact() {
   const { t } = useLang();
 
@@ -24,21 +21,69 @@ export function Contact() {
       <AuroraBackground className="opacity-50" />
       <Meteors number={16} className="-z-10" />
 
-      <div className="mx-auto max-w-3xl text-center">
+      <div className="mx-auto max-w-2xl text-center">
         <SectionHeading kicker={t.contact.kicker} title={t.contact.heading} align="center" />
 
         <Reveal delay={0.1}>
-          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-1.5 text-sm text-emerald-300">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            {t.contact.available}
-          </div>
+          <p className="mx-auto mt-6 max-w-xl text-pretty text-lg text-muted">
+            {t.contact.description}
+          </p>
         </Reveal>
 
+        {/* Terminal: status + links (único lugar de los links sociales abajo) */}
         <Reveal delay={0.15}>
-          <p className="mx-auto mt-6 max-w-xl text-pretty text-lg text-muted">{t.contact.description}</p>
+          <div className="mt-10 overflow-hidden rounded-xl border border-border bg-background-soft text-left font-mono text-sm shadow-2xl shadow-black/30">
+            <div className="flex items-center gap-2 border-b border-border bg-white/3 px-4 py-2.5">
+              <span className="h-3 w-3 rounded-full bg-red-500/80" />
+              <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
+              <span className="h-3 w-3 rounded-full bg-green-500/80" />
+              <span className="ml-2 text-xs text-muted">jeremy@portfolio: ~/contacto</span>
+            </div>
+
+            <div className="space-y-1.5 p-4 leading-relaxed">
+              <p>
+                <span className="text-accent-2">$</span>{" "}
+                <span className="text-muted">cat status.txt</span>
+              </p>
+              <p className="flex items-center gap-2 text-emerald-400">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                </span>
+                {t.contact.status}
+              </p>
+
+              <p className="pt-1">
+                <span className="text-accent-2">$</span>{" "}
+                <span className="text-muted">contact --links</span>
+                <span className="cursor-blink ml-1 inline-block h-4 w-2 translate-y-0.5 bg-accent-2" />
+              </p>
+              <div className="flex flex-wrap gap-4 pt-1">
+                <a
+                  href={`mailto:${SOCIALS.email}`}
+                  className="flex items-center gap-1.5 text-foreground transition-colors hover:text-accent-2"
+                >
+                  <Mail size={15} /> email
+                </a>
+                <a
+                  href={SOCIALS.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-1.5 text-foreground transition-colors hover:text-accent-2"
+                >
+                  <FaGithub size={15} /> github
+                </a>
+                <a
+                  href={SOCIALS.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-1.5 text-foreground transition-colors hover:text-accent-2"
+                >
+                  <FaLinkedin size={15} /> linkedin
+                </a>
+              </div>
+            </div>
+          </div>
         </Reveal>
 
         {/* CTA principal */}
@@ -62,26 +107,21 @@ export function Contact() {
           </div>
         </Reveal>
 
-        {/* Links */}
-        <div className="mt-10 grid gap-3 sm:grid-cols-3">
-          {links.map((link, i) => (
-            <Reveal key={link.label} delay={0.25 + i * 0.06}>
-              <a
-                href={link.href}
-                target={link.external ? "_blank" : undefined}
-                rel={link.external ? "noreferrer" : undefined}
-                className="group flex h-full flex-col items-center gap-1 rounded-2xl glass p-5 transition-colors hover:border-accent-2"
-              >
-                <link.Icon size={22} className="text-accent-2" />
-                <span className="mt-1 flex items-center gap-1 text-sm font-medium">
-                  {link.label}
-                  <ArrowUpRight size={13} className="opacity-0 transition-opacity group-hover:opacity-100" />
-                </span>
-                <span className="break-all text-xs text-muted">{link.value}</span>
-              </a>
-            </Reveal>
-          ))}
-        </div>
+        {/* Nota GitHub — confidencialidad de repos laborales */}
+        <Reveal delay={0.25}>
+          <div className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-3 rounded-xl border border-border bg-white/2 p-4 text-center sm:flex-row sm:text-left">
+            <FaGithub size={22} className="shrink-0 text-accent-2" />
+            <p className="flex-1 text-sm leading-relaxed text-muted">{t.github.note}</p>
+            <a
+              href={SOCIALS.github}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border px-3.5 py-2 text-sm font-medium text-foreground transition-colors hover:border-accent-2 hover:text-accent-2"
+            >
+              <FaGithub size={15} /> {t.github.cta}
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

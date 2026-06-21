@@ -13,13 +13,6 @@ export const SOCIALS = {
   cv: "/cv.pdf",
 } as const;
 
-/**
- * Fecha de nacimiento (ISO) para el contador de edad en vivo.
- * Ajusta a tu fecha y hora exactas para máxima precisión.
- * Ej: "2000-05-14T08:30:00"
- */
-export const BIRTH_DATE = "2002-12-22T00:00:00";
-
 export type NavItem = { id: string; label: string };
 
 export type Project = {
@@ -27,9 +20,9 @@ export type Project = {
   title: string;
   tagline: string;
   description: string;
+  /** aporte concreto resumido para la card del carrusel */
+  contribution: string;
   tags: string[];
-  /** tamaño en el bento grid */
-  span: "lg" | "md" | "sm";
   badge?: string;
   href?: string;
   accent: "blue" | "cyan" | "violet" | "emerald";
@@ -57,12 +50,6 @@ export type ExperienceItem = {
   current?: boolean;
 };
 
-export type StackCategory = {
-  key: string;
-  label: string;
-  items: string[];
-};
-
 export type CaseStudyLabels = {
   back: string;
   overview: string;
@@ -84,28 +71,27 @@ export type CaseStudyLabels = {
 
 export type Content = {
   nav: NavItem[];
-  cta: { projects: string; cv: string; contact: string; viewProject: string; caseStudy: string };
+  cta: { projects: string; cv: string; caseStudy: string; demo: string; code: string; privateRepo: string };
   caseStudyLabels: CaseStudyLabels;
   caseStudies: Record<string, CaseStudy>;
   hero: {
     badge: string;
     name: string;
-    roles: string[];
+    title: string;
+    stack: string[];
     tagline: string;
     location: string;
   };
   about: {
     heading: string;
     kicker: string;
+    loreKicker: string;
+    loreHeading: string;
     paragraphs: string[];
     highlights: { value: string; label: string }[];
     facts: { key: string; label: string }[];
-    role: string;
-    ageLabel: string;
-    ageCaption: string;
   };
   projects: {
-    heading: string;
     kicker: string;
     items: Project[];
   };
@@ -118,24 +104,16 @@ export type Content = {
   stack: {
     heading: string;
     kicker: string;
-    categories: StackCategory[];
+    tools: string[];
   };
   building: {
     heading: string;
     kicker: string;
-    items: { title: string; description: string; status: string; tags: string[]; progress: number }[];
+    items: { title: string; description: string; status: string; tags: string[] }[];
   };
   github: {
-    heading: string;
-    kicker: string;
-    username: string;
-    repos: string;
-    contributions: string;
-    followers: string;
-    languages: string;
-    lastYear: string;
-    viewProfile: string;
-    error: string;
+    note: string;
+    cta: string;
   };
   faq: {
     heading: string;
@@ -145,7 +123,7 @@ export type Content = {
   contact: {
     heading: string;
     kicker: string;
-    available: string;
+    status: string;
     description: string;
     emailLabel: string;
   };
@@ -166,9 +144,10 @@ const es: Content = {
   cta: {
     projects: "Ver proyectos",
     cv: "Descargar CV",
-    contact: "Contáctame",
-    viewProject: "Ver proyecto",
     caseStudy: "Ver caso de estudio",
+    demo: "Demo",
+    code: "Código",
+    privateRepo: "Repo privado",
   },
   caseStudyLabels: {
     back: "Volver",
@@ -342,16 +321,19 @@ const es: Content = {
     },
   },
   hero: {
-    badge: "Disponible para nuevas oportunidades",
+    badge: "Del diseño al deploy",
     name: "Jeremy Landaeta Lizama",
-    roles: ["Frontend Developer", "Fullstack Developer", "IA aplicada"],
+    title: "Frontend Developer",
+    stack: ["React", "Next.js", "TypeScript"],
     tagline:
-      "Desarrollador Frontend / Fullstack enfocado en productos web, interfaces modernas y automatizaciones con IA.",
+      "Diseño y desarrollo productos web modernos, con interfaces cuidadas, APIs e IA aplicada cuando el producto lo necesita.",
     location: "Santiago, Chile",
   },
   about: {
-    kicker: "Sobre mí",
-    heading: "Ingeniero que construye producto real",
+    kicker: "Quién soy",
+    heading: "Perfil y trabajo seleccionado",
+    loreKicker: "Fuera del código",
+    loreHeading: "El personaje detrás del teclado",
     paragraphs: [
       "Ingeniero en Informática titulado de Duoc UC, con experiencia desarrollando y desplegando soluciones en producción con React, Next.js, TypeScript y Node.js.",
       "He participado en calculadoras ambientales, chatbots con IA, integraciones CRM y pasarelas de pago. Combino una mirada técnica con orientación a negocio, mejora continua y trabajo colaborativo.",
@@ -366,15 +348,11 @@ const es: Content = {
       { key: "location", label: "Santiago, Chile" },
       { key: "education", label: "Duoc UC · Titulado 2025" },
       { key: "languages", label: "Español · Inglés (TOEIC 805)" },
-      { key: "availability", label: "Disponible · modalidad flexible" },
+      { key: "current", label: "Actualmente en Greensoft" },
     ],
-    role: "Frontend / Fullstack Developer",
-    ageLabel: "años de vida",
-    ageCaption: "en tiempo real, mientras lees esto",
   },
   projects: {
-    kicker: "Proyectos",
-    heading: "Cosas que he construido",
+    kicker: "Lo que he construido",
     items: [
       {
         id: "lexy",
@@ -382,8 +360,9 @@ const es: Content = {
         tagline: "Chatbot legal + backoffice",
         description:
           "Plataforma legal que combina un chatbot con IA y un backoffice: resuelve dudas generales y deriva los casos complejos a un abogado, que les hace seguimiento. Proyecto de título en equipo; mi foco fue el frontend del sitio público.",
+        contribution:
+          "Proyecto en equipo. Construí el frontend del sitio público y colaboré en la puesta a punto de la IA, integrando mi parte end-to-end.",
         tags: ["Next.js", "TypeScript", "MongoDB", "OpenAI", "Tailwind"],
-        span: "lg",
         badge: "Proyecto de título",
         accent: "blue",
       },
@@ -393,8 +372,9 @@ const es: Content = {
         tagline: "Plataformas ambientales en producción",
         description:
           "Dos plataformas internas de Ambientalia: EcoREP, para la trazabilidad de residuos y el cumplimiento de la Ley REP, y 0 Carbono, para medir la huella de carbono de eventos. Armé el frontend de 0 Carbono casi solo (decisiones de diseño incluidas) y sumé vistas nuevas y un gestor de archivos por período en EcoREP.",
-        tags: ["React", "Next.js", "TypeScript", "APIs", "Vercel"],
-        span: "lg",
+        contribution:
+          "Lideré y desarrollé módulos frontend (Carbono y REP) con React, Next.js, TypeScript, MUI y RTK Query; cuidé formularios, validaciones y despliegue.",
+        tags: ["React", "Next.js", "TypeScript", "MUI", "RTK Query", "APIs"],
         badge: "En producción",
         accent: "cyan",
       },
@@ -404,8 +384,10 @@ const es: Content = {
         tagline: "Un agente que orbita los productos",
         description:
           "Agente interno que “orbita” los productos de Ambientalia (leyrep.cl, ambientalia.cl): responde WhatsApps con IA (LaravelAI) y automatiza comunicaciones — un cron en Python scrapea noticias y un modelo local (Ollama) arma los borradores en Bitrix24. Lo planeé y construí solo.",
-        tags: ["Python", "Laravel", "Ollama", "Bitrix24"],
-        span: "md",
+        contribution:
+          "Diseñé y construí el flujo completo del agente, integrando WhatsApp, Bitrix24, Python, Laravel AI y Ollama.",
+        tags: ["Python", "Laravel AI", "Ollama", "Bitrix24"],
+        badge: "En uso interno",
         accent: "violet",
       },
       {
@@ -414,8 +396,9 @@ const es: Content = {
         tagline: "E-commerce de dominios + pagos",
         description:
           "Web para vender dominios, construida solo de punta a punta: catálogo con estados por dominio (pendiente → vendido), Mercado Pago en modo de prueba y Supabase/Postgres. Funcional, pero sin desplegar por documentos pendientes del cliente.",
+        contribution:
+          "Lo construí solo de punta a punta: frontend, backend y base de datos. Integré Mercado Pago y modelé los datos en Supabase.",
         tags: ["Next.js", "Supabase", "Mercado Pago"],
-        span: "sm",
         badge: "Prototipo funcional",
         accent: "blue",
       },
@@ -425,8 +408,9 @@ const es: Content = {
         tagline: "Landing pages a medida",
         description:
           "Dos landings freelance diseñadas y desarrolladas solo, ajustando el tono a cada negocio. BaoBlue (aros de arcilla) está en vivo, con animaciones vibrantes pero armoniosas; Anrra (madera) quedó a la espera del contenido del cliente. El CTA lleva directo al WhatsApp de ventas.",
+        contribution:
+          "Diseñé y desarrollé ambas solo, con animaciones (Framer Motion) y el CTA directo al WhatsApp de ventas.",
         tags: ["React", "Next.js", "Tailwind", "Framer Motion"],
-        span: "sm",
         badge: "En vivo",
         accent: "cyan",
       },
@@ -436,19 +420,20 @@ const es: Content = {
         tagline: "Next.js 16 + capa gamer",
         description:
           "El sitio que estás viendo. Lo diseñé y construí solo con Next.js 16 y React 19: i18n es/en por URL, animaciones con Framer Motion y una capa “gamer” (RPG/MOBA/TCG) con escena pixel-art, stats de personaje y cards estilo campeón. Sin plantillas.",
+        contribution:
+          "Diseño y desarrollo completos, sin plantillas, con Next.js 16 y React 19.",
         tags: ["Next.js 16", "React 19", "Framer Motion", "Tailwind"],
-        span: "md",
         badge: "Hecho a mano",
         accent: "emerald",
       },
     ],
   },
   experience: {
-    kicker: "Trayectoria",
+    kicker: "El camino",
     heading: "Experiencia profesional",
     items: [
       {
-        role: "Desarrollador de Software / Front-End Developer",
+        role: "Frontend Developer / Software Developer",
         company: "Vínculo Verde / Greensoft",
         period: "Jun 2025 — Actualidad",
         location: "Santiago, Chile",
@@ -503,45 +488,30 @@ const es: Content = {
     },
   },
   stack: {
-    kicker: "Herramientas",
+    kicker: "Caja de herramientas",
     heading: "Stack técnico",
-    categories: [
-      { key: "frontend", label: "Frontend", items: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Material UI", "Ant Design"] },
-      { key: "backend", label: "Backend & APIs", items: ["Node.js", "Express", "NestJS", "Prisma", "PHP", "REST APIs"] },
-      { key: "db", label: "Bases de datos", items: ["PostgreSQL", "MySQL", "SQL Server", "MongoDB"] },
-      { key: "ia", label: "IA & Automatización", items: ["OpenAI API", "Ollama", "Claude", "Chatbots", "Automatización"] },
-      { key: "tools", label: "Herramientas", items: ["Git", "GitHub", "Vercel", "Docker", "Postman", "Power BI", "Bitrix24"] },
-    ],
+    tools: ["Material UI", "Ant Design", "Express", "Prisma", "PHP", "REST APIs", "SQL Server", "Claude", "GitHub", "Postman", "Power BI", "Bitrix24"],
   },
   building: {
-    kicker: "En construcción",
-    heading: "Lo que estoy construyendo ahora",
+    kicker: "Ahora mismo",
+    heading: "Lo que tengo entre manos",
     items: [
-      { title: "Newsletter automatizado con IA", description: "Generación y publicación de contenido con IA local y automatización de flujos.", status: "Explorando", tags: ["IA local", "Ollama", "n8n", "RSS"], progress: 15 },
-      { title: "Este portafolio", description: "Sitio personal con Next.js, animaciones y diseño propio.", status: "Iterando", tags: ["Next.js", "Framer Motion", "Tailwind"], progress: 90 },
-      { title: "Side projects con IA", description: "Experimentos con OpenAI, Ollama y agentes.", status: "Explorando", tags: ["OpenAI", "Ollama", "Agentes"], progress: 30 },
-      { title: "Automatizaciones para Greensoft", description: "Herramientas internas para optimizar procesos del equipo.", status: "Activo", tags: ["Bitrix24", "APIs", "Scripts"], progress: 70 },
+      { title: "Automatizaciones para Greensoft", description: "Herramientas internas para optimizar procesos del equipo, con Bitrix24, APIs y scripts.", status: "Activo", tags: ["Bitrix24", "APIs", "Scripts"] },
+      { title: "Exploraciones con IA local", description: "Experimentos con modelos locales (Ollama) y agentes aplicados a flujos reales.", status: "Explorando", tags: ["Ollama", "Agentes", "IA local"] },
+      { title: "Newsletter automatizado con IA", description: "Generación y publicación de contenido con IA local y automatización de flujos.", status: "Explorando", tags: ["IA local", "n8n", "RSS"] },
     ],
   },
   github: {
-    kicker: "Actividad en vivo",
-    heading: "Lo que pasa en mi GitHub",
-    username: "JeremyLandaeta",
-    repos: "Repos públicos",
-    contributions: "Contribuciones",
-    followers: "Seguidores",
-    languages: "Lenguajes más usados",
-    lastYear: "Último año",
-    viewProfile: "Ver perfil en GitHub",
-    error: "No se pudo cargar la actividad de GitHub ahora mismo.",
+    note: "Trabajo principalmente con TypeScript, React y Next.js. Algunos proyectos laborales no tienen repositorio público por confidencialidad.",
+    cta: "Ver GitHub",
   },
   faq: {
-    kicker: "FAQ",
-    heading: "Preguntas frecuentes",
+    kicker: "Lo que me preguntan",
+    heading: "Respuestas rápidas",
     items: [
       {
-        q: "¿Estás disponible para nuevas oportunidades?",
-        a: "Sí, estoy abierto a roles frontend, fullstack e IA aplicada. Soy flexible con la modalidad: remoto, híbrido o presencial.",
+        q: "¿En qué estás trabajando actualmente?",
+        a: "Trabajo como desarrollador de software en Greensoft, construyendo productos ambientales, automatizaciones e integraciones con IA. Además, mantengo proyectos personales donde exploro nuevas ideas y tecnologías.",
       },
       {
         q: "¿Cuál es tu stack principal?",
@@ -559,22 +529,14 @@ const es: Content = {
         q: "¿Cómo trabajas?",
         a: "Con metodologías ágiles (Scrum), foco en producto real, mejora continua y mucho trabajo en equipo.",
       },
-      {
-        q: "¿Tu combustible para programar? ⚡",
-        a: "Una buena bebida energética al lado y modo concentración activado.",
-      },
-      {
-        q: "¿Qué haces fuera de programar?",
-        a: "Gaming, gym y series. También soy fan de la lucha libre y de jugar TCG como Mitos y Leyendas. 🃏",
-      },
     ],
   },
   contact: {
-    kicker: "Contacto",
-    heading: "Construyamos algo juntos",
-    available: "Disponible para oportunidades frontend / fullstack / IA aplicada",
+    kicker: "Hablemos",
+    heading: "¿Trabajamos juntos?",
+    status: "Siempre abierto a una buena conversación",
     description:
-      "¿Tienes un proyecto o una oportunidad? Escríbeme y conversemos. Respondo rápido.",
+      "Estoy abierto a oportunidades Frontend, proyectos web e iniciativas donde pueda aportar con React, Next.js, TypeScript e IA aplicada.",
     emailLabel: "Escríbeme",
   },
   footer: {
@@ -594,9 +556,10 @@ const en: Content = {
   cta: {
     projects: "View projects",
     cv: "Download CV",
-    contact: "Get in touch",
-    viewProject: "View project",
     caseStudy: "View case study",
+    demo: "Demo",
+    code: "Code",
+    privateRepo: "Private repo",
   },
   caseStudyLabels: {
     back: "Back",
@@ -770,16 +733,19 @@ const en: Content = {
     },
   },
   hero: {
-    badge: "Available for new opportunities",
+    badge: "From design to deploy",
     name: "Jeremy Landaeta Lizama",
-    roles: ["Frontend Developer", "Fullstack Developer", "Applied AI"],
+    title: "Frontend Developer",
+    stack: ["React", "Next.js", "TypeScript"],
     tagline:
-      "Frontend / Fullstack developer focused on web products, modern interfaces and AI-powered automation.",
+      "I design and build modern web products with polished interfaces, APIs and applied AI when the product needs it.",
     location: "Santiago, Chile",
   },
   about: {
-    kicker: "About me",
-    heading: "An engineer who ships real products",
+    kicker: "Who I am",
+    heading: "Profile & selected work",
+    loreKicker: "Outside the code",
+    loreHeading: "The character behind the keyboard",
     paragraphs: [
       "Computer Engineer graduated from Duoc UC, with experience building and deploying production solutions with React, Next.js, TypeScript and Node.js.",
       "I've worked on environmental calculators, AI chatbots, CRM integrations and payment gateways. I pair a technical mindset with business focus, continuous improvement and teamwork.",
@@ -794,15 +760,11 @@ const en: Content = {
       { key: "location", label: "Santiago, Chile" },
       { key: "education", label: "Duoc UC · Graduated 2025" },
       { key: "languages", label: "Spanish · English (TOEIC 805)" },
-      { key: "availability", label: "Available · flexible setup" },
+      { key: "current", label: "Currently at Greensoft" },
     ],
-    role: "Frontend / Fullstack Developer",
-    ageLabel: "years alive",
-    ageCaption: "in real time, while you read this",
   },
   projects: {
-    kicker: "Projects",
-    heading: "Things I've built",
+    kicker: "What I've built",
     items: [
       {
         id: "lexy",
@@ -810,8 +772,9 @@ const en: Content = {
         tagline: "Legal chatbot + back office",
         description:
           "A legal platform pairing an AI chatbot with a back office: it answers general questions and routes complex cases to a lawyer who follows up. Team capstone project; my focus was the frontend of the public site.",
+        contribution:
+          "Team project. Built the frontend of the public site and helped tune the AI, integrating my part end-to-end.",
         tags: ["Next.js", "TypeScript", "MongoDB", "OpenAI", "Tailwind"],
-        span: "lg",
         badge: "Capstone project",
         accent: "blue",
       },
@@ -821,8 +784,9 @@ const en: Content = {
         tagline: "Environmental platforms in production",
         description:
           "Two internal platforms for Ambientalia: EcoREP, for waste traceability and EPR-law compliance, and 0 Carbono, to measure the carbon footprint of events. I built the 0 Carbono frontend almost solo (design decisions included) and added new views plus a per-period file manager to EcoREP.",
-        tags: ["React", "Next.js", "TypeScript", "APIs", "Vercel"],
-        span: "lg",
+        contribution:
+          "Led and built frontend modules (Carbon and EPR) with React, Next.js, TypeScript, MUI and RTK Query; handled forms, validation and deployment.",
+        tags: ["React", "Next.js", "TypeScript", "MUI", "RTK Query", "APIs"],
         badge: "In production",
         accent: "cyan",
       },
@@ -832,8 +796,10 @@ const en: Content = {
         tagline: "An agent that orbits the products",
         description:
           "An internal agent that “orbits” Ambientalia's products (leyrep.cl, ambientalia.cl): it answers WhatsApps with AI (LaravelAI) and automates communications — a Python cron scrapes news and a local model (Ollama) builds the drafts in Bitrix24. I planned and built it solo.",
-        tags: ["Python", "Laravel", "Ollama", "Bitrix24"],
-        span: "md",
+        contribution:
+          "Designed and built the whole agent flow, integrating WhatsApp, Bitrix24, Python, Laravel AI and Ollama.",
+        tags: ["Python", "Laravel AI", "Ollama", "Bitrix24"],
+        badge: "Internal use",
         accent: "violet",
       },
       {
@@ -842,8 +808,9 @@ const en: Content = {
         tagline: "Domain e-commerce + payments",
         description:
           "A site to sell domains, built solo end to end: a catalog with per-domain states (pending → sold), Mercado Pago in test mode and Supabase/Postgres. Functional, but never deployed because the client's documents never arrived.",
+        contribution:
+          "Built it solo end to end: frontend, backend and database. Integrated Mercado Pago and modeled the data in Supabase.",
         tags: ["Next.js", "Supabase", "Mercado Pago"],
-        span: "sm",
         badge: "Functional prototype",
         accent: "blue",
       },
@@ -853,8 +820,9 @@ const en: Content = {
         tagline: "Custom landing pages",
         description:
           "Two freelance landings designed and built solo, tuning the tone to each business. BaoBlue (clay earrings) is live, with vibrant yet harmonious animations; Anrra (woodwork) is waiting on the client's content. The CTA goes straight to the sales WhatsApp.",
+        contribution:
+          "Designed and built both solo, with animations (Framer Motion) and the CTA straight to the sales WhatsApp.",
         tags: ["React", "Next.js", "Tailwind", "Framer Motion"],
-        span: "sm",
         badge: "Live",
         accent: "cyan",
       },
@@ -864,19 +832,20 @@ const en: Content = {
         tagline: "Next.js 16 + a gamer layer",
         description:
           "The site you're looking at. I designed and built it solo with Next.js 16 and React 19: URL-based es/en i18n, Framer Motion animations and a “gamer” layer (RPG/MOBA/TCG) with a pixel-art scene, character stats and champion-style cards. No templates.",
+        contribution:
+          "Full design and development, no templates, with Next.js 16 and React 19.",
         tags: ["Next.js 16", "React 19", "Framer Motion", "Tailwind"],
-        span: "md",
         badge: "Handcrafted",
         accent: "emerald",
       },
     ],
   },
   experience: {
-    kicker: "Journey",
+    kicker: "The path",
     heading: "Professional experience",
     items: [
       {
-        role: "Software Developer / Front-End Developer",
+        role: "Frontend Developer / Software Developer",
         company: "Vínculo Verde / Greensoft",
         period: "Jun 2025 — Present",
         location: "Santiago, Chile",
@@ -931,45 +900,30 @@ const en: Content = {
     },
   },
   stack: {
-    kicker: "Tooling",
+    kicker: "My toolbox",
     heading: "Tech stack",
-    categories: [
-      { key: "frontend", label: "Frontend", items: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Material UI", "Ant Design"] },
-      { key: "backend", label: "Backend & APIs", items: ["Node.js", "Express", "NestJS", "Prisma", "PHP", "REST APIs"] },
-      { key: "db", label: "Databases", items: ["PostgreSQL", "MySQL", "SQL Server", "MongoDB"] },
-      { key: "ia", label: "AI & Automation", items: ["OpenAI API", "Ollama", "Claude", "Chatbots", "Automation"] },
-      { key: "tools", label: "Tools", items: ["Git", "GitHub", "Vercel", "Docker", "Postman", "Power BI", "Bitrix24"] },
-    ],
+    tools: ["Material UI", "Ant Design", "Express", "Prisma", "PHP", "REST APIs", "SQL Server", "Claude", "GitHub", "Postman", "Power BI", "Bitrix24"],
   },
   building: {
-    kicker: "Currently building",
-    heading: "What I'm building right now",
+    kicker: "Right now",
+    heading: "What I've got in the works",
     items: [
-      { title: "AI-powered newsletter", description: "Content generation and publishing with local AI and workflow automation.", status: "Exploring", tags: ["Local AI", "Ollama", "n8n", "RSS"], progress: 15 },
-      { title: "This portfolio", description: "Personal site built with Next.js, animations and a custom design.", status: "Iterating", tags: ["Next.js", "Framer Motion", "Tailwind"], progress: 90 },
-      { title: "AI side projects", description: "Experiments with OpenAI, Ollama and agents.", status: "Exploring", tags: ["OpenAI", "Ollama", "Agents"], progress: 30 },
-      { title: "Automation for Greensoft", description: "Internal tools to streamline the team's processes.", status: "Active", tags: ["Bitrix24", "APIs", "Scripts"], progress: 70 },
+      { title: "Automation for Greensoft", description: "Internal tools to streamline the team's processes, with Bitrix24, APIs and scripts.", status: "Active", tags: ["Bitrix24", "APIs", "Scripts"] },
+      { title: "Local-AI explorations", description: "Experiments with local models (Ollama) and agents applied to real flows.", status: "Exploring", tags: ["Ollama", "Agents", "Local AI"] },
+      { title: "AI-powered newsletter", description: "Content generation and publishing with local AI and workflow automation.", status: "Exploring", tags: ["Local AI", "n8n", "RSS"] },
     ],
   },
   github: {
-    kicker: "Live activity",
-    heading: "What's happening on my GitHub",
-    username: "JeremyLandaeta",
-    repos: "Public repos",
-    contributions: "Contributions",
-    followers: "Followers",
-    languages: "Most used languages",
-    lastYear: "Last year",
-    viewProfile: "View GitHub profile",
-    error: "Couldn't load GitHub activity right now.",
+    note: "I work mainly with TypeScript, React and Next.js. Some work projects don't have a public repository for confidentiality.",
+    cta: "View GitHub",
   },
   faq: {
-    kicker: "FAQ",
-    heading: "Frequently asked questions",
+    kicker: "What people ask me",
+    heading: "Quick answers",
     items: [
       {
-        q: "Are you available for new opportunities?",
-        a: "Yes — I'm open to frontend, fullstack and applied-AI roles. I'm flexible on the setup: remote, hybrid or on-site.",
+        q: "What are you working on right now?",
+        a: "I work as a software developer at Greensoft, building environmental products, automation and AI integrations. I also maintain personal projects where I explore new ideas and technologies.",
       },
       {
         q: "What's your main stack?",
@@ -987,22 +941,14 @@ const en: Content = {
         q: "How do you work?",
         a: "Agile methodologies (Scrum), focus on real products, continuous improvement and lots of teamwork.",
       },
-      {
-        q: "Your fuel for coding? ⚡",
-        a: "A good energy drink by my side and focus mode on.",
-      },
-      {
-        q: "What do you do outside coding?",
-        a: "Gaming, the gym and series. I'm also into lucha libre (pro wrestling) and playing TCGs like Mitos y Leyendas. 🃏",
-      },
     ],
   },
   contact: {
-    kicker: "Contact",
-    heading: "Let's build something together",
-    available: "Available for frontend / fullstack / applied-AI opportunities",
+    kicker: "Let's talk",
+    heading: "Let's work together?",
+    status: "Always open to a good conversation",
     description:
-      "Got a project or an opportunity? Drop me a line and let's talk. I reply fast.",
+      "I'm open to frontend opportunities, web projects and initiatives where I can contribute with React, Next.js, TypeScript and applied AI.",
     emailLabel: "Email me",
   },
   footer: {

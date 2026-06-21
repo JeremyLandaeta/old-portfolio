@@ -1,110 +1,53 @@
 "use client";
 
-import type { IconType } from "react-icons";
-import {
-  SiReact, SiNextdotjs, SiTypescript, SiJavascript, SiTailwindcss, SiNodedotjs,
-  SiPhp, SiMysql, SiPostgresql, SiMongodb, SiDocker, SiGit, SiGithub, SiVercel,
-  SiPostman, SiPrisma, SiNestjs, SiExpress, SiOpenai, SiMui, SiAntdesign, SiOllama,
-} from "react-icons/si";
-import { Layers, Server, Database, Brain, Wrench } from "lucide-react";
+import { Wrench } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
-import { Marquee } from "@/components/ui/Marquee";
 import { TechOrbit } from "@/components/ui/TechOrbit";
 import { MenuFrame } from "@/components/ui/MenuFrame";
-
-const categoryIcon: Record<string, typeof Layers> = {
-  frontend: Layers,
-  backend: Server,
-  db: Database,
-  ia: Brain,
-  tools: Wrench,
-};
-
-/** Acentos rotando para que cada categoría tenga su propio skin. */
-const FRAME_ACCENTS = ["cyan", "blue", "amber", "emerald"] as const;
-
-/** Logos para el marquee */
-const marqueeTech: { name: string; Icon: IconType }[] = [
-  { name: "React", Icon: SiReact },
-  { name: "Next.js", Icon: SiNextdotjs },
-  { name: "TypeScript", Icon: SiTypescript },
-  { name: "JavaScript", Icon: SiJavascript },
-  { name: "Tailwind", Icon: SiTailwindcss },
-  { name: "Material UI", Icon: SiMui },
-  { name: "Ant Design", Icon: SiAntdesign },
-  { name: "Node.js", Icon: SiNodedotjs },
-  { name: "Express", Icon: SiExpress },
-  { name: "NestJS", Icon: SiNestjs },
-  { name: "Prisma", Icon: SiPrisma },
-  { name: "PHP", Icon: SiPhp },
-  { name: "PostgreSQL", Icon: SiPostgresql },
-  { name: "MySQL", Icon: SiMysql },
-  { name: "MongoDB", Icon: SiMongodb },
-  { name: "OpenAI", Icon: SiOpenai },
-  { name: "Ollama", Icon: SiOllama },
-  { name: "Docker", Icon: SiDocker },
-  { name: "Git", Icon: SiGit },
-  { name: "GitHub", Icon: SiGithub },
-  { name: "Vercel", Icon: SiVercel },
-  { name: "Postman", Icon: SiPostman },
-];
+import { CharacterStats } from "@/components/sections/CharacterStats";
 
 export function Stack() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
 
   return (
     <section id="stack" className="mx-auto max-w-6xl px-4 py-14 sm:py-28">
       <SectionHeading kicker={t.stack.kicker} title={t.stack.heading} />
 
-      {/* Órbita de tecnologías */}
+      {/* Órbita de tecnologías (visual) */}
       <Reveal className="mt-10">
         <TechOrbit />
       </Reveal>
 
-      {/* Categorías */}
-      <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {t.stack.categories.map((cat, i) => {
-          const Icon = categoryIcon[cat.key] ?? Layers;
-          return (
-            <Reveal key={cat.key} delay={i * 0.06}>
-              <MenuFrame
-                title={cat.label}
-                icon={Icon}
-                accent={FRAME_ACCENTS[i % FRAME_ACCENTS.length]}
-                className="h-full px-5 pb-5 pt-7"
-              >
-                <div className="flex flex-wrap gap-2">
-                  {cat.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-lg border border-border bg-white/3 px-2.5 py-1 text-sm text-muted transition-colors hover:border-accent-2 hover:text-foreground"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </MenuFrame>
-            </Reveal>
-          );
-        })}
-      </div>
+      {/* Habilidades con EVIDENCIA (core / proyectos / explorando) + radar de foco.
+          Es la jerarquía técnica principal: cada tech enlaza a sus proyectos. */}
+      <Reveal className="mt-12">
+        <CharacterStats />
+      </Reveal>
 
-      {/* Marquee de logos */}
-      <div className="mt-12 space-y-4">
-        <Marquee duration={36}>
-          {marqueeTech.map(({ name, Icon }) => (
-            <div
-              key={name}
-              className="flex items-center gap-2.5 rounded-xl border border-border bg-white/2 px-4 py-3 text-muted transition-colors hover:text-foreground"
-            >
-              <Icon size={22} />
-              <span className="font-mono text-sm">{name}</span>
-            </div>
-          ))}
-        </Marquee>
-      </div>
+      {/* Resto del toolbox — peso visual menor para no competir con el core
+          ni repetir lo que ya muestran la órbita y las flip-cards. */}
+      <Reveal className="mt-6">
+        <MenuFrame
+          title={lang === "en" ? "TOOLBOX" : "HERRAMIENTAS"}
+          icon={Wrench}
+          accent="amber"
+          stamp="ENV"
+          className="px-5 pb-5 pt-7"
+        >
+          <div className="flex flex-wrap gap-2">
+            {t.stack.tools.map((tool) => (
+              <span
+                key={tool}
+                className="rounded-lg border border-border bg-white/2 px-2.5 py-1 font-mono text-xs text-muted/80 transition-colors hover:border-accent-2 hover:text-foreground"
+              >
+                {tool}
+              </span>
+            ))}
+          </div>
+        </MenuFrame>
+      </Reveal>
     </section>
   );
 }

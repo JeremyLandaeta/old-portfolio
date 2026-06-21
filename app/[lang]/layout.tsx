@@ -40,14 +40,14 @@ export const dynamicParams = false;
 
 const META: Record<Lang, { title: string; description: string; ogLocale: string; ogDesc: string }> = {
   es: {
-    title: "Jeremy Landaeta — Frontend / Fullstack Developer",
+    title: "Jeremy Landaeta — Frontend Developer",
     description:
       "Portafolio de Jeremy Landaeta Lizama, Ingeniero en Informática. Desarrollo frontend/fullstack con React, Next.js y TypeScript, e integraciones con IA.",
     ogLocale: "es_CL",
     ogDesc: "Productos web, interfaces modernas y automatizaciones con IA. React · Next.js · TypeScript.",
   },
   en: {
-    title: "Jeremy Landaeta — Frontend / Fullstack Developer",
+    title: "Jeremy Landaeta — Frontend Developer",
     description:
       "Portfolio of Jeremy Landaeta Lizama, Computer Engineer. Frontend/fullstack development with React, Next.js and TypeScript, plus AI integrations.",
     ogLocale: "en_US",
