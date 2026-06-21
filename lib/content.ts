@@ -332,7 +332,7 @@ const es: Content = {
   },
   about: {
     kicker: "Quién soy",
-    heading: "Perfil y trabajo seleccionado",
+    heading: "Perfil y proyectos destacados",
     loreKicker: "Fuera del código",
     loreHeading: "El personaje detrás del teclado",
     paragraphs: [
@@ -541,8 +541,8 @@ const es: Content = {
     emailLabel: "Escríbeme",
   },
   footer: {
-    built: "Construido con Next.js, TypeScript y Tailwind",
-    rights: "Hecho en Santiago, Chile",
+    built: "Stack: Next.js · TypeScript · Tailwind",
+    rights: "Forjado en Santiago, Chile",
   },
 };
 
@@ -745,7 +745,7 @@ const en: Content = {
   },
   about: {
     kicker: "Who I am",
-    heading: "Profile & selected work",
+    heading: "Profile & featured projects",
     loreKicker: "Outside the code",
     loreHeading: "The character behind the keyboard",
     paragraphs: [
@@ -954,8 +954,8 @@ const en: Content = {
     emailLabel: "Email me",
   },
   footer: {
-    built: "Built with Next.js, TypeScript and Tailwind",
-    rights: "Made in Santiago, Chile",
+    built: "Stack: Next.js · TypeScript · Tailwind",
+    rights: "Forged in Santiago, Chile",
   },
 };
 
