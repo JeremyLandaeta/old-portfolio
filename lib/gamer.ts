@@ -233,7 +233,6 @@ export type AboutGame = {
   cardRole: string;
   cardSub: string;
   rarity: string;
-  cardFlavor: string;
   traits: string[];
   abilitiesLabel: string;
   loreLabel: string;
@@ -250,7 +249,6 @@ export const ABOUT_GAME: Record<Lang, AboutGame> = {
     cardRole: "Frontend Developer · React · Next.js · TypeScript",
     cardSub: "Me muevo entre frontend, backend e integraciones cuando el producto lo requiere.",
     rarity: "Legendaria",
-    cardFlavor: "Del diseño al deploy: convierte ideas en interfaces que funcionan.",
     traits: ["Builder", "Bilingüe", "Curioso", "Adaptable"],
     abilitiesLabel: "Habilidades",
     loreLabel: "Lore",
@@ -276,7 +274,6 @@ export const ABOUT_GAME: Record<Lang, AboutGame> = {
     cardRole: "Frontend Developer · React · Next.js · TypeScript",
     cardSub: "I move between frontend, backend and integrations when the product needs it.",
     rarity: "Legendary",
-    cardFlavor: "From design to deploy: turning ideas into interfaces that work.",
     traits: ["Builder", "Bilingual", "Curious", "Adaptable"],
     abilitiesLabel: "Abilities",
     loreLabel: "Lore",

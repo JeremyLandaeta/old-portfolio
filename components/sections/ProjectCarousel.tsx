@@ -73,7 +73,7 @@ export function ProjectCarousel() {
 
   return (
     <div
-      className="relative"
+      className="relative flex h-full flex-col"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onFocusCapture={() => setFocus(true)}
@@ -105,7 +105,7 @@ export function ProjectCarousel() {
       </div>
 
       {/* Pista scroll-snap */}
-      <ul ref={trackRef} className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
+      <ul ref={trackRef} className="no-scrollbar flex min-h-0 flex-1 snap-x snap-mandatory gap-4 overflow-x-auto pt-3 pb-2">
         {items.map((p) => {
           const accent = accentMap[p.accent];
           const cover = projectMedia[p.id]?.cover;

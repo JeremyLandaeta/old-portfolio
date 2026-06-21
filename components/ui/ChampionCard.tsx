@@ -41,7 +41,7 @@ export function ChampionCard() {
           </div>
 
           {/* ventana de arte */}
-          <div className="relative z-20 mt-3 aspect-square overflow-hidden rounded-xl border border-amber-300/20 bg-grid">
+          <div className="relative z-20 mt-3 aspect-4/3 overflow-hidden rounded-xl border border-amber-300/20 bg-grid">
             <Image
               src="/pixel/jeremy-pixel.png"
               alt="Jeremy Landaeta — avatar pixel-art"
@@ -79,14 +79,13 @@ export function ChampionCard() {
           {/* type line: nombre + clase */}
           <div className="relative z-20 mt-3 rounded-lg border border-border bg-white/3 px-3 py-2">
             <h3 className="text-lg font-bold leading-tight">Jeremy Landaeta</h3>
-            <p className="font-mono text-[11px] leading-snug text-accent-2">{g.cardRole}</p>
-            <p className="mt-1 text-[11px] leading-snug text-muted">{g.cardSub}</p>
+            <p className="font-mono text-[11px] leading-snug text-accent-2">
+              {g.cardRole}
+            </p>
+            <p className="mt-1 text-[11px] leading-snug text-muted">
+              {g.cardSub}
+            </p>
           </div>
-
-          {/* flavor / lore corto */}
-          <p className="relative z-20 mt-3 text-sm italic leading-snug text-muted">
-            “{g.cardFlavor}”
-          </p>
 
           {/* traits */}
           <div className="relative z-20 mt-3 flex flex-wrap gap-1.5">
