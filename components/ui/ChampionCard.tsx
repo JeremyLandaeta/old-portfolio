@@ -41,7 +41,7 @@ export function ChampionCard() {
           </div>
 
           {/* ventana de arte */}
-          <div className="relative z-20 mt-3 aspect-4/3 overflow-hidden rounded-xl border border-amber-300/20 bg-grid">
+          <div className="relative z-20 mt-3 aspect-square overflow-hidden rounded-xl border border-amber-300/20 bg-grid">
             <Image
               src="/pixel/jeremy-pixel.png"
               alt="Jeremy Landaeta — avatar pixel-art"
