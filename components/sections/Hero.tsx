@@ -5,7 +5,7 @@ import { AnimatePresence, m } from "framer-motion";
 import { ArrowDown, Download, MapPin } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { useLang } from "@/components/providers/LanguageProvider";
-import { SOCIALS } from "@/lib/content";
+import { SOCIALS, cvFile } from "@/lib/content";
 import { AuroraBackground } from "@/components/ui/AuroraBackground";
 import { ScrambleText } from "@/components/ui/ScrambleText";
 import { Magnetic } from "@/components/ui/Magnetic";
@@ -20,7 +20,7 @@ const easing = [0.22, 1, 0.36, 1] as const;
 const BOOT = ["> booting jeremy.dev ...... OK", "> whoami"] as const;
 
 export function Hero() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const reduce = usePrefersReducedMotion();
   // step 0-1: tipeando boot · 2: tipeando nombre · 3: contenido revelado.
   const [step, setStep] = useState(reduce ? 3 : 0);
@@ -138,8 +138,8 @@ export function Hero() {
         </Magnetic>
         <Magnetic>
           <a
-            href={SOCIALS.cv}
-            download
+            href={cvFile(lang).href}
+            download={cvFile(lang).name}
             className="flex items-center gap-2 rounded-full border border-border glass px-6 py-3 font-semibold text-foreground transition-colors hover:border-accent-2"
           >
             <Download size={18} />

@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "cv": "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --no-pdf-header-footer --print-to-pdf=public/cv-branded.pdf \"file://$PWD/scripts/cv.html\""
+    "cv": "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --no-pdf-header-footer --print-to-pdf=public/cv-es.pdf \"file://$PWD/scripts/cv-es.html\" && \"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless --disable-gpu --no-pdf-header-footer --print-to-pdf=public/cv-en.pdf \"file://$PWD/scripts/cv-en.html\""
   },
   "dependencies": {
     "framer-motion": "^12.40.0",
