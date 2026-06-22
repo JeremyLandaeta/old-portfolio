@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Resume — Jeremy Landaeta Lizama</title>
+<style>
+  @page { size: letter; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    font-family: Georgia, "Times New Roman", serif;
+    color: #23303f;
+    font-size: 10pt;
+    line-height: 1.27;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page { width: 8.5in; min-height: 11in; padding: 0.38in 0.62in; }
+
+  .name { text-align: center; font-size: 22pt; font-weight: bold; color: #1c3553; letter-spacing: 0.3px; }
+  .role { text-align: center; font-size: 10.5pt; color: #4a5b6e; margin-top: 3px; }
+  .contact { text-align: center; font-size: 9pt; color: #4a5b6e; margin-top: 5px; line-height: 1.55; }
+  .contact a { color: #4a5b6e; text-decoration: none; }
+
+  .section { margin-top: 8px; }
+  .section h2 {
+    font-size: 10.5pt; text-transform: uppercase; letter-spacing: 1.2px;
+    color: #1c3553; border-bottom: 1.2px solid #b8c4d2; padding-bottom: 2px; margin-bottom: 4px;
+  }
+  .summary { text-align: justify; }
+
+  .skill { margin-bottom: 2.5px; }
+  .skill b { color: #1c3553; }
+
+  .job { margin-bottom: 5px; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .job-title { font-weight: bold; }
+  .job-sub { font-style: italic; color: #44566b; font-weight: normal; margin-top: 1px; }
+  .job-meta { white-space: nowrap; font-style: italic; color: #44566b; font-size: 9pt; }
+  ul { margin: 2px 0 0 16px; }
+  li { margin-bottom: 1px; }
+
+  .proj { margin-bottom: 5px; }
+  .proj-title { font-weight: bold; }
+  .proj-tag { font-weight: normal; font-style: italic; color: #44566b; }
+  .proj p { margin-top: 1px; }
+
+  .edu-line { margin-bottom: 2px; }
+  .edu-line b { color: #1c3553; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="name">Jeremy Landaeta Lizama</div>
+    <div class="role">Computer Engineer &nbsp;|&nbsp; Front-End Developer &nbsp;|&nbsp; Software Developer</div>
+    <div class="contact">
+      +56 9 9702 3812 &nbsp;·&nbsp; jlandaetalizama22@gmail.com &nbsp;·&nbsp; Santiago, Chile<br />
+      jlandaeta.dev &nbsp;·&nbsp; linkedin.com/in/jeremy-landaeta-lizama-04b266223 &nbsp;·&nbsp; github.com/JeremyLandaeta
+    </div>
+
+    <div class="section">
+      <h2>Professional Summary</h2>
+      <p class="summary">Computer Engineer from Duoc UC with experience in web development, process automation and AI-powered digital solutions. Has built and deployed production solutions with React, Next.js, TypeScript and Node.js, including environmental calculators, AI chatbots, CRM integrations and payment gateways. Combines technical depth with a business mindset, continuous improvement and collaborative teamwork.</p>
+    </div>
+
+    <div class="section">
+      <h2>Technical Skills</h2>
+      <div class="skill"><b>Frontend:</b> React, Next.js, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS, Material UI, Ant Design, Responsive Design</div>
+      <div class="skill"><b>Backend &amp; APIs:</b> Node.js, PHP, Prisma, REST APIs, authentication, third-party service integration</div>
+      <div class="skill"><b>Databases:</b> SQL Server, MySQL, SQL queries, basic data modeling</div>
+      <div class="skill"><b>AI &amp; Automation:</b> OpenAI API, Claude, Ollama, custom chatbots, workflow automation, content generation</div>
+      <div class="skill"><b>Tools:</b> Git, GitHub, Vercel, Docker, ApiDOG, Bitrix24, Mercado Pago, Power BI</div>
+      <div class="skill"><b>Methodologies:</b> Scrum, agile delivery, requirements analysis, technical documentation</div>
+    </div>
+
+    <div class="section">
+      <h2>Professional Experience</h2>
+      <div class="job">
+        <div class="job-head">
+          <span class="job-title">Software Developer / Front-End Developer</span>
+          <span class="job-meta">June 2025 – Present</span>
+        </div>
+        <div class="job-sub">Vínculo Verde / Greensoft — Santiago, Chile</div>
+        <ul>
+          <li>Contributed to 6+ digital initiatives in the first year: production products, internal AI tools, CRM integrations and a payment gateway.</li>
+          <li>Led the frontend of interactive environmental calculators (Carbon and EPR), deploying two to production with React, Next.js and TypeScript.</li>
+          <li>Designed and built Orbix, an internal generative-AI assistant for drafting LinkedIn news posts integrated with Bitrix24 (CRM), and drove a WhatsApp chatbot with local AI (Ollama), coordinating the team.</li>
+          <li>Contributed to EcoREP with a file manager and built a domain-sales platform with a database and payment-gateway integration (Mercado Pago).</li>
+          <li>Integrated third-party services, managed deployments on Vercel and worked with Git and GitHub in an agile (Scrum) workflow.</li>
+        </ul>
+      </div>
+      <div class="job">
+        <div class="job-head">
+          <span class="job-title">Professional Internship — Assurance</span>
+          <span class="job-meta">Oct 2024 – Nov 2024</span>
+        </div>
+        <div class="job-sub">PwC Chile — Santiago, Chile</div>
+        <ul>
+          <li>Took part in internal-process audits at insurance and banking firms, verifying traceability and compliance with procedures.</li>
+          <li>Prepared supporting documentation and reports focused on control, risk management and process improvement.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Key Projects</h2>
+      <div class="proj">
+        <div class="proj-title">Legal Chatbot with Backoffice <span class="proj-tag">(Capstone Project)</span></div>
+        <p>Designed and developed a chatbot to answer legal questions, with an admin backoffice to manage questions, answers and users. AI integration to improve interaction and support the assistance flow.</p>
+      </div>
+      <div class="proj">
+        <div class="proj-title">Landing Pages — BaoBlue / Anrra <span class="proj-tag">(Freelance)</span></div>
+        <p>Custom websites for the commercial presentation of digital brands: responsive design, animations, reusable components, deployment on Vercel and a GitHub workflow.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Education, Certifications &amp; Languages</h2>
+      <div class="edu-line"><b>Computer Engineering</b> — Duoc UC Professional Institute &nbsp;|&nbsp; Graduated 2025</div>
+      <div class="edu-line"><b>Certifications:</b> Scrum Foundation (2024) &nbsp;|&nbsp; TOEIC 805 pts</div>
+      <div class="edu-line"><b>Languages:</b> Spanish (native) &nbsp;|&nbsp; English (intermediate-advanced, TOEIC 805)</div>
+    </div>
+  </div>
+</body>
+</html>

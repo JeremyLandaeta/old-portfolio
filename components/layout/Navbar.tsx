@@ -8,7 +8,7 @@ import { AnimatePresence, m } from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { useActiveSection } from "@/components/ui/useActiveSection";
-import { SOCIALS } from "@/lib/content";
+import { cvFile } from "@/lib/content";
 
 // Store externo para el estado de scroll: sin render extra al montar y
 // SSR-safe (el snapshot del servidor es siempre false, igual que el HTML).
@@ -133,8 +133,8 @@ export function Navbar() {
           </button>
 
           <a
-            href={SOCIALS.cv}
-            download
+            href={cvFile(lang).href}
+            download={cvFile(lang).name}
             className={`btn-shine hidden shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-linear-to-r from-accent to-accent-2 font-semibold text-background transition-all duration-300 hover:scale-[1.03] sm:flex ${
               scrolled ? "px-3 py-1 text-[13px]" : "px-4 py-2 text-sm"
             }`}
@@ -182,8 +182,8 @@ export function Navbar() {
               ))}
               <li>
                 <a
-                  href={SOCIALS.cv}
-                  download
+                  href={cvFile(lang).href}
+                  download={cvFile(lang).name}
                   onClick={() => setOpen(false)}
                   className="mt-1 flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-accent to-accent-2 px-4 py-3 font-semibold text-background"
                 >

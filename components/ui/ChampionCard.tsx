@@ -6,7 +6,7 @@ import { useLang } from "@/components/providers/LanguageProvider";
 import { PixelSprite } from "@/components/ui/PixelSprite";
 import { Counter } from "@/components/ui/Counter";
 import { Tilt } from "@/components/ui/Tilt";
-import { SOCIALS } from "@/lib/content";
+import { cvFile } from "@/lib/content";
 import { ABOUT_GAME, PLAYER_LEVEL } from "@/lib/gamer";
 
 const STAT_ICONS = [Rocket, Leaf, Languages, Award];
@@ -127,8 +127,8 @@ export function ChampionCard() {
               <MapPin size={13} /> {t.hero.location}
             </span>
             <a
-              href={SOCIALS.cv}
-              download
+              href={cvFile(lang).href}
+              download={cvFile(lang).name}
               className="btn-shine flex h-8 items-center gap-1.5 rounded-full bg-linear-to-r from-accent to-accent-2 px-3.5 text-sm font-semibold text-background"
             >
               {t.cta.cv}

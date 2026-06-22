@@ -7,14 +7,14 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { AuroraBackground } from "@/components/ui/AuroraBackground";
 import { Meteors } from "@/components/ui/Meteors";
-import { SOCIALS } from "@/lib/content";
+import { SOCIALS, cvFile } from "@/lib/content";
 
 /**
  * Cierre único del sitio: estética terminal (status + links) + CTA.
  * El <Footer> quedó reducido a créditos para no duplicar este bloque.
  */
 export function Contact() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
 
   return (
     <section id="contacto" className="relative overflow-hidden px-4 py-14 sm:py-28">
@@ -97,8 +97,8 @@ export function Contact() {
               {t.contact.emailLabel}
             </a>
             <a
-              href={SOCIALS.cv}
-              download
+              href={cvFile(lang).href}
+              download={cvFile(lang).name}
               className="flex items-center gap-2 rounded-full border border-border glass px-6 py-3 font-semibold text-foreground transition-colors hover:border-accent-2"
             >
               <Download size={18} />

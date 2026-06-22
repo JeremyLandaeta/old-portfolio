@@ -10,8 +10,17 @@ export const SOCIALS = {
   phone: "+56 9 9702 3812",
   linkedin: "https://linkedin.com/in/jeremy-landaeta-lizama-04b266223",
   github: "https://github.com/JeremyLandaeta",
-  cv: "/cv.pdf",
 } as const;
+
+/**
+ * CV según el idioma: ES descarga el español, EN el inglés. `name` es el nombre
+ * con el que se guarda el archivo al descargar.
+ */
+export function cvFile(lang: Lang): { href: string; name: string } {
+  return lang === "en"
+    ? { href: "/cv-en.pdf", name: "Jeremy-Landaeta-Resume.pdf" }
+    : { href: "/cv-es.pdf", name: "Jeremy-Landaeta-CV.pdf" };
+}
 
 export type NavItem = { id: string; label: string };
 
@@ -491,7 +500,7 @@ const es: Content = {
   stack: {
     kicker: "Caja de herramientas",
     heading: "Stack técnico",
-    tools: ["Material UI", "Ant Design", "Express", "Prisma", "PHP", "REST APIs", "SQL Server", "Claude", "GitHub", "Postman", "Power BI", "Bitrix24"],
+    tools: ["Material UI", "Ant Design", "Prisma", "PHP", "REST APIs", "SQL Server", "Claude", "GitHub", "ApiDOG", "Docker", "Power BI", "Bitrix24", "Mercado Pago"],
   },
   building: {
     kicker: "Ahora mismo",
@@ -904,7 +913,7 @@ const en: Content = {
   stack: {
     kicker: "My toolbox",
     heading: "Tech stack",
-    tools: ["Material UI", "Ant Design", "Express", "Prisma", "PHP", "REST APIs", "SQL Server", "Claude", "GitHub", "Postman", "Power BI", "Bitrix24"],
+    tools: ["Material UI", "Ant Design", "Prisma", "PHP", "REST APIs", "SQL Server", "Claude", "GitHub", "ApiDOG", "Docker", "Power BI", "Bitrix24", "Mercado Pago"],
   },
   building: {
     kicker: "Right now",
