@@ -153,10 +153,10 @@ export function Hero() {
         {...reveal(0.24)}
         className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-muted"
       >
-        <a href={SOCIALS.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="transition-colors hover:text-accent-2">
+        <a href={SOCIALS.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="-m-2 p-2 transition-colors hover:text-accent-2">
           <FaGithub size={20} />
         </a>
-        <a href={SOCIALS.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="transition-colors hover:text-accent-2">
+        <a href={SOCIALS.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="-m-2 p-2 transition-colors hover:text-accent-2">
           <FaLinkedin size={20} />
         </a>
         <span className="hidden h-4 w-px bg-border sm:block" />

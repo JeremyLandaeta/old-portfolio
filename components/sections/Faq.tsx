@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, m } from "framer-motion";
+import { m } from "framer-motion";
 import { Plus, HelpCircle } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -53,21 +53,20 @@ export function Faq() {
                   </m.span>
                 </button>
 
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <m.div
-                      id={`faq-panel-${i}`}
-                      role="region"
-                      aria-labelledby={`faq-trigger-${i}`}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                    >
-                      <p className="px-5 pb-5 text-pretty leading-relaxed text-muted">{item.a}</p>
-                    </m.div>
-                  )}
-                </AnimatePresence>
+                {/* La respuesta siempre está en el HTML (buscadores e IA la leen
+                    sin hacer click); cerrada queda colapsada e inerte. */}
+                <m.div
+                  id={`faq-panel-${i}`}
+                  role="region"
+                  aria-labelledby={`faq-trigger-${i}`}
+                  inert={!isOpen}
+                  initial={false}
+                  animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <p className="px-5 pb-5 text-pretty leading-relaxed text-muted">{item.a}</p>
+                </m.div>
               </div>
             </Reveal>
           );

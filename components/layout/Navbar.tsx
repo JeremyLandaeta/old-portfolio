@@ -31,6 +31,9 @@ export function Navbar() {
   const isHome = pathname === `/${lang}`;
   // en otras páginas, los anclajes deben apuntar a la home del idioma (/es#seccion)
   const linkFor = (id: string) => (isHome ? `#${id}` : `/${lang}#${id}`);
+  // misma página en el otro idioma: /es/proyectos/x → /en/proyectos/x
+  const altLang = lang === "es" ? "en" : "es";
+  const altHref = pathname.replace(/^\/(es|en)(?=\/|$)/, `/${altLang}`);
   // sección activa para el cursor ▸ (solo en la home; fuera, sin resaltado)
   const activeId = useActiveSection(isHome ? t.nav.map((n) => n.id) : []);
   const scrolled = useSyncExternalStore(
@@ -79,7 +82,7 @@ export function Navbar() {
             alt="Jeremy Landaeta — logo"
             width={44}
             height={44}
-            priority
+            preload
             className={`shrink-0 transition-all duration-300 ${scrolled ? "h-9 w-9" : "h-11 w-11"}`}
           />
           <span className="hidden items-center text-foreground transition-colors group-hover:text-accent-2 sm:inline-flex">
@@ -119,10 +122,16 @@ export function Navbar() {
 
         {/* Acciones */}
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={toggle}
-            aria-label="Toggle language"
+          {/* Enlace real (rastreable) a esta misma página en el otro idioma;
+              el click pasa por toggle() para conservar el #ancla actual. */}
+          <Link
+            href={altHref}
+            hrefLang={altLang}
+            prefetch={false}
+            onClick={(e) => {
+              e.preventDefault();
+              toggle();
+            }}
             className={`rounded-full border border-border font-mono font-semibold text-muted transition-all duration-300 hover:border-accent-2 hover:text-foreground ${
               scrolled ? "px-2 py-1 text-[11px]" : "px-2.5 py-1.5 text-xs"
             }`}
@@ -130,7 +139,8 @@ export function Navbar() {
             <span className={lang === "es" ? "text-accent-2" : ""}>ES</span>
             <span className="mx-1 opacity-40">/</span>
             <span className={lang === "en" ? "text-accent-2" : ""}>EN</span>
-          </button>
+            <span className="sr-only">{lang === "en" ? " — ver en español" : " — view in English"}</span>
+          </Link>
 
           <a
             href={cvFile(lang).href}

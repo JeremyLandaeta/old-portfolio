@@ -87,7 +87,7 @@ const OrbitIcon = memo(function OrbitIcon({
           boxShadow: hover ? `0 0 22px ${skill.color}55` : "0 4px 14px rgba(0,0,0,0.35)",
         }}
       >
-        <skill.Icon size={iconSize * 0.55} style={{ color: skill.color }} />
+        <skill.Icon size={iconSize * 0.55} style={{ color: skill.color }} aria-label={skill.label} />
         {hover && (
           <span className="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-background px-2 py-0.5 font-mono text-[11px] text-foreground shadow-lg">
             {skill.label}
@@ -138,19 +138,34 @@ export function TechOrbit() {
     () => 440,
   );
 
-  // bucle de animación
+  // bucle de animación: solo corre mientras la órbita está en pantalla (cada
+  // frame re-renderiza los 14 íconos; fuera de vista era trabajo desperdiciado).
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const el = containerRef.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let raf = 0;
-    let last = performance.now();
+    let last = 0;
     const loop = (now: number) => {
       const dt = (now - last) / 1000;
       last = now;
       if (!pausedRef.current) setTime((t) => t + dt);
       raf = requestAnimationFrame(loop);
     };
-    raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
+    const start = () => {
+      if (raf) return;
+      last = performance.now();
+      raf = requestAnimationFrame(loop);
+    };
+    const stop = () => {
+      cancelAnimationFrame(raf);
+      raf = 0;
+    };
+    const io = new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop()));
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      stop();
+    };
   }, []);
 
   const half = size / 2;

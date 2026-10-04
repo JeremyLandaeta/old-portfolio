@@ -9,6 +9,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { AuroraBackground } from "@/components/ui/AuroraBackground";
 import { ReadingProgress } from "@/components/ui/ReadingProgress";
 import { projectMedia } from "@/lib/projectMedia";
+import { projectPath } from "@/lib/site";
 
 const accentDot: Record<string, string> = {
   blue: "bg-blue-400",
@@ -20,14 +21,17 @@ const accentDot: Record<string, string> = {
 function Block({
   icon,
   label,
+  eager = false,
   children,
 }: {
   icon: React.ReactNode;
   label: string;
+  /** Sin animación de entrada: para el bloque visible al cargar (es el LCP). */
+  eager?: boolean;
   children: React.ReactNode;
 }) {
-  return (
-    <Reveal className="rounded-2xl glass p-6">
+  const content = (
+    <>
       <div className="flex items-center gap-2.5">
         <span className="grid h-9 w-9 place-items-center rounded-lg bg-linear-to-br from-accent/20 to-accent-2/20 text-accent-2">
           {icon}
@@ -35,7 +39,13 @@ function Block({
         <h2 className="text-lg font-semibold">{label}</h2>
       </div>
       <div className="mt-4 text-pretty leading-relaxed text-muted">{children}</div>
-    </Reveal>
+    </>
+  );
+  // Reveal arranca en opacity 0 hasta hidratar; el primer bloque no puede esperar.
+  return eager ? (
+    <div className="rounded-2xl glass p-6">{content}</div>
+  ) : (
+    <Reveal className="rounded-2xl glass p-6">{content}</Reveal>
   );
 }
 
@@ -65,16 +75,16 @@ function WindowBar({ caption }: { caption: string }) {
 }
 
 /** Captura real del sitio en vivo, enmarcada como ventana de navegador. */
-function RealShot({ src, caption }: { src: string; caption: string }) {
+function RealShot({ src, caption, alt }: { src: string; caption: string; alt: string }) {
   return (
     <figure className="group overflow-hidden rounded-xl border border-border bg-background-soft">
       <WindowBar caption={caption} />
       <div className="relative aspect-[16/10] w-full overflow-hidden">
         <Image
           src={src}
-          alt={caption}
+          alt={alt}
           fill
-          sizes="(min-width: 640px) 50vw, 100vw"
+          sizes="(min-width: 800px) 336px, (min-width: 640px) 45vw, 85vw"
           className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
         />
       </div>
@@ -139,7 +149,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
         <div className="mx-auto max-w-3xl">
           <Link
             href={`/${lang}#proyectos`}
-            className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-accent-2"
+            className="-my-1.5 inline-flex items-center gap-1.5 py-1.5 text-sm text-muted transition-colors hover:text-accent-2"
           >
             <ArrowLeft size={15} /> {L.back}
           </Link>
@@ -200,7 +210,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
 
       {/* Cuerpo */}
       <div className="mx-auto max-w-3xl space-y-4 px-4 pb-8">
-        <Block icon={<Target size={18} />} label={L.problem}>
+        <Block icon={<Target size={18} />} label={L.problem} eager>
           <p>{study.problem}</p>
         </Block>
 
@@ -223,7 +233,12 @@ export function CaseStudyView({ slug }: { slug: string }) {
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {study.gallery.map((cap, i) =>
               shots?.[i] ? (
-                <RealShot key={cap} src={shots[i]} caption={cap} />
+                <RealShot
+                  key={cap}
+                  src={shots[i]}
+                  caption={cap}
+                  alt={`${L.shotOf} ${project.title}: ${cap}`}
+                />
               ) : (
                 <Mockup key={cap} caption={cap} title={project.title} />
               ),
@@ -246,6 +261,36 @@ export function CaseStudyView({ slug }: { slug: string }) {
             </div>
             <p className="mt-4 text-pretty text-lg leading-relaxed">{study.result}</p>
           </div>
+        </Reveal>
+
+        {/* Enlaces cruzados al resto de los casos de estudio */}
+        <Reveal>
+          <nav aria-labelledby="more-projects" className="rounded-2xl glass p-6">
+            <h2 id="more-projects" className="text-lg font-semibold">
+              {L.more}
+            </h2>
+            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+              {t.projects.items
+                .filter((p) => p.id !== slug)
+                .map((p) => (
+                  <li key={p.id}>
+                    <Link
+                      href={projectPath(lang, p.id)}
+                      className="group flex items-center justify-between gap-3 rounded-xl border border-border bg-white/3 px-4 py-3 transition-colors hover:border-accent-2/50"
+                    >
+                      <span className="min-w-0">
+                        <span className="block truncate text-sm font-semibold">{p.title}</span>
+                        <span className="block truncate font-mono text-[11px] text-muted">{p.tagline}</span>
+                      </span>
+                      <ArrowUpRight
+                        size={15}
+                        className="shrink-0 text-muted transition-colors group-hover:text-accent-2"
+                      />
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+          </nav>
         </Reveal>
 
         {/* Volver */}

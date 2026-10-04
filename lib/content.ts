@@ -28,6 +28,8 @@ export type Project = {
   id: string;
   title: string;
   tagline: string;
+  /** resumen ≤160 caracteres para <meta description> y tarjetas sociales */
+  metaDescription: string;
   description: string;
   /** aporte concreto resumido para la card del carrusel */
   contribution: string;
@@ -76,6 +78,10 @@ export type CaseStudyLabels = {
   viewRepo: string;
   notFound: string;
   backHome: string;
+  /** título del bloque de enlaces a los otros casos de estudio */
+  more: string;
+  /** prefijo del texto alternativo de las capturas ("Captura de …") */
+  shotOf: string;
 };
 
 export type Content = {
@@ -139,6 +145,8 @@ export type Content = {
   footer: {
     built: string;
     rights: string;
+    /** etiqueta de los enlaces a casos de estudio del pie */
+    projects: string;
   };
 };
 
@@ -176,6 +184,8 @@ const es: Content = {
     viewRepo: "Ver repositorio",
     notFound: "Proyecto no encontrado",
     backHome: "Volver al inicio",
+    more: "Más proyectos",
+    shotOf: "Captura de",
   },
   caseStudies: {
     lexy: {
@@ -368,6 +378,8 @@ const es: Content = {
         id: "lexy",
         title: "LEXY — Soluciones Legales",
         tagline: "Chatbot legal + backoffice",
+        metaDescription:
+          "Caso de estudio de LEXY: plataforma legal con chatbot de IA y backoffice. Proyecto de título en equipo; mi foco fue el frontend del sitio público.",
         description:
           "Plataforma legal que combina un chatbot con IA y un backoffice: resuelve dudas generales y deriva los casos complejos a un abogado, que les hace seguimiento. Proyecto de título en equipo; mi foco fue el frontend del sitio público.",
         contribution:
@@ -380,6 +392,8 @@ const es: Content = {
         id: "greensoft",
         title: "Greensoft · EcoREP · 0 Carbono",
         tagline: "Plataformas ambientales en producción",
+        metaDescription:
+          "Caso de estudio de EcoREP y 0 Carbono: plataformas ambientales en producción. Frontend con React, Next.js, TypeScript, MUI y RTK Query.",
         description:
           "Dos plataformas internas de Ambientalia: EcoREP, para la trazabilidad de residuos y el cumplimiento de la Ley REP, y 0 Carbono, para medir la huella de carbono de eventos. Armé el frontend de 0 Carbono casi solo (decisiones de diseño incluidas) y sumé vistas nuevas y un gestor de archivos por período en EcoREP.",
         contribution:
@@ -392,6 +406,8 @@ const es: Content = {
         id: "orbix",
         title: "Orbix",
         tagline: "Un agente que orbita los productos",
+        metaDescription:
+          "Caso de estudio de Orbix: agente interno que responde WhatsApps con IA y automatiza comunicaciones con Python, Laravel AI, Ollama y Bitrix24.",
         description:
           "Agente interno que “orbita” los productos de Ambientalia (leyrep.cl, ambientalia.cl): responde WhatsApps con IA (LaravelAI) y automatiza comunicaciones — un cron en Python scrapea noticias y un modelo local (Ollama) arma los borradores en Bitrix24. Lo planeé y construí solo.",
         contribution:
@@ -404,6 +420,8 @@ const es: Content = {
         id: "pagos",
         title: "tu-dominio.cl",
         tagline: "E-commerce de dominios + pagos",
+        metaDescription:
+          "Caso de estudio de tu-dominio.cl: e-commerce de dominios construido solo, de punta a punta, con Next.js, Supabase y Mercado Pago en modo de prueba.",
         description:
           "Web para vender dominios, construida solo de punta a punta: catálogo con estados por dominio (pendiente → vendido), Mercado Pago en modo de prueba y Supabase/Postgres. Funcional, pero sin desplegar por documentos pendientes del cliente.",
         contribution:
@@ -416,6 +434,8 @@ const es: Content = {
         id: "landings",
         title: "BaoBlue · Anrra",
         tagline: "Landing pages a medida",
+        metaDescription:
+          "Caso de estudio de BaoBlue y Anrra: landing pages freelance diseñadas y desarrolladas solo con React, Next.js, Tailwind y Framer Motion.",
         description:
           "Dos landings freelance diseñadas y desarrolladas solo, ajustando el tono a cada negocio. BaoBlue (aros de arcilla) está en vivo, con animaciones vibrantes pero armoniosas; Anrra (madera) quedó a la espera del contenido del cliente. El CTA lleva directo al WhatsApp de ventas.",
         contribution:
@@ -428,6 +448,8 @@ const es: Content = {
         id: "portfolio",
         title: "Este portafolio",
         tagline: "Next.js 16 + capa gamer",
+        metaDescription:
+          "Caso de estudio de este portafolio: Next.js 16 y React 19, i18n es/en por URL, animaciones con Framer Motion y una capa gamer. Sin plantillas.",
         description:
           "El sitio que estás viendo. Lo diseñé y construí solo con Next.js 16 y React 19: i18n es/en por URL, animaciones con Framer Motion y una capa “gamer” (RPG/MOBA/TCG) con escena pixel-art, stats de personaje y cards estilo campeón. Sin plantillas.",
         contribution:
@@ -552,6 +574,7 @@ const es: Content = {
   footer: {
     built: "Stack: Next.js · TypeScript · Tailwind",
     rights: "Forjado en Santiago, Chile",
+    projects: "Casos de estudio",
   },
 };
 
@@ -589,6 +612,8 @@ const en: Content = {
     viewRepo: "View repository",
     notFound: "Project not found",
     backHome: "Back to home",
+    more: "More projects",
+    shotOf: "Screenshot of",
   },
   caseStudies: {
     lexy: {
@@ -781,6 +806,8 @@ const en: Content = {
         id: "lexy",
         title: "LEXY — Legal Solutions",
         tagline: "Legal chatbot + back office",
+        metaDescription:
+          "LEXY case study: a legal platform pairing an AI chatbot with a back office. Team capstone project; my focus was the frontend of the public site.",
         description:
           "A legal platform pairing an AI chatbot with a back office: it answers general questions and routes complex cases to a lawyer who follows up. Team capstone project; my focus was the frontend of the public site.",
         contribution:
@@ -793,6 +820,8 @@ const en: Content = {
         id: "greensoft",
         title: "Greensoft · EcoREP · 0 Carbono",
         tagline: "Environmental platforms in production",
+        metaDescription:
+          "EcoREP and 0 Carbono case study: environmental platforms in production. Frontend built with React, Next.js, TypeScript, MUI and RTK Query.",
         description:
           "Two internal platforms for Ambientalia: EcoREP, for waste traceability and EPR-law compliance, and 0 Carbono, to measure the carbon footprint of events. I built the 0 Carbono frontend almost solo (design decisions included) and added new views plus a per-period file manager to EcoREP.",
         contribution:
@@ -805,6 +834,8 @@ const en: Content = {
         id: "orbix",
         title: "Orbix",
         tagline: "An agent that orbits the products",
+        metaDescription:
+          "Orbix case study: an internal agent that answers WhatsApps with AI and automates communications with Python, Laravel AI, Ollama and Bitrix24.",
         description:
           "An internal agent that “orbits” Ambientalia's products (leyrep.cl, ambientalia.cl): it answers WhatsApps with AI (LaravelAI) and automates communications — a Python cron scrapes news and a local model (Ollama) builds the drafts in Bitrix24. I planned and built it solo.",
         contribution:
@@ -817,6 +848,8 @@ const en: Content = {
         id: "pagos",
         title: "tu-dominio.cl",
         tagline: "Domain e-commerce + payments",
+        metaDescription:
+          "tu-dominio.cl case study: a domain e-commerce built solo, end to end, with Next.js, Supabase and Mercado Pago in test mode.",
         description:
           "A site to sell domains, built solo end to end: a catalog with per-domain states (pending → sold), Mercado Pago in test mode and Supabase/Postgres. Functional, but never deployed because the client's documents never arrived.",
         contribution:
@@ -829,6 +862,8 @@ const en: Content = {
         id: "landings",
         title: "BaoBlue · Anrra",
         tagline: "Custom landing pages",
+        metaDescription:
+          "BaoBlue and Anrra case study: freelance landing pages designed and built solo with React, Next.js, Tailwind and Framer Motion.",
         description:
           "Two freelance landings designed and built solo, tuning the tone to each business. BaoBlue (clay earrings) is live, with vibrant yet harmonious animations; Anrra (woodwork) is waiting on the client's content. The CTA goes straight to the sales WhatsApp.",
         contribution:
@@ -841,6 +876,8 @@ const en: Content = {
         id: "portfolio",
         title: "This portfolio",
         tagline: "Next.js 16 + a gamer layer",
+        metaDescription:
+          "Case study of this portfolio: Next.js 16 and React 19, URL-based es/en i18n, Framer Motion animations and a gamer layer. No templates.",
         description:
           "The site you're looking at. I designed and built it solo with Next.js 16 and React 19: URL-based es/en i18n, Framer Motion animations and a “gamer” layer (RPG/MOBA/TCG) with a pixel-art scene, character stats and champion-style cards. No templates.",
         contribution:
@@ -965,6 +1002,7 @@ const en: Content = {
   footer: {
     built: "Stack: Next.js · TypeScript · Tailwind",
     rights: "Forged in Santiago, Chile",
+    projects: "Case studies",
   },
 };
 

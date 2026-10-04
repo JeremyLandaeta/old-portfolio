@@ -101,7 +101,7 @@ export function ProjectCarousel({ leadingCard }: { leadingCard?: ReactNode }) {
             <>
               <Image
                 src={cover}
-                alt={project.title}
+                alt={`${t.caseStudyLabels.shotOf} ${project.title}`}
                 fill
                 sizes="(min-width: 1024px) 60vw, 90vw"
                 draggable={false}
@@ -151,18 +151,18 @@ export function ProjectCarousel({ leadingCard }: { leadingCard?: ReactNode }) {
           <Link
             href={`/${lang}/proyectos/${project.id}`}
             draggable={false}
-            className="inline-flex items-center gap-1 text-sm font-semibold text-accent-2 transition-colors hover:text-foreground"
+            className="-my-1 inline-flex items-center gap-1 py-1 text-sm font-semibold text-accent-2 transition-colors hover:text-foreground"
           >
             {t.cta.caseStudy}
             <ArrowUpRight size={15} />
           </Link>
           {links?.demo && (
-            <a href={links.demo} target="_blank" rel="noreferrer" draggable={false} className="inline-flex items-center gap-1 text-xs text-muted transition-colors hover:text-accent-2">
+            <a href={links.demo} target="_blank" rel="noreferrer" draggable={false} className="-my-1.5 inline-flex items-center gap-1 py-1.5 text-xs text-muted transition-colors hover:text-accent-2">
               <ExternalLink size={13} /> {t.cta.demo}
             </a>
           )}
           {links?.repo ? (
-            <a href={links.repo} target="_blank" rel="noreferrer" draggable={false} className="inline-flex items-center gap-1 text-xs text-muted transition-colors hover:text-accent-2">
+            <a href={links.repo} target="_blank" rel="noreferrer" draggable={false} className="-my-1.5 inline-flex items-center gap-1 py-1.5 text-xs text-muted transition-colors hover:text-accent-2">
               <FaGithub size={13} /> {t.cta.code}
             </a>
           ) : (

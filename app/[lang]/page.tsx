@@ -12,10 +12,31 @@ import { Stack } from "@/components/sections/Stack";
 import { CurrentlyBuilding } from "@/components/sections/CurrentlyBuilding";
 import { Faq } from "@/components/sections/Faq";
 import { Contact } from "@/components/sections/Contact";
+import { JsonLd } from "@/components/seo/JsonLd";
+import type { Lang } from "@/lib/content";
+import { HOME_META, PERSON_ID, SITE_URL, WEBSITE_ID } from "@/lib/site";
 
-export default function Home() {
+export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const locale: Lang = lang === "en" ? "en" : "es";
+  const url = `${SITE_URL}/${locale}`;
+
+  // La home es la página de perfil de la entidad Person definida en el layout.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `${url}#profilepage`,
+    url,
+    name: HOME_META[locale].title,
+    description: HOME_META[locale].description,
+    inLanguage: locale,
+    isPartOf: { "@id": WEBSITE_ID },
+    mainEntity: { "@id": PERSON_ID },
+  };
+
   return (
     <>
+      <JsonLd data={jsonLd} />
       <Navbar />
       <ScrollSpy />
       <Hud />

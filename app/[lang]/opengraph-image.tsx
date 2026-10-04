@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import { ImageResponse } from "next/og";
 
-export const alt = "Jeremy Landaeta — Frontend / Fullstack Developer";
+export const alt = "Jeremy Landaeta — Frontend Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -77,7 +77,7 @@ export default async function OpengraphImage({
             color: "transparent",
           }}
         >
-          Frontend / Fullstack Developer
+          Frontend Developer
         </div>
         <div style={{ marginTop: 24, fontSize: 28, color: "#8aa0c0", maxWidth: 900 }}>
           {subtitle}

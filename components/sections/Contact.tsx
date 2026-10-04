@@ -61,7 +61,7 @@ export function Contact() {
               <div className="flex flex-wrap gap-4 pt-1">
                 <a
                   href={`mailto:${SOCIALS.email}`}
-                  className="flex items-center gap-1.5 text-foreground transition-colors hover:text-accent-2"
+                  className="-my-1 flex items-center gap-1.5 py-1 text-foreground transition-colors hover:text-accent-2"
                 >
                   <Mail size={15} /> email
                 </a>
@@ -69,7 +69,7 @@ export function Contact() {
                   href={SOCIALS.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-1.5 text-foreground transition-colors hover:text-accent-2"
+                  className="-my-1 flex items-center gap-1.5 py-1 text-foreground transition-colors hover:text-accent-2"
                 >
                   <FaGithub size={15} /> github
                 </a>
@@ -77,7 +77,7 @@ export function Contact() {
                   href={SOCIALS.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-1.5 text-foreground transition-colors hover:text-accent-2"
+                  className="-my-1 flex items-center gap-1.5 py-1 text-foreground transition-colors hover:text-accent-2"
                 >
                   <FaLinkedin size={15} /> linkedin
                 </a>

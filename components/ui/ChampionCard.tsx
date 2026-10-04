@@ -46,7 +46,7 @@ export function ChampionCard() {
               src="/pixel/jeremy-pixel.png"
               alt="Jeremy Landaeta — avatar pixel-art"
               fill
-              sizes="(min-width: 640px) 320px, 90vw"
+              sizes="(min-width: 1024px) 340px, 85vw"
               draggable={false}
               className="pixelated select-none object-cover object-top"
             />
@@ -78,7 +78,7 @@ export function ChampionCard() {
 
           {/* type line: nombre + clase */}
           <div className="relative z-20 mt-3 rounded-lg border border-border bg-white/3 px-3 py-2">
-            <h3 className="text-lg font-bold leading-tight">Jeremy Landaeta</h3>
+            <p className="text-lg font-bold leading-tight">Jeremy Landaeta</p>
             <p className="font-mono text-[11px] leading-snug text-accent-2">
               {g.cardRole}
             </p>

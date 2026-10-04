@@ -397,6 +397,31 @@ body {
   outline-offset: 2px;
   border-radius: 6px;
 }
+/* ── Transición de ruta en CSS puro (template.tsx, páginas interiores) ──
+   Mismos tiempos/curvas que la versión Framer de la home. El estado base es el
+   final y los keyframes solo definen el inicio (fill backwards): al terminar no
+   queda ninguna animación aplicada sobre el contenido. */
+@keyframes route-wipe {
+  from { transform: scaleY(1); }
+}
+@keyframes route-seal {
+  from { opacity: 1; }
+}
+@keyframes route-content {
+  from { opacity: 0; }
+}
+.route-wipe {
+  transform: scaleY(0);
+  animation: route-wipe 0.55s cubic-bezier(0.76, 0, 0.24, 1) backwards;
+}
+.route-seal {
+  opacity: 0;
+  animation: route-seal 0.45s ease-out backwards;
+}
+.route-content {
+  animation: route-content 0.6s ease-out 0.25s backwards;
+}
+
 /* No mostrar el anillo cuando el foco viene del mouse/touch */
 :focus:not(:focus-visible) {
   outline: none;
@@ -433,6 +458,11 @@ body {
   .current-quest * {
     animation: none !important;
     transition: none !important;
+  }
+  .route-wipe,
+  .route-seal,
+  .route-content {
+    animation: none !important;
   }
   html {
     scroll-behavior: auto;

@@ -40,6 +40,9 @@ yarn-error.log*
 REVISION-DEPLOY.md
 impeccable-report.txt
 
+# graphify (grafo de conocimiento local)
+/graphify-out/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

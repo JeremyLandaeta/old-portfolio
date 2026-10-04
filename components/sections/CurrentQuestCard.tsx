@@ -76,6 +76,7 @@ export function CurrentQuestCard() {
         <div
           className="flex flex-1 gap-0.75"
           role="progressbar"
+          aria-label={quest.title}
           aria-valuenow={progress}
           aria-valuemin={0}
           aria-valuemax={100}

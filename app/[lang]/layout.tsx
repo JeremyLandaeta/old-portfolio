@@ -6,7 +6,9 @@ import { LanguageProvider } from "@/components/providers/LanguageProvider";
 import { MotionProvider } from "@/components/providers/MotionProvider";
 import { CursorGlow } from "@/components/ui/CursorGlow";
 import { GlobalParticles } from "@/components/ui/GlobalParticles";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { SOCIALS, type Lang } from "@/lib/content";
+import { HOME_META, LOCALES, OG_LOCALE, PERSON_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "@/lib/site";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,9 +30,6 @@ const pixel = Press_Start_2P({
   display: "swap",
 });
 
-const SITE_URL = "https://jlandaeta.dev";
-const LOCALES: Lang[] = ["es", "en"];
-
 // Solo se generan /es y /en; cualquier otro idioma devuelve 404.
 export function generateStaticParams() {
   return LOCALES.map((lang) => ({ lang }));
@@ -38,33 +37,18 @@ export function generateStaticParams() {
 
 export const dynamicParams = false;
 
-const META: Record<Lang, { title: string; description: string; ogLocale: string; ogDesc: string }> = {
-  es: {
-    title: "Jeremy Landaeta — Frontend Developer",
-    description:
-      "Portafolio de Jeremy Landaeta Lizama, Ingeniero en Informática. Desarrollo frontend/fullstack con React, Next.js y TypeScript, e integraciones con IA.",
-    ogLocale: "es_CL",
-    ogDesc: "Productos web, interfaces modernas y automatizaciones con IA. React · Next.js · TypeScript.",
-  },
-  en: {
-    title: "Jeremy Landaeta — Frontend Developer",
-    description:
-      "Portfolio of Jeremy Landaeta Lizama, Computer Engineer. Frontend/fullstack development with React, Next.js and TypeScript, plus AI integrations.",
-    ogLocale: "en_US",
-    ogDesc: "Web products, modern interfaces and AI automations. React · Next.js · TypeScript.",
-  },
-};
-
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const m = META[lang as Lang] ?? META.es;
+  const locale: Lang = lang === "en" ? "en" : "es";
+  const m = HOME_META[locale];
   return {
     metadataBase: new URL(SITE_URL),
-    title: m.title,
+    // `default` es el título de la home; las páginas hijas solo ponen su parte.
+    title: { default: m.title, template: "%s — Jeremy Landaeta" },
     description: m.description,
     keywords: [
       "Jeremy Landaeta",
@@ -82,13 +66,25 @@ export async function generateMetadata({
       canonical: `/${lang}`,
       languages: { es: "/es", en: "/en", "x-default": "/es" },
     },
+    // Indexación explícita: sin noindex y con previews grandes en resultados.
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
     openGraph: {
       type: "website",
-      locale: m.ogLocale,
+      locale: OG_LOCALE[locale],
       url: `/${lang}`,
       title: m.title,
       description: m.ogDesc,
-      siteName: "Jeremy Landaeta — Portafolio",
+      siteName: SITE_NAME,
     },
     twitter: {
       card: "summary_large_image",
@@ -109,19 +105,19 @@ export default async function LangLayout({
   if (lang !== "es" && lang !== "en") notFound();
 
   // Datos estructurados (JSON-LD): ayudan a Google/IA a entender a Jeremy como
-  // entidad (Person) y al sitio (WebSite). Validar en search.google.com/test/rich-results.
+  // entidad (Person) y al sitio (WebSite). Cada página suma su propio bloque.
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "Person",
-        "@id": `${SITE_URL}/#person`,
+        "@id": PERSON_ID,
         name: "Jeremy Landaeta Lizama",
         alternateName: "Jeremy Landaeta",
         url: SITE_URL,
         image: `${SITE_URL}/pixel/jeremy-pixel.png`,
         jobTitle: "Frontend Developer",
-        description: META[lang].description,
+        description: HOME_META[lang].description,
         address: { "@type": "PostalAddress", addressLocality: "Santiago", addressCountry: "CL" },
         alumniOf: { "@type": "CollegeOrUniversity", name: "Duoc UC" },
         knowsAbout: ["React", "Next.js", "TypeScript", "Node.js", "Tailwind CSS", "AI integrations"],
@@ -129,12 +125,12 @@ export default async function LangLayout({
       },
       {
         "@type": "WebSite",
-        "@id": `${SITE_URL}/#website`,
+        "@id": WEBSITE_ID,
         url: SITE_URL,
-        name: "Jeremy Landaeta — Portafolio",
-        inLanguage: ["es", "en"],
-        author: { "@id": `${SITE_URL}/#person` },
-        publisher: { "@id": `${SITE_URL}/#person` },
+        name: SITE_NAME,
+        inLanguage: LOCALES,
+        author: { "@id": PERSON_ID },
+        publisher: { "@id": PERSON_ID },
       },
     ],
   };
@@ -146,12 +142,7 @@ export default async function LangLayout({
       className={`${inter.variable} ${mono.variable} ${pixel.variable} h-full antialiased`}
     >
       <body className="grain scanlines min-h-full flex flex-col bg-background text-foreground">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
+        <JsonLd data={jsonLd} />
         <LanguageProvider lang={lang}>
           <MotionProvider>
             <GlobalParticles />

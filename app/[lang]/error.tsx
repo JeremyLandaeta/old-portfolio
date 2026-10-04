@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import { useLang } from "@/components/providers/LanguageProvider";
 
 /** Error boundary de las páginas del idioma (se renderiza dentro del layout). */
 export default function Error({
@@ -11,6 +12,8 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const { lang } = useLang();
+
   useEffect(() => {
     // En producción se podría enviar a un servicio de logging.
     console.error(error);
@@ -37,7 +40,7 @@ export default function Error({
           ↻ Reintentar
         </button>
         <Link
-          href="/"
+          href={`/${lang}`}
           className="inline-flex items-center gap-2 rounded-full border border-border glass px-6 py-3 font-semibold text-foreground transition-colors hover:border-accent-2"
         >
           ▸ Inicio
