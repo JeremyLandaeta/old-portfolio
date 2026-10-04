@@ -27,10 +27,10 @@ export function Hero() {
   // palabra más larga del stack → reserva de ancho para evitar layout shift.
   const longestStack = t.hero.stack.reduce((a, b) => (b.length > a.length ? b : a), "");
 
-  // props de revelado para lo que aparece después del boot+nombre
-  const reveal = (delay: number) => ({
+  // props de revelado. `at` = paso del intro en que aparece (3 = tras el nombre).
+  const reveal = (delay: number, at = 3) => ({
     initial: { opacity: 0, y: 14 },
-    animate: step >= 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 },
+    animate: step >= at ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 },
     transition: { duration: 0.5, delay: reduce ? 0 : delay, ease: easing },
   });
 
@@ -117,9 +117,10 @@ export function Hero() {
         </span>
       </m.div>
 
-      {/* Tagline */}
+      {/* Tagline — entra junto con el decode del nombre (paso 2), no después:
+          es el texto más grande del hero y por tanto el LCP de la home. */}
       <m.p
-        {...reveal(0.08)}
+        {...reveal(0, 2)}
         className="mt-6 max-w-2xl text-pretty font-mono text-sm text-muted sm:text-base"
       >
         {t.hero.tagline}
