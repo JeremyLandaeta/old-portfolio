@@ -72,7 +72,7 @@ export function Navbar() {
         className={`mx-auto flex items-center justify-between rounded-full transition-all duration-300 ease-out ${
           scrolled
             ? "max-w-3xl px-3.5 py-1.5 glass shadow-lg shadow-black/30"
-            : "max-w-5xl px-5 py-3 bg-transparent"
+            : "max-w-5xl px-5 py-3 bg-transparent md:px-4 lg:px-5"
         }`}
       >
         {/* Logo */}
@@ -85,7 +85,9 @@ export function Navbar() {
             preload
             className={`shrink-0 transition-all duration-300 ${scrolled ? "h-9 w-9" : "h-11 w-11"}`}
           />
-          <span className="hidden items-center text-foreground transition-colors group-hover:text-accent-2 sm:inline-flex">
+          {/* Entre md y lg (tablets) conviven links + CV y no cabe el texto: se
+              oculta (y se ajustan paddings) para que el CV no se salga del navbar. */}
+          <span className="hidden items-center text-foreground transition-colors group-hover:text-accent-2 sm:inline-flex md:hidden lg:inline-flex">
             jeremy<span className="text-accent-2">.dev</span>
             <span aria-hidden className="cursor-blink ml-1 inline-block h-3.5 w-1.5 bg-accent-2" />
           </span>
@@ -102,7 +104,7 @@ export function Navbar() {
                   aria-current={isActive ? "true" : undefined}
                   className={`group/nav relative rounded-full transition-all duration-300 ${
                     isActive ? "text-accent-2" : "text-muted hover:bg-white/5 hover:text-foreground"
-                  } ${scrolled ? "px-2 py-1 text-[13px]" : "px-2.5 py-1.5 text-sm"}`}
+                  } ${scrolled ? "px-2 py-1 text-[13px]" : "px-2 py-1.5 text-sm lg:px-2.5"}`}
                 >
                   {/* cursor de selección — absoluto para no sumar ancho al link */}
                   <span
@@ -146,7 +148,7 @@ export function Navbar() {
             href={cvFile(lang).href}
             download={cvFile(lang).name}
             className={`btn-shine hidden shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-linear-to-r from-accent to-accent-2 font-semibold text-background transition-all duration-300 hover:scale-[1.03] sm:flex ${
-              scrolled ? "px-3 py-1 text-[13px]" : "px-4 py-2 text-sm"
+              scrolled ? "px-3 py-1 text-[13px]" : "px-4 py-2 text-sm md:px-3 lg:px-4"
             }`}
           >
             <Download size={scrolled ? 14 : 15} />
