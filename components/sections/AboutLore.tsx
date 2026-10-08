@@ -12,7 +12,6 @@ import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { MenuFrame } from "@/components/ui/MenuFrame";
-import { PixelCampfireScene } from "@/components/sections/PixelCampfireScene";
 import { CurrentQuestCard } from "@/components/sections/CurrentQuestCard";
 import { AbilityKit } from "@/components/ui/AbilityKit";
 import { ABOUT_GAME } from "@/lib/gamer";
@@ -37,13 +36,8 @@ export function AboutLore() {
     <section className="mx-auto max-w-6xl px-4 py-14 sm:py-28">
       <SectionHeading kicker={t.about.loreKicker} title={t.about.loreHeading} />
 
-      {/* Escena pixel-art: ronin + fogata (decorativa) — oculta en mobile para aligerar */}
-      <Reveal delay={0.05} className="mt-10 hidden sm:block">
-        <PixelCampfireScene />
-      </Reveal>
-
       {/* Lore + Habilidades — alturas igualadas (stretch) */}
-      <div className="mt-6 grid gap-6 lg:grid-cols-5 lg:items-stretch">
+      <div className="mt-10 grid gap-6 lg:grid-cols-5 lg:items-stretch">
         {/* Lore / backstory */}
         <Reveal className="lg:col-span-3">
           <MenuFrame
@@ -66,7 +60,7 @@ export function AboutLore() {
                 return (
                   <span
                     key={f.key}
-                    className="flex items-center gap-2 rounded-full border border-border bg-white/3 px-3 py-1.5 text-sm text-muted"
+                    className="flex items-center gap-2 border border-border bg-white/3 px-3 py-1.5 text-sm text-muted"
                   >
                     <Icon size={15} className="text-accent-2" />
                     {f.label}
