@@ -36,7 +36,7 @@ export function CurrentQuestCard() {
             {quest.title}
           </h4>
         </div>
-        <span className="shrink-0 rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-1 font-pixel text-[0.5rem] text-amber-300">
+        <span className="shrink-0 border border-amber-400/30 bg-amber-400/10 px-2.5 py-1 font-pixel text-[0.5rem] text-amber-300">
           {quest.badge}
         </span>
       </div>

@@ -69,9 +69,9 @@ export function Hud() {
             </div>
             <div className="mt-2 flex items-center gap-2">
               <span className="text-xs uppercase text-muted">{g.xpLabel}</span>
-              <div className="h-1.5 flex-1 overflow-hidden rounded-full border border-border bg-white/6">
+              <div className="h-1.5 flex-1 overflow-hidden border border-border bg-white/6">
                 <div
-                  className="h-full rounded-full bg-linear-to-r from-accent to-accent-2 transition-[width] duration-150 ease-out"
+                  className="h-full bg-linear-to-r from-accent to-accent-2 transition-[width] duration-150 ease-out"
                   style={{ width: `${progress}%`, boxShadow: "0 0 8px -1px var(--accent-2)" }}
                 />
               </div>

@@ -5,8 +5,6 @@ import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
-import { AuroraBackground } from "@/components/ui/AuroraBackground";
-import { Meteors } from "@/components/ui/Meteors";
 import { SOCIALS, cvFile } from "@/lib/content";
 
 /**
@@ -18,8 +16,6 @@ export function Contact() {
 
   return (
     <section id="contacto" className="relative overflow-hidden px-4 py-14 sm:py-28">
-      <AuroraBackground className="opacity-50" />
-      <Meteors number={16} className="-z-10" />
 
       <div className="mx-auto max-w-2xl text-center">
         <SectionHeading kicker={t.contact.kicker} title={t.contact.heading} align="center" />
@@ -34,9 +30,9 @@ export function Contact() {
         <Reveal delay={0.15}>
           <div className="mt-10 overflow-hidden rounded-xl border border-border bg-background-soft text-left font-mono text-sm shadow-2xl shadow-black/30">
             <div className="flex items-center gap-2 border-b border-border bg-white/3 px-4 py-2.5">
-              <span className="h-3 w-3 rounded-full bg-red-500/80" />
-              <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
-              <span className="h-3 w-3 rounded-full bg-green-500/80" />
+              <span className="h-3 w-3 bg-red-500/80" />
+              <span className="h-3 w-3 bg-yellow-500/80" />
+              <span className="h-3 w-3 bg-green-500/80" />
               <span className="ml-2 text-xs text-muted">jeremy@portfolio: ~/contacto</span>
             </div>
 
@@ -47,8 +43,8 @@ export function Contact() {
               </p>
               <p className="flex items-center gap-2 text-emerald-400">
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                  <span className="absolute inline-flex h-full w-full animate-ping bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 bg-emerald-400" />
                 </span>
                 {t.contact.status}
               </p>
@@ -91,7 +87,7 @@ export function Contact() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <a
               href={`mailto:${SOCIALS.email}`}
-              className="btn-shine flex items-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-6 py-3 font-semibold text-background transition-transform hover:scale-[1.03]"
+              className="btn-pixel"
             >
               <Mail size={18} />
               {t.contact.emailLabel}
@@ -99,7 +95,7 @@ export function Contact() {
             <a
               href={cvFile(lang).href}
               download={cvFile(lang).name}
-              className="flex items-center gap-2 rounded-full border border-border glass px-6 py-3 font-semibold text-foreground transition-colors hover:border-accent-2"
+              className="btn-pixel btn-pixel-ghost"
             >
               <Download size={18} />
               {t.cta.cv}
@@ -116,7 +112,7 @@ export function Contact() {
               href={SOCIALS.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border px-3.5 py-2 text-sm font-medium text-foreground transition-colors hover:border-accent-2 hover:text-accent-2"
+              className="btn-pixel btn-pixel-ghost shrink-0 px-3 py-2.5 text-[0.55rem]"
             >
               <FaGithub size={15} /> {t.github.cta}
             </a>

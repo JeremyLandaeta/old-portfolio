@@ -46,7 +46,7 @@ export function CharacterStats() {
         <p className="max-w-[34ch] font-mono text-[11px] leading-snug text-muted/70">
           {g.flipHint}
         </p>
-        <span className="shrink-0 rounded-full border border-accent-2/30 bg-accent-2/10 px-3 py-1 font-mono text-xs font-semibold text-accent-2">
+        <span className="shrink-0 border border-accent-2/30 bg-accent-2/10 px-3 py-1 font-mono text-xs font-semibold text-accent-2">
           {g.levelLabel} {PLAYER_LEVEL}
         </span>
       </div>
@@ -67,7 +67,7 @@ export function CharacterStats() {
                 {group.skills.map((s) => (
                   <span
                     key={s.name}
-                    className="rounded-full border border-dashed border-border bg-white/2 px-2.5 py-1 font-mono text-[11px] text-muted"
+                    className="border border-dashed border-border bg-white/2 px-2.5 py-1 font-mono text-[11px] text-muted"
                   >
                     {s.name}
                   </span>

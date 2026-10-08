@@ -40,9 +40,9 @@ export function CurrentlyBuilding() {
               className="group relative flex h-full flex-col px-5 pb-5 pt-6"
             >
               <span
-                className={`inline-flex w-fit items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${stateStyle(item.status)}`}
+                className={`inline-flex w-fit items-center gap-1.5 border px-2.5 py-0.5 text-[11px] font-medium ${stateStyle(item.status)}`}
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-current" />
+                <span className="h-1.5 w-1.5 bg-current" />
                 {item.status}
               </span>
 

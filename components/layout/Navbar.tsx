@@ -69,7 +69,7 @@ export function Navbar() {
       className={`fixed inset-x-0 z-50 px-4 transition-all duration-300 ${scrolled ? "top-2" : "top-4"}`}
     >
       <nav
-        className={`mx-auto flex items-center justify-between rounded-full transition-all duration-300 ease-out ${
+        className={`mx-auto flex items-center justify-between transition-all duration-300 ease-out ${
           scrolled
             ? "max-w-3xl px-3.5 py-1.5 glass shadow-lg shadow-black/30"
             : "max-w-5xl px-5 py-3 bg-transparent md:px-4 lg:px-5"
@@ -102,7 +102,7 @@ export function Navbar() {
                 <Link
                   href={linkFor(item.id)}
                   aria-current={isActive ? "true" : undefined}
-                  className={`group/nav relative rounded-full transition-all duration-300 ${
+                  className={`group/nav relative transition-all duration-300 ${
                     isActive ? "text-accent-2" : "text-muted hover:bg-white/5 hover:text-foreground"
                   } ${scrolled ? "px-2 py-1 text-[13px]" : "px-2 py-1.5 text-sm lg:px-2.5"}`}
                 >
@@ -134,7 +134,7 @@ export function Navbar() {
               e.preventDefault();
               toggle();
             }}
-            className={`rounded-full border border-border font-mono font-semibold text-muted transition-all duration-300 hover:border-accent-2 hover:text-foreground ${
+            className={`border border-border font-mono font-semibold text-muted transition-all duration-300 hover:border-accent-2 hover:text-foreground ${
               scrolled ? "px-2 py-1 text-[11px]" : "px-2.5 py-1.5 text-xs"
             }`}
           >
@@ -147,8 +147,8 @@ export function Navbar() {
           <a
             href={cvFile(lang).href}
             download={cvFile(lang).name}
-            className={`btn-shine hidden shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-linear-to-r from-accent to-accent-2 font-semibold text-background transition-all duration-300 hover:scale-[1.03] sm:flex ${
-              scrolled ? "px-3 py-1 text-[13px]" : "px-4 py-2 text-sm md:px-3 lg:px-4"
+            className={`btn-pixel hidden shrink-0 gap-1.5 whitespace-nowrap font-mono font-bold sm:inline-flex ${
+              scrolled ? "px-3 py-1.5 text-[11px]" : "px-4 py-2.5 text-xs md:px-3 lg:px-4"
             }`}
           >
             <Download size={scrolled ? 14 : 15} />
@@ -161,7 +161,7 @@ export function Navbar() {
             aria-label={open ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            className="grid h-9 w-9 place-items-center rounded-full border border-border text-foreground md:hidden"
+            className="grid h-9 w-9 place-items-center border border-border text-foreground md:hidden"
           >
             {open ? <X size={18} /> : <Menu size={18} />}
           </button>
@@ -197,7 +197,7 @@ export function Navbar() {
                   href={cvFile(lang).href}
                   download={cvFile(lang).name}
                   onClick={() => setOpen(false)}
-                  className="mt-1 flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-accent to-accent-2 px-4 py-3 font-semibold text-background"
+                  className="btn-pixel mt-2 w-full"
                 >
                   <Download size={16} />
                   {t.cta.cv}

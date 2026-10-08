@@ -82,7 +82,7 @@ export function KonamiEgg() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-[100] grid place-items-center px-4"
+          className="fixed inset-0 z-100 grid place-items-center px-4"
           role="dialog"
           aria-modal="true"
           aria-label={c.title}
@@ -125,7 +125,7 @@ export function KonamiEgg() {
               type="button"
               onClick={() => setOpen(false)}
               aria-label={c.close}
-              className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full border border-border text-muted transition-colors hover:border-accent-2 hover:text-foreground"
+              className="absolute right-3 top-3 grid h-8 w-8 place-items-center border border-border text-muted transition-colors hover:border-accent-2 hover:text-foreground"
             >
               <X size={16} />
             </button>
@@ -135,7 +135,7 @@ export function KonamiEgg() {
             </p>
 
             {/* Sello de rareza */}
-            <div className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-amber-300/40 bg-amber-300/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-amber-300">
+            <div className="mt-4 inline-flex items-center gap-1.5 border border-amber-300/40 bg-amber-300/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-amber-300">
               <Sparkles size={12} />
               {c.rarity}
             </div>
@@ -147,12 +147,12 @@ export function KonamiEgg() {
               </div>
             </div>
 
-            <h2 className="mt-5 text-2xl font-bold text-gradient">{c.title}</h2>
+            <h2 className="mt-5 text-2xl font-bold text-accent-2">{c.title}</h2>
             <p className="mx-auto mt-2 max-w-[18rem] text-pretty text-sm text-muted">{c.flavor}</p>
 
             <p className="mt-4 font-mono text-base tracking-widest text-foreground">{c.hint}</p>
 
-            <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-4 py-1.5 font-mono text-xs font-semibold text-background">
+            <div className="mt-5 inline-flex items-center gap-2 bg-linear-to-r from-accent to-accent-2 px-4 py-1.5 font-mono text-xs font-semibold text-background">
               {c.reward}
             </div>
           </m.div>

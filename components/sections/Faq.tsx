@@ -45,7 +45,7 @@ export function Faq() {
                   <m.span
                     animate={{ rotate: isOpen ? 45 : 0 }}
                     transition={{ duration: 0.25 }}
-                    className={`grid h-7 w-7 shrink-0 place-items-center rounded-full transition-colors ${
+                    className={`grid h-7 w-7 shrink-0 place-items-center transition-colors ${
                       isOpen ? "bg-linear-to-br from-accent to-accent-2 text-background" : "border border-border text-muted"
                     }`}
                   >

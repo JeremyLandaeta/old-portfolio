@@ -18,8 +18,8 @@ const AUTO_MS = 5200;
 const easing = [0.22, 1, 0.36, 1] as const;
 
 const accentMap: Record<Project["accent"], { dot: string; badge: string; glow: string }> = {
-  blue: { dot: "bg-blue-400", badge: "text-blue-300 border-blue-400/30 bg-blue-400/10", glow: "from-blue-500/25" },
-  cyan: { dot: "bg-cyan-400", badge: "text-cyan-300 border-cyan-400/30 bg-cyan-400/10", glow: "from-cyan-500/25" },
+  blue: { dot: "bg-accent", badge: "text-accent-2 border-accent/40 bg-accent/10", glow: "from-accent/25" },
+  cyan: { dot: "bg-crystal", badge: "text-crystal border-crystal/30 bg-crystal/10", glow: "from-crystal/20" },
   violet: { dot: "bg-violet-400", badge: "text-violet-300 border-violet-400/30 bg-violet-400/10", glow: "from-violet-500/25" },
   emerald: { dot: "bg-emerald-400", badge: "text-emerald-300 border-emerald-400/30 bg-emerald-400/10", glow: "from-emerald-500/25" },
 };
@@ -118,7 +118,7 @@ export function ProjectCarousel({ leadingCard }: { leadingCard?: ReactNode }) {
             </div>
           )}
           {project.badge && (
-            <span className={`absolute left-2 top-2 rounded-full border px-2 py-0.5 text-[10px] font-medium ${accent.badge}`}>
+            <span className={`absolute left-2 top-2 border px-2 py-0.5 text-[10px] font-medium ${accent.badge}`}>
               {project.badge}
             </span>
           )}
@@ -126,7 +126,7 @@ export function ProjectCarousel({ leadingCard }: { leadingCard?: ReactNode }) {
 
         {/* tipo de producto + título */}
         <div className="flex items-center gap-2">
-          <span className={`h-2 w-2 shrink-0 rounded-full ${accent.dot}`} />
+          <span className={`h-2 w-2 shrink-0 ${accent.dot}`} />
           <span className="font-mono text-[11px] uppercase tracking-wider text-muted">{project.tagline}</span>
         </div>
         <h3 className="mt-1.5 text-xl font-bold tracking-tight">{project.title}</h3>
@@ -197,7 +197,7 @@ export function ProjectCarousel({ leadingCard }: { leadingCard?: ReactNode }) {
                 onClick={() => goTo(i)}
                 aria-label={s.project ? s.project.title : lang === "en" ? "Profile" : "Perfil"}
                 aria-current={i === index ? "true" : undefined}
-                className={`h-1.5 rounded-full transition-all ${i === index ? "w-5 bg-accent-2" : "w-1.5 bg-border hover:bg-muted"}`}
+                className={`h-1.5 transition-all ${i === index ? "w-5 bg-accent-2" : "w-1.5 bg-border hover:bg-muted"}`}
               />
             ))}
           </div>
@@ -206,7 +206,7 @@ export function ProjectCarousel({ leadingCard }: { leadingCard?: ReactNode }) {
               type="button"
               onClick={() => paginate(-1)}
               aria-label={lang === "en" ? "Previous" : "Anterior"}
-              className="grid h-8 w-8 place-items-center rounded-full border border-border text-muted transition-colors hover:border-accent-2 hover:text-foreground"
+              className="grid h-8 w-8 place-items-center border border-border text-muted transition-colors hover:border-accent-2 hover:text-foreground"
             >
               <ChevronLeft size={16} />
             </button>
@@ -214,7 +214,7 @@ export function ProjectCarousel({ leadingCard }: { leadingCard?: ReactNode }) {
               type="button"
               onClick={() => paginate(1)}
               aria-label={lang === "en" ? "Next" : "Siguiente"}
-              className="grid h-8 w-8 place-items-center rounded-full border border-border text-muted transition-colors hover:border-accent-2 hover:text-foreground"
+              className="grid h-8 w-8 place-items-center border border-border text-muted transition-colors hover:border-accent-2 hover:text-foreground"
             >
               <ChevronRight size={16} />
             </button>

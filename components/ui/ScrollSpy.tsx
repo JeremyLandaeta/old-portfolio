@@ -25,7 +25,7 @@ export function ScrollSpy() {
               {item.label}
             </span>
             <span
-              className={`block rounded-full transition-all duration-300 ${
+              className={`block transition-all duration-300 ${
                 isActive
                   ? "h-2.5 w-2.5 bg-accent-2 shadow-[0_0_12px_var(--accent-glow)]"
                   : "h-2 w-2 bg-muted/40 group-hover:bg-muted"

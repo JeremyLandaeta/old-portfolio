@@ -6,14 +6,13 @@ import { ArrowLeft, ArrowUpRight, Lightbulb, Target, Wrench, CheckCircle2 } from
 import { FaGithub } from "react-icons/fa6";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
-import { AuroraBackground } from "@/components/ui/AuroraBackground";
 import { ReadingProgress } from "@/components/ui/ReadingProgress";
 import { projectMedia } from "@/lib/projectMedia";
 import { projectPath } from "@/lib/site";
 
 const accentDot: Record<string, string> = {
-  blue: "bg-blue-400",
-  cyan: "bg-cyan-400",
+  blue: "bg-accent",
+  cyan: "bg-crystal",
   violet: "bg-violet-400",
   emerald: "bg-emerald-400",
 };
@@ -54,7 +53,7 @@ function Bullets({ items }: { items: string[] }) {
     <ul className="space-y-2">
       {items.map((b) => (
         <li key={b} className="flex gap-2.5">
-          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-2" />
+          <span className="mt-2 h-1.5 w-1.5 shrink-0 bg-accent-2" />
           <span>{b}</span>
         </li>
       ))}
@@ -66,9 +65,9 @@ function Bullets({ items }: { items: string[] }) {
 function WindowBar({ caption }: { caption: string }) {
   return (
     <div className="flex items-center gap-1.5 border-b border-border bg-white/3 px-3 py-2">
-      <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
-      <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
-      <span className="h-2.5 w-2.5 rounded-full bg-green-500/70" />
+      <span className="h-2.5 w-2.5 bg-red-500/70" />
+      <span className="h-2.5 w-2.5 bg-yellow-500/70" />
+      <span className="h-2.5 w-2.5 bg-green-500/70" />
       <span className="ml-2 truncate font-mono text-[11px] text-muted">{caption}</span>
     </div>
   );
@@ -79,7 +78,7 @@ function RealShot({ src, caption, alt }: { src: string; caption: string; alt: st
   return (
     <figure className="group overflow-hidden rounded-xl border border-border bg-background-soft">
       <WindowBar caption={caption} />
-      <div className="relative aspect-[16/10] w-full overflow-hidden">
+      <div className="relative aspect-16/10 w-full overflow-hidden">
         <Image
           src={src}
           alt={alt}
@@ -100,9 +99,9 @@ function Mockup({ caption, title }: { caption: string; title: string }) {
       <div className="relative grid h-44 place-items-center bg-grid">
         <div className="absolute inset-0 bg-linear-to-br from-accent/10 via-transparent to-accent-2/10" />
         <div className="absolute left-4 right-4 top-4 space-y-2 opacity-40">
-          <div className="h-2 w-1/3 rounded-full bg-white/25" />
-          <div className="h-2 w-2/3 rounded-full bg-white/15" />
-          <div className="h-2 w-1/2 rounded-full bg-white/10" />
+          <div className="h-2 w-1/3 bg-white/25" />
+          <div className="h-2 w-2/3 bg-white/15" />
+          <div className="h-2 w-1/2 bg-white/10" />
         </div>
         <span className="relative rounded-md border border-border bg-background/60 px-3 py-1.5 text-center font-mono text-xs text-muted backdrop-blur-sm">
           {caption}
@@ -126,11 +125,11 @@ export function CaseStudyView({ slug }: { slug: string }) {
     return (
       <div className="grid min-h-[70vh] place-items-center px-4 text-center">
         <div>
-          <p className="font-mono text-6xl font-bold text-gradient">404</p>
+          <p className="title-pixel text-5xl">404</p>
           <p className="mt-4 text-lg text-muted">{L.notFound}</p>
           <Link
             href={`/${lang}#proyectos`}
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-5 py-2.5 font-semibold text-background"
+            className="btn-pixel mt-6"
           >
             <ArrowLeft size={16} /> {L.backHome}
           </Link>
@@ -145,7 +144,6 @@ export function CaseStudyView({ slug }: { slug: string }) {
 
       {/* Hero del caso */}
       <header className="relative overflow-hidden px-4 pt-28 pb-12 sm:pt-32">
-        <AuroraBackground className="opacity-70" />
         <div className="mx-auto max-w-3xl">
           <Link
             href={`/${lang}#proyectos`}
@@ -156,17 +154,17 @@ export function CaseStudyView({ slug }: { slug: string }) {
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <span className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider text-muted">
-              <span className={`h-2 w-2 rounded-full ${accentDot[project.accent]}`} />
+              <span className={`h-2 w-2 ${accentDot[project.accent]}`} />
               {project.tagline}
             </span>
             {project.badge && (
-              <span className="rounded-full border border-accent-2/30 bg-accent-2/10 px-2.5 py-0.5 text-[11px] font-medium text-accent-2">
+              <span className="border border-accent-2/30 bg-accent-2/10 px-2.5 py-0.5 text-[11px] font-medium text-accent-2">
                 {project.badge}
               </span>
             )}
           </div>
 
-          <h1 className="mt-3 text-balance text-4xl font-bold tracking-tight sm:text-5xl">
+          <h1 className="title-pixel mt-4 text-balance text-lg leading-normal sm:text-2xl">
             {project.title}
           </h1>
 
@@ -188,7 +186,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
                   href={study.links.demo}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-5 py-2.5 text-sm font-semibold text-background transition-transform hover:scale-[1.03]"
+                  className="btn-pixel"
                 >
                   {L.viewDemo} <ArrowUpRight size={16} />
                 </a>
@@ -198,7 +196,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
                   href={study.links.repo}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-border glass px-5 py-2.5 text-sm font-semibold transition-colors hover:border-accent-2"
+                  className="btn-pixel btn-pixel-ghost"
                 >
                   <FaGithub size={16} /> {L.viewRepo}
                 </a>
@@ -297,7 +295,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
         <Reveal className="pt-4 text-center">
           <Link
             href={`/${lang}#proyectos`}
-            className="inline-flex items-center gap-2 rounded-full border border-border glass px-5 py-2.5 text-sm font-semibold transition-colors hover:border-accent-2"
+            className="btn-pixel btn-pixel-ghost"
           >
             <ArrowLeft size={16} /> {L.back}
           </Link>

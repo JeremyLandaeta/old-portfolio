@@ -102,17 +102,18 @@ function Ring({ frac, half }: { frac: number; half: number }) {
   const d = frac * half * 2;
   return (
     <div
-      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
       style={{
+        borderRadius: "50%",
         width: d,
         height: d,
-        border: "1px solid rgba(56,140,255,0.18)",
-        boxShadow: "inset 0 0 40px rgba(6,182,212,0.06)",
+        border: "1px solid rgba(243,231,207,0.14)",
+        boxShadow: "inset 0 0 40px rgba(255,122,26,0.05)",
       }}
     >
       <div
-        className="absolute inset-0 rounded-full"
-        style={{ background: "radial-gradient(circle, transparent 60%, rgba(6,182,212,0.05) 100%)" }}
+        className="absolute inset-0"
+        style={{ borderRadius: "50%", background: "radial-gradient(circle, transparent 60%, rgba(255,122,26,0.04) 100%)" }}
       />
     </div>
   );

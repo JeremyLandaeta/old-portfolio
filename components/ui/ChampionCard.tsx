@@ -71,8 +71,8 @@ export function ChampionCard() {
               style={{ animationDelay: "1.8s" }}
             />
             <span className="absolute right-2 top-2 flex h-3 w-3">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-400" />
+              <span className="absolute inline-flex h-full w-full animate-ping bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-3 w-3 bg-emerald-400" />
             </span>
           </div>
 
@@ -111,7 +111,7 @@ export function ChampionCard() {
                   <Icon size={15} className="text-accent-2" />
                   <Counter
                     value={h.value}
-                    className="mt-1 block text-gradient text-lg font-bold leading-none"
+                    className="mt-1 block text-lg font-bold leading-none text-accent-2"
                   />
                   <p className="mt-0.5 text-xs leading-tight text-muted">
                     {h.label}
@@ -129,7 +129,7 @@ export function ChampionCard() {
             <a
               href={cvFile(lang).href}
               download={cvFile(lang).name}
-              className="btn-shine flex h-8 items-center gap-1.5 rounded-full bg-linear-to-r from-accent to-accent-2 px-3.5 text-sm font-semibold text-background"
+              className="btn-pixel px-3 py-2 text-[0.5rem]"
             >
               {t.cta.cv}
             </a>

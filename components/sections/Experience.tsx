@@ -31,12 +31,12 @@ export function Experience() {
             <Reveal key={item.company} delay={i * 0.05} className="relative">
               {/* nodo */}
               <span
-                className={`absolute -left-8 top-1.5 grid h-4 w-4 place-items-center rounded-full border-2 sm:-left-10 ${
+                className={`absolute -left-8 top-1.5 grid h-4 w-4 place-items-center border-2 sm:-left-10 ${
                   item.current ? "border-accent-2 bg-accent-2" : "border-accent bg-background"
                 }`}
               >
                 {item.current && (
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-2 opacity-60" />
+                  <span className="absolute inline-flex h-full w-full animate-ping bg-accent-2 opacity-60" />
                 )}
               </span>
 
@@ -50,7 +50,7 @@ export function Experience() {
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                   <h3 className="text-lg font-semibold">{item.role}</h3>
                   {item.current && (
-                    <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2 py-0.5 text-[11px] font-medium text-emerald-300">
+                    <span className="border border-emerald-400/30 bg-emerald-400/10 px-2 py-0.5 text-[11px] font-medium text-emerald-300">
                       ● Now
                     </span>
                   )}
@@ -59,7 +59,7 @@ export function Experience() {
                 <ul className="mt-4 space-y-2">
                   {item.bullets.map((b, j) => (
                     <li key={j} className="flex gap-2 text-sm leading-relaxed text-muted">
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent-2" />
+                      <span className="mt-2 h-1 w-1 shrink-0 bg-accent-2" />
                       {b}
                     </li>
                   ))}
@@ -82,7 +82,7 @@ export function Experience() {
 
           {/* Educación / certificaciones */}
           <Reveal className="relative">
-            <span className="absolute -left-8 top-1.5 grid h-4 w-4 place-items-center rounded-full border-2 border-accent bg-background sm:-left-10">
+            <span className="absolute -left-8 top-1.5 grid h-4 w-4 place-items-center border-2 border-accent bg-background sm:-left-10">
               <GraduationCap size={9} className="text-accent" />
             </span>
             <MenuFrame title="EDU" icon={GraduationCap} accent="amber" headingLevel="none" className="px-5 pb-5 pt-7 sm:px-6 sm:pb-6">
@@ -92,7 +92,7 @@ export function Experience() {
                 {t.experience.education.certs.map((c) => (
                   <span
                     key={c}
-                    className="flex items-center gap-1.5 rounded-full border border-border bg-white/3 px-3 py-1 text-xs text-muted"
+                    className="flex items-center gap-1.5 border border-border bg-white/3 px-3 py-1 text-xs text-muted"
                   >
                     <Award size={13} className="text-accent-2" />
                     {c}
