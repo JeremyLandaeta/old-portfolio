@@ -2,6 +2,10 @@
 
 import { Reveal } from "./Reveal";
 
+/**
+ * Encabezado de sección: una línea en serif cursiva (la "voz de historia") y el
+ * título en pixel con sombra dura, igual que el logo del hero.
+ */
 export function SectionHeading({
   kicker,
   title,
@@ -12,14 +16,9 @@ export function SectionHeading({
   align?: "left" | "center";
 }) {
   return (
-    <Reveal blur className={align === "center" ? "text-center" : ""}>
-      <div className={`flex items-center gap-2 ${align === "center" ? "justify-center" : ""}`}>
-        <span aria-hidden className="font-mono text-xs text-accent-2">◆</span>
-        <span className="font-mono text-sm uppercase tracking-[0.25em] text-muted">{kicker}</span>
-      </div>
-      <h2 className="text-shimmer mt-3 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-        {title}
-      </h2>
+    <Reveal className={align === "center" ? "text-center" : ""}>
+      <p className="text-lg italic text-straw">{kicker}</p>
+      <h2 className="title-pixel mt-3 text-base leading-normal sm:text-xl md:text-2xl">{title}</h2>
     </Reveal>
   );
 }

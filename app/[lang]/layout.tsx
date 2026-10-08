@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Inter, JetBrains_Mono, Press_Start_2P } from "next/font/google";
+import { Alegreya, JetBrains_Mono, Press_Start_2P } from "next/font/google";
 import "../globals.css";
 import { LanguageProvider } from "@/components/providers/LanguageProvider";
 import { MotionProvider } from "@/components/providers/MotionProvider";
-import { CursorGlow } from "@/components/ui/CursorGlow";
-import { GlobalParticles } from "@/components/ui/GlobalParticles";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SOCIALS, type Lang } from "@/lib/content";
 import { HOME_META, LOCALES, OG_LOCALE, PERSON_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "@/lib/site";
 
-const inter = Inter({
-  variable: "--font-inter",
+// Serif de lectura ("voz de historia"). La mono es la voz técnica y la pixel,
+// la del juego: títulos, menús y botones.
+const serif = Alegreya({
+  variable: "--font-alegreya",
   subsets: ["latin"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -139,14 +140,14 @@ export default async function LangLayout({
     <html
       lang={lang}
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${mono.variable} ${pixel.variable} h-full antialiased`}
+      className={`${serif.variable} ${mono.variable} ${pixel.variable} h-full antialiased`}
     >
       <body className="grain scanlines min-h-full flex flex-col bg-background text-foreground">
         <JsonLd data={jsonLd} />
+        {/* Cielo estrellado fijo detrás de todo el sitio */}
+        <div aria-hidden className="stars" />
         <LanguageProvider lang={lang}>
           <MotionProvider>
-            <GlobalParticles />
-            <CursorGlow />
             {children}
           </MotionProvider>
         </LanguageProvider>

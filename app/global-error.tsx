@@ -32,7 +32,7 @@ export default function GlobalError({
         <button
           type="button"
           onClick={() => reset()}
-          className="btn-shine mt-8 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-6 py-3 font-semibold text-background"
+          className="btn-pixel mt-8"
         >
           ↻ Reintentar
         </button>

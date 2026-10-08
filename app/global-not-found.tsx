@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Press_Start_2P } from "next/font/google";
+import { Alegreya, JetBrains_Mono, Press_Start_2P } from "next/font/google";
 import "./globals.css";
 
 // global-not-found reemplaza el layout, así que carga sus propias fuentes.
-const inter = Inter({
-  variable: "--font-inter",
+const serif = Alegreya({
+  variable: "--font-alegreya",
   subsets: ["latin"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 const mono = JetBrains_Mono({
@@ -29,7 +30,7 @@ export default function GlobalNotFound() {
   return (
     <html
       lang="es"
-      className={`${inter.variable} ${mono.variable} ${pixel.variable} h-full antialiased`}
+      className={`${serif.variable} ${mono.variable} ${pixel.variable} h-full antialiased`}
     >
       <body className="grain scanlines relative flex min-h-full flex-col items-center justify-center overflow-hidden bg-background px-4 py-16 text-center text-foreground">
         {/* Kanji 道 ("el camino") de fondo, tenue */}
@@ -45,7 +46,7 @@ export default function GlobalNotFound() {
             {"> error_404"}
           </p>
 
-          <h1 className="text-shimmer mt-6 font-pixel text-5xl leading-none sm:text-7xl">404</h1>
+          <h1 className="title-pixel mt-6 text-5xl leading-none sm:text-7xl">404</h1>
 
           <h2 className="mt-7 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
             El sendero se perdió
@@ -60,7 +61,7 @@ export default function GlobalNotFound() {
           {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a
             href="/es"
-            className="btn-shine mt-9 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-6 py-3 font-semibold text-background"
+            className="btn-pixel mt-9"
           >
             ▸ Retomar el camino
           </a>

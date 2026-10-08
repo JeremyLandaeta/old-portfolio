@@ -25,7 +25,7 @@ export default function Error({
         {"> system_error"}
       </p>
 
-      <h1 className="text-shimmer mt-6 font-pixel text-3xl leading-none sm:text-5xl">ERROR</h1>
+      <h1 className="title-pixel mt-6 text-3xl leading-none sm:text-5xl">ERROR</h1>
 
       <p className="mt-5 max-w-md text-pretty leading-relaxed text-muted">
         Algo se rompió al renderizar esta zona. Puedes reintentar o volver al inicio.
@@ -35,13 +35,13 @@ export default function Error({
         <button
           type="button"
           onClick={() => reset()}
-          className="btn-shine inline-flex items-center gap-2 rounded-full bg-linear-to-r from-accent to-accent-2 px-6 py-3 font-semibold text-background"
+          className="btn-pixel"
         >
           ↻ Reintentar
         </button>
         <Link
           href={`/${lang}`}
-          className="inline-flex items-center gap-2 rounded-full border border-border glass px-6 py-3 font-semibold text-foreground transition-colors hover:border-accent-2"
+          className="btn-pixel btn-pixel-ghost"
         >
           ▸ Inicio
         </Link>
