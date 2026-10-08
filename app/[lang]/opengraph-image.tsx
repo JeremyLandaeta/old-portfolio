@@ -26,22 +26,20 @@ const ROOT_STYLE: CSSProperties = {
   flexDirection: "column",
   justifyContent: "center",
   padding: "80px",
-  background: "#0a0e1a",
-  backgroundImage:
-    "radial-gradient(circle at 18% 20%, rgba(59,130,246,0.45), transparent 45%), radial-gradient(circle at 85% 25%, rgba(6,182,212,0.40), transparent 45%)",
-  color: "#e6edf7",
+  background: "#010813",
+  backgroundImage: "radial-gradient(circle at 50% 118%, rgba(255,122,26,0.42), transparent 55%)",
+  color: "#f3e7cf",
   fontFamily: "sans-serif",
 };
 
 const BADGE_STYLE: CSSProperties = {
   width: 56,
   height: 56,
-  borderRadius: 14,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  background: "linear-gradient(135deg, #3b82f6, #06b6d4)",
-  color: "#0a0e1a",
+  background: "#ff7a1a",
+  color: "#010813",
   fontSize: 26,
   fontWeight: 700,
 };
@@ -61,7 +59,7 @@ export default async function OpengraphImage({
           <div style={BADGE_STYLE}>
             JL
           </div>
-          <div style={{ fontSize: 26, color: "#8aa0c0", fontFamily: "monospace" }}>jeremy.dev</div>
+          <div style={{ fontSize: 26, color: "#a89f8c", fontFamily: "monospace" }}>jeremy.dev</div>
         </div>
 
         <div style={{ marginTop: 40, fontSize: 76, fontWeight: 800, letterSpacing: -2 }}>
@@ -72,14 +70,12 @@ export default async function OpengraphImage({
             marginTop: 12,
             fontSize: 44,
             fontWeight: 700,
-            background: "linear-gradient(120deg, #93c5fd, #06b6d4)",
-            backgroundClip: "text",
-            color: "transparent",
+            color: "#ff7a1a",
           }}
         >
           Frontend Developer
         </div>
-        <div style={{ marginTop: 24, fontSize: 28, color: "#8aa0c0", maxWidth: 900 }}>
+        <div style={{ marginTop: 24, fontSize: 28, color: "#a89f8c", maxWidth: 900 }}>
           {subtitle}
         </div>
       </div>
