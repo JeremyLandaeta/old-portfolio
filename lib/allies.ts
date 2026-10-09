@@ -46,6 +46,7 @@ export const ALLIES: Ally[] = [
     id: "brandon-hernandez",
     name: "Brandon Hernández",
     url: "https://brandonhc.cl/",
+    github: "https://github.com/brandonhc33",
     linkedin: "https://www.linkedin.com/in/brandonhc/",
     accent: "moss",
     archetype: { es: "Mentor", en: "Mentor" },

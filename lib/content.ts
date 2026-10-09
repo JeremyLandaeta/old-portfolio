@@ -186,8 +186,6 @@ export type Content = {
   footer: {
     built: string;
     rights: string;
-    /** etiqueta de los enlaces a casos de estudio del pie */
-    projects: string;
   };
 };
 
@@ -317,12 +315,13 @@ const es: Content = {
       role: [
         "En 0 Carbono implementé todo el frontend. Tomé como referencia el frontend de HuellaChile para la estructura y la experiencia.",
         "En EcoREP participé en implementaciones de frontend sobre módulos específicos de una plataforma compartida.",
-        "Implementé tablas con filtros para revisar y encontrar la información operativa.",
+        "En el dashboard de EcoREP implementé filtros múltiples: los gráficos y las tablas se generan según lo que el usuario selecciona.",
         "Implementé un gestor de archivos por período: cada Excel cargado queda asignado a su período, así se revisa la trazabilidad de los residuos de cada mes.",
       ],
       architecture: [
         "Frontend modular con React, Next.js y TypeScript, componentes Material UI y estado de servidor con Redux Toolkit/RTK Query.",
         "Los módulos consumen APIs REST y separan formularios, filtros, visualización y gestión de archivos.",
+        "0 Carbono usa Next.js 16 y React 19 con una estructura por funcionalidades; EcoREP es una base más antigua, en Next.js 13.",
       ],
       solution: [
         "Formularios de varias capas rediseñados para que el usuario los entienda al primer vistazo.",
@@ -712,13 +711,14 @@ const es: Content = {
     heading: "Experiencia profesional",
     items: [
       {
-        role: "Frontend Developer / Software Developer",
+        role: "Frontend Developer → Software Developer",
         company: "GreenSoft",
         url: "https://greensoft.cl",
         period: "Jun 2025 — Actualidad",
         location: "Santiago, Chile",
         current: true,
         bullets: [
+          "Entré como desarrollador frontend y fui tomando backend, integraciones e IA aplicada, hasta trabajar como desarrollador de software.",
           "Implementé completo el frontend de 0 Carbono y participé en el de EcoREP, productos ambientales en producción, con React, Next.js, TypeScript, Material UI, Redux Toolkit y RTK Query.",
           "Implemento formularios, validaciones, filtros complejos, dashboards, gestión de archivos, exportaciones e integraciones con APIs REST.",
           "Desarrollé el backend del asistente de WhatsApp de leyrep.cl (antes Orbix), hoy en producción: flujos guiados, respuestas con DeepSeek vía Vercel AI Gateway y derivación de leads al CRM.",
@@ -731,7 +731,7 @@ const es: Content = {
       {
         role: "Desarrollador Frontend — Freelance",
         company: "BaoBlue",
-        period: "2025",
+        period: "2026",
         location: "Remoto",
         bullets: [
           "Desarrollé una landing page a medida para la presentación comercial de la marca.",
@@ -831,7 +831,6 @@ const es: Content = {
   footer: {
     built: "Stack: Next.js · TypeScript · Tailwind",
     rights: "Forjado en Santiago, Chile",
-    projects: "Casos de estudio",
   },
 };
 
@@ -961,12 +960,13 @@ const en: Content = {
       role: [
         "On 0 Carbono I implemented the whole frontend. I used HuellaChile's frontend as a reference for structure and experience.",
         "On EcoREP I took part in frontend work on specific modules of a shared platform.",
-        "Implemented filterable tables to review and find operational information.",
+        "On the EcoREP dashboard I implemented multi-select filters: charts and tables are generated from what the user selects.",
         "Built a per-period file manager: each uploaded Excel is assigned to its period, so you can review each month's waste traceability.",
       ],
       architecture: [
         "A modular frontend with React, Next.js and TypeScript, Material UI components and server state through Redux Toolkit/RTK Query.",
         "Modules consume REST APIs and separate forms, filters, visualization and file management.",
+        "0 Carbono runs on Next.js 16 and React 19 with a feature-first structure; EcoREP is an older codebase, on Next.js 13.",
       ],
       solution: [
         "Multi-layer forms redesigned so users understand them at first glance.",
@@ -1356,13 +1356,14 @@ const en: Content = {
     heading: "Professional experience",
     items: [
       {
-        role: "Frontend Developer / Software Developer",
+        role: "Frontend Developer → Software Developer",
         company: "GreenSoft",
         url: "https://greensoft.cl",
         period: "Jun 2025 — Present",
         location: "Santiago, Chile",
         current: true,
         bullets: [
+          "I joined as a frontend developer and gradually took on backend, integrations and applied AI, until working as a software developer.",
           "Implemented the whole 0 Carbono frontend and took part in the EcoREP one, both environmental products in production, with React, Next.js, TypeScript, Material UI, Redux Toolkit and RTK Query.",
           "Implement forms, validation, complex filters, dashboards, file management, exports and REST API integrations.",
           "Built the backend of the leyrep.cl WhatsApp assistant (formerly Orbix), now in production: guided flows, answers with DeepSeek through Vercel AI Gateway and lead handoff to the CRM.",
@@ -1375,7 +1376,7 @@ const en: Content = {
       {
         role: "Frontend Developer — Freelance",
         company: "BaoBlue",
-        period: "2025",
+        period: "2026",
         location: "Remote",
         bullets: [
           "Built a custom landing page for the brand's commercial presentation.",
@@ -1475,7 +1476,6 @@ const en: Content = {
   footer: {
     built: "Stack: Next.js · TypeScript · Tailwind",
     rights: "Forged in Santiago, Chile",
-    projects: "Case studies",
   },
 };
 
