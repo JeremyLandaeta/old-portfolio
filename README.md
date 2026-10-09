@@ -1,93 +1,68 @@
-# Web Portafolio — Jeremy Landaeta Lizama
+# jlandaeta.dev
 
-Portafolio personal bilingüe (ES/EN) construido con **Next.js 16 + React 19 + TypeScript + Tailwind CSS v4 + Framer Motion**.
-Dark mode con identidad azul/cyan, animaciones al scroll y una capa "gamer" (RPG/MOBA/TCG) que le da un toque personal.
-
-## Stack
-
-- **Next.js 16** (App Router, Turbopack) + **React 19**
-- **TypeScript** (strict)
-- **Tailwind CSS v4** (sin archivo de config, todo en `globals.css`)
-- **Framer Motion** — animaciones y reveal-on-scroll
-- **lucide-react** + **react-icons** — iconografía y logos de tecnologías
+Portafolio bilingüe de Jeremy Landaeta, construido con **Next.js 16, React 19, TypeScript, Tailwind CSS 4 y Framer Motion**. Presenta proyectos profesionales, freelance, personales y académicos con casos de estudio técnicos, sin perder su identidad RPG/pixel-art.
 
 ## Desarrollo
 
 ```bash
 pnpm install
-pnpm dev      # http://localhost:3000  (redirige a /es)
-pnpm build    # build de producción (estático)
-pnpm start    # servir el build
-pnpm lint     # eslint
+pnpm dev       # http://localhost:3000 → /es
+pnpm lint
+pnpm test      # valida el contenido bilingüe de proyectos y casos
+pnpm build
+pnpm start
 ```
 
-## Internacionalización (i18n)
+Requiere Node.js 20.9 o superior. El sitio no necesita variables de entorno y sus rutas de contenido se prerenderizan.
 
-El idioma es **parte de la URL**, no un toggle de cliente: cada idioma tiene su propia
-ruta indexable.
+## Arquitectura
 
-- `/es` y `/en` → home en cada idioma.
-- `/es/proyectos/[slug]` y `/en/proyectos/[slug]` → casos de estudio.
-- `/` redirige a `/es` (a nivel de routing, sin función serverless).
-- El selector ES/EN de la navbar **navega** a la URL equivalente del otro idioma.
-- SEO por idioma: `<html lang>`, `canonical`, `hreflang`, OpenGraph y `sitemap.xml`
-  se generan por locale.
-
-Todo el contenido vive tipado en `lib/content.ts` (diccionarios `es` / `en`).
-
-## Estructura
-
-```
-app/
-  [lang]/
-    layout.tsx          # <html lang>, metadata/SEO por idioma, fuentes, providers
-    page.tsx            # ensambla las secciones de la home
-    template.tsx        # transición de página (wipe)
-    opengraph-image.tsx # imagen Open Graph por idioma
-    proyectos/[slug]/   # casos de estudio (SSG, ambos idiomas)
-  globals.css           # identidad visual + animaciones (aurora, grid, glow, scanlines…)
-  sitemap.ts / robots.ts
+```text
+app/[lang]/
+  layout.tsx                    metadata, fuentes, providers y JSON-LD
+  page.tsx                      composición de la home
+  proyectos/[slug]/page.tsx    casos de estudio ES/EN
 components/
-  providers/            # LanguageProvider (idioma desde la ruta)
-  layout/               # Navbar flotante + Footer terminal
-  sections/             # Hero, Snapshot, ProjectCarousel, AboutLore, Experience,
-                        #   Stack, CurrentlyBuilding, Faq, Contact, CaseStudyView, CharacterStats
-  ui/                   # Reveal, GlowCard, AuroraBackground, RadarChart, TechFlipCard,
-                        #   ChampionCard, PixelAvatar/PixelSprite, Hud, Achievements…
+  sections/                     hero, proyectos, experiencia, perfil, stack…
+  ui/                           sistema visual RPG, motion y navegación
 lib/
-  content.ts            # contenido bilingüe, tipado
-  gamer.ts              # capa gamer: stats, atributos, habilidades, sprites pixel-art
-public/
-  cv.pdf                # CV descargable
-scripts/
-  cv.html               # fuente del CV → genera el PDF
+  content.ts                    contenido bilingüe tipado y datos de proyectos
+  projectMedia.ts               capturas reales y emblemas por proyecto
+  gamer.ts                      inventario, sprites y capa narrativa
+  allies.ts                     fichas de la sección Aliados
+  site.ts                       URL canónica, metadata y rutas
 ```
 
-## Capa "gamer"
+Los proyectos tienen dos dimensiones independientes:
 
-Toques de videojuego pensados como detalle, no como tema completo:
+- Categoría: profesional, freelance, personal o académico.
+- Estado: producción, uso interno, en pausa, completado, en desarrollo, prototipo o mockup.
 
-- **Sobre mí → Champion Profile**: carta coleccionable estilo TCG (con tilt 3D + foil),
-  barras de stats RPG, radar de atributos tipo MOBA y un kit de habilidades P/Q/W/E/R.
-- **HUD** fijo con nivel, zona actual y barra de XP atada al scroll.
-- **Logros** ("achievement unlocked") que se desbloquean al recorrer las secciones.
-- Avatar y detalles **pixel-art**, scanlines CRT sutiles.
+Además, `featured` marca los proyectos principales de la home (el resto va al carrusel) y `own` distingue los proyectos propios, cuya tarjeta dice "Qué soluciona" en vez de "Mi aporte".
 
-Todo respeta `prefers-reduced-motion` y es fácil de ajustar desde `lib/gamer.ts`.
+Agregar un proyecto requiere registrar su contenido en ambos idiomas, su caso de estudio y, si existen, sus medios reales. Los casos sin capturas públicas usan emblemas pixel-art; no se generan interfaces ficticias como evidencia.
 
-## Regenerar el CV en PDF
+## Internacionalización y SEO
 
-El CV se genera desde `scripts/cv.html` (mismo branding que el sitio):
+- `/es` y `/en` son rutas indexables.
+- Los casos viven en `/[lang]/proyectos/[slug]`.
+- Metadata, canonical, hreflang, Open Graph, sitemap, JSON-LD y `/llms.txt` se generan desde las mismas fuentes tipadas.
+- La raíz redirige a `/es`; los slugs antiguos relevantes conservan redirecciones.
+
+## Identidad y accesibilidad
+
+La estética “Fogata” usa una paleta nocturna, tipografía pixel para rótulos, serif para lectura y mono para datos técnicos. La navegación y el contenido conservan semántica HTML, foco visible, soporte de teclado, contraste, `prefers-reduced-motion` e imágenes optimizadas con `next/image`.
+
+## CV
+
+Las fuentes HTML viven en `scripts/cv-es.html` y `scripts/cv-en.html`.
 
 ```bash
-pnpm cv   # genera public/cv.pdf con Chrome headless (macOS)
+pnpm cv
 ```
+
+El comando usa Chrome headless en macOS para generar `public/cv-es.pdf` y `public/cv-en.pdf`.
 
 ## Deploy
 
-Optimizado para **Vercel**: el build es 100% estático (sin variables de entorno).
-Conecta el repo y deploy — el redirect de la raíz y las rutas por idioma funcionan a nivel de routing.
-
----
-
-Hecho en Santiago, Chile.
+El proyecto está preparado para Vercel. No ejecutar un despliegue desde este repositorio sin revisar primero el dominio primario, las redirecciones y los PDFs publicados.
