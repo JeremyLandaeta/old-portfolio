@@ -59,7 +59,7 @@ export default async function OpengraphImage({
           <div style={BADGE_STYLE}>
             JL
           </div>
-          <div style={{ fontSize: 26, color: "#a89f8c", fontFamily: "monospace" }}>jeremy.dev</div>
+          <div style={{ fontSize: 26, color: "#a89f8c", fontFamily: "monospace" }}>jlandaeta.dev</div>
         </div>
 
         <div style={{ marginTop: 40, fontSize: 76, fontWeight: 800, letterSpacing: -2 }}>

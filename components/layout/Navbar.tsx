@@ -67,7 +67,7 @@ export function Navbar() {
       <nav
         className={`mx-auto flex items-center justify-between transition-[max-width,padding,background-color,box-shadow] duration-300 ease-out ${
           scrolled
-            ? "max-w-3xl px-3.5 py-1.5 glass shadow-lg shadow-black/30"
+            ? "max-w-4xl px-3.5 py-1.5 glass shadow-lg shadow-black/30"
             : "max-w-5xl px-5 py-3 bg-transparent md:px-4 lg:px-5"
         }`}
       >
@@ -84,7 +84,7 @@ export function Navbar() {
           {/* Entre md y lg (tablets) conviven links + CV y no cabe el texto: se
               oculta (y se ajustan paddings) para que el CV no se salga del navbar. */}
           <span className="hidden items-center text-foreground transition-colors group-hover:text-accent-2 sm:inline-flex md:hidden lg:inline-flex">
-            jeremy<span className="text-accent-2">.dev</span>
+            jlandaeta<span className="text-accent-2">.dev</span>
             <span aria-hidden className="blink ml-1 inline-block h-3.5 w-1.5 bg-accent-2" />
           </span>
         </Link>
