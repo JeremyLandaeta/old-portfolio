@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { AnimatePresence, m } from "framer-motion";
-import { X } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { usePrefersReducedMotion } from "@/components/ui/usePrefersReducedMotion";
 import { PixelSprite } from "@/components/ui/PixelSprite";
@@ -24,9 +23,18 @@ const EMBERS = Array.from({ length: 24 }, (_, i) => ({
   color: EMBER_COLORS[i % EMBER_COLORS.length],
 }));
 
+// Las flechas del código se dibujan con el mismo cursor ▸ del menú, girado.
+const ARROW_ROTATION: Record<string, string> = {
+  ArrowUp: "-rotate-90",
+  ArrowDown: "rotate-90",
+  ArrowLeft: "rotate-180",
+  ArrowRight: "",
+};
+
 /**
- * Easter egg: al teclear el código Konami (↑↑↓↓←→←→ B A) se desbloquea un
- * "logro secreto", con el mismo panel de los logros normales en grande.
+ * Easter egg: al teclear el código Konami (↑↑↓↓←→←→ B A) aparece una ventana de
+ * "objeto obtenido" como las de un RPG: el marco y la placa de las ventanas del
+ * sitio, el código en teclas pixel y la recompensa junto a la fogata.
  * El desbloqueo persiste en localStorage, pero el código siempre se puede repetir.
  */
 export function KonamiEgg() {
@@ -84,7 +92,7 @@ export function KonamiEgg() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: DUR.fast }}
-          className="fixed inset-0 z-100 grid place-items-center px-4"
+          className="fixed inset-0 z-100 grid place-items-center px-5"
           role="dialog"
           aria-modal="true"
           aria-label={c.title}
@@ -92,6 +100,7 @@ export function KonamiEgg() {
           {/* Telón */}
           <button
             type="button"
+            tabIndex={-1}
             aria-label={c.close}
             className="absolute inset-0 bg-background/90"
             onClick={() => setOpen(false)}
@@ -113,35 +122,64 @@ export function KonamiEgg() {
             </div>
           )}
 
-          {/* Panel del logro */}
+          {/* Ventana de objeto obtenido: el marco de las ventanas del sitio, en brasa */}
           <m.div
             initial={{ y: 24, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 16, opacity: 0, transition: { duration: DUR.fast } }}
             transition={{ duration: DUR.base, ease: EASE }}
-            className="relative w-full max-w-sm bg-background-soft px-6 pb-7 pt-8 text-center shadow-[inset_0_0_0_2px_var(--accent),0_6px_0_0_var(--accent-deep)]"
+            className="window w-full max-w-sm px-5 pb-6 pt-9 text-center sm:px-6"
+            style={{ "--frame-color": "var(--accent)" } as CSSProperties}
           >
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              aria-label={c.close}
-              className="absolute right-3 top-3 grid h-8 w-8 place-items-center border border-border text-muted transition-colors hover:border-accent-2 hover:text-foreground"
-            >
-              <X size={16} />
-            </button>
+            <p className="window-tag bg-accent">{c.unlocked}</p>
 
-            <p className="mx-8 font-pixel text-[0.5rem] uppercase leading-relaxed text-straw">{c.unlocked}</p>
-
-            <div className="mx-auto mt-5 grid h-28 w-28 place-items-center bg-background">
-              <PixelSprite name="dpad" cell={7} />
+            {/* el objeto, en una casilla como las del inventario */}
+            <div className="mx-auto grid h-24 w-24 place-items-center border-2 border-frame bg-background">
+              <PixelSprite name="dpad" cell={6} />
             </div>
 
-            <h2 className="title-pixel mt-6 text-base leading-normal">{c.title}</h2>
-            <p className="mx-auto mt-3 max-w-[18rem] text-pretty italic leading-snug text-muted">{c.flavor}</p>
+            <h2 className="title-pixel mt-5 text-base leading-normal">{c.title}</h2>
+            <p className="mx-auto mt-3 max-w-[19rem] text-pretty italic leading-snug text-foreground/85">{c.flavor}</p>
 
-            <p className="mt-5 font-mono text-base tracking-widest text-foreground">{c.hint}</p>
+            {/* el código, tecla por tecla */}
+            <ol aria-label={c.hint} className="mt-5 flex flex-wrap justify-center gap-0.5 sm:gap-1">
+              {KONAMI_SEQUENCE.map((key, i) => (
+                <m.li
+                  key={`${key}-${i}`}
+                  aria-hidden
+                  initial={reduced ? false : { opacity: 0.2, y: 3 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: DUR.fast, delay: 0.3 + i * 0.07 }}
+                  className="grid h-7 w-7 place-items-center border-2 border-frame bg-background text-flame"
+                >
+                  {key in ARROW_ROTATION ? (
+                    <span className={`cursor-mark text-[0.65rem] ${ARROW_ROTATION[key]}`} />
+                  ) : (
+                    <span className="font-pixel text-[0.55rem] uppercase leading-none">{key}</span>
+                  )}
+                </m.li>
+              ))}
+            </ol>
 
-            <p className="mt-4 text-accent-2">{c.reward}</p>
+            {/* la recompensa, junto al fuego */}
+            <div className="mt-6 flex items-center gap-4 border-t-2 border-frame pt-5 text-left">
+              <span
+                aria-hidden
+                className="emblem-stage grid h-14 w-14 shrink-0 place-items-center border-2 border-frame"
+              >
+                <PixelSprite name="fire" cell={3} />
+              </span>
+              <p>
+                <span className="block font-pixel text-[0.5rem] uppercase leading-relaxed text-straw">
+                  {c.rewardLabel}
+                </span>
+                <span className="mt-1 block text-lg font-bold leading-tight text-flame">{c.reward}</span>
+              </p>
+            </div>
+
+            <button type="button" autoFocus onClick={() => setOpen(false)} className="btn-pixel mt-6">
+              {c.close}
+            </button>
           </m.div>
         </m.div>
       )}

@@ -5,13 +5,14 @@ import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
-import { CampfireScene } from "@/components/ui/CampfireScene";
+import { MoonScene } from "@/components/ui/MoonScene";
 import { SOCIALS, cvFile } from "@/lib/content";
 
 /**
  * Cierre del sitio: un botón principal (escribir) y uno secundario (CV), la
- * nota de GitHub y de vuelta la fogata donde partió el recorrido. El <Footer>
- * queda solo con créditos y enlaces.
+ * nota de GitHub y, al fondo, el samurái frente a la luna: el recorrido partió
+ * junto a la fogata y termina con el camino por delante. El <Footer> queda
+ * solo con créditos y enlaces.
  */
 export function Contact() {
   const { t, lang } = useLang();
@@ -70,7 +71,7 @@ export function Contact() {
         </Reveal>
       </div>
 
-      <CampfireScene />
+      <MoonScene />
     </section>
   );
 }

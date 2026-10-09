@@ -89,7 +89,7 @@ export const GAMER_COPY: Record<Lang, GamerCopy> = {
       experiencia: { sprite: "katana", title: "Veterano", desc: "Recorriste la trayectoria" },
       stack: { sprite: "chest", title: "Coleccionista", desc: "Abriste el inventario" },
       faq: { sprite: "scroll", title: "Curioso", desc: "Leíste las respuestas" },
-      contacto: { sprite: "fire", title: "Fin del camino", desc: "Llegaste a la fogata. Hablemos." },
+      contacto: { sprite: "moon", title: "Fin del camino", desc: "El camino sigue. Hablemos." },
     },
   },
   en: {
@@ -105,7 +105,7 @@ export const GAMER_COPY: Record<Lang, GamerCopy> = {
       experiencia: { sprite: "katana", title: "Veteran", desc: "You walked the journey" },
       stack: { sprite: "chest", title: "Collector", desc: "You opened the inventory" },
       faq: { sprite: "scroll", title: "Curious", desc: "You read the answers" },
-      contacto: { sprite: "fire", title: "End of the road", desc: "You reached the campfire. Let's talk." },
+      contacto: { sprite: "moon", title: "End of the road", desc: "The road goes on. Let's talk." },
     },
   },
 };
@@ -121,8 +121,11 @@ export type KonamiCopy = {
   unlocked: string;
   title: string;
   flavor: string;
+  /** la secuencia en texto: nombre accesible de las teclas dibujadas */
   hint: string;
+  rewardLabel: string;
   reward: string;
+  /** botón que cierra la ventana */
   close: string;
 };
 
@@ -132,16 +135,18 @@ export const KONAMI_COPY: Record<Lang, KonamiCopy> = {
     title: "Maestro del Konami",
     flavor: "Pocos llegan hasta acá. Si conoces este código, hablamos el mismo idioma.",
     hint: "↑ ↑ ↓ ↓ ← → ← → B A",
-    reward: "Recompensa: un lugar junto al fuego",
-    close: "Cerrar",
+    rewardLabel: "Recompensa",
+    reward: "Un lugar junto al fuego",
+    close: "Continuar",
   },
   en: {
     unlocked: "Secret achievement unlocked",
     title: "Konami Master",
     flavor: "Few make it this far. If you know this code, we speak the same language.",
     hint: "↑ ↑ ↓ ↓ ← → ← → B A",
-    reward: "Reward: a seat by the fire",
-    close: "Close",
+    rewardLabel: "Reward",
+    reward: "A seat by the fire",
+    close: "Continue",
   },
 };
 
@@ -223,7 +228,22 @@ export const SPRITES = {
     ".SBBBBBBBBS.",
     ".SSSSSSSSSS.",
   ],
-  // fogata (logro: contacto)
+  // luna llena (logro: contacto)
+  moon: [
+    "....BBBB....",
+    "..BBBBBBBB..",
+    ".BBBMBBBBBB.",
+    ".BBMMBBBBBB.",
+    "BBBBBBBBMBBB",
+    "BBBBBBBMMBBB",
+    "BBBBBBBBBBBB",
+    "BBBMBBBBBBBB",
+    ".BBBBBBBMBB.",
+    ".BBBBBBBBBB.",
+    "..BBBBBBBB..",
+    "....BBBB....",
+  ],
+  // fogata (recompensa del código Konami)
   fire: [
     "......O.....",
     ".....OO.....",

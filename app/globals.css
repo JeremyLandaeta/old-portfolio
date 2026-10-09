@@ -232,6 +232,7 @@ kbd {
   .fire-glow,
   .fire-floor,
   .term-cursor,
+  .lantern-glow,
   .nav-in,
   .toast-pixel,
   .route-wipe,
@@ -504,19 +505,33 @@ kbd {
     aspect-ratio: 1981 / 793;
     transform: translateX(-50%);
   }
-  /* ── Cierre: la misma escena al final (Contacto), más baja. Al recortarse
-     por arriba queda cielo a medio degradar, así que se funde con la noche. ── */
+  /* ── Cierre (Contacto): el samurái frente a la luna. Se muestra casi entera,
+     y solo el cielo de arriba se funde con la noche de la página, para no
+     apagar la luna. ── */
   .scene-end {
-    --h: clamp(9rem, 30vw, 46svh);
+    --h: clamp(12.5rem, 40vw, 60svh);
   }
   .scene-end-content {
-    padding-bottom: calc(var(--h) * 0.9);
+    padding-bottom: calc(var(--h) * 0.86);
   }
   .scene-end .hero-scene::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, var(--background), transparent 45%);
+    background: linear-gradient(to bottom, var(--background), transparent 22%);
+  }
+  /* Luz del farol de piedra: lo único que se mueve en el cierre */
+  .lantern-glow {
+    position: absolute;
+    pointer-events: none;
+    left: 15.9%;
+    top: 68.4%;
+    width: 7%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(closest-side, rgba(79, 216, 255, 0.34), transparent 72%);
+    mix-blend-mode: screen;
+    animation: fire-flicker 2.3s steps(1) infinite;
   }
 
   .fire-glow,
