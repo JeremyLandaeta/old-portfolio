@@ -1,25 +1,24 @@
 "use client";
 
-import { LazyMotion, domMax } from "framer-motion";
+import { LazyMotion, domAnimation } from "framer-motion";
 import type { ReactNode } from "react";
 
 /**
  * Provider único de Framer Motion para toda la app.
  *
- * Carga de forma diferida el paquete `domMax` (animaciones de entrada/salida,
- * variants, gestos + `drag`/`pan` y animaciones de `layout`) en lugar del bundle
- * completo que arrastra el import de `motion`. Por eso todos los componentes
- * animados usan `m.*` (no `motion.*`).
+ * Framer queda solo para lo que necesita animar la salida o un alto automático
+ * (menú móvil, acordeón del FAQ, logro secreto, barra de lectura). Las entradas
+ * al hacer scroll son CSS (ver components/ui/Reveal.tsx).
  *
- * Usamos `domMax` (no `domAnimation`) porque el carrusel de proyectos necesita
- * `drag` para el swipe; `domAnimation` no incluye `drag` ni `layout`.
+ * Se carga `domAnimation`, el paquete chico: nada usa `drag` ni `layout`, que
+ * son lo que suma `domMax`. Por eso los componentes usan `m.*` (no `motion.*`).
  *
  * `strict` hace que cualquier uso de `motion.*` lance un error en desarrollo,
  * evitando que se reintroduzca el bundle completo por accidente.
  */
 export function MotionProvider({ children }: { children: ReactNode }) {
   return (
-    <LazyMotion features={domMax} strict>
+    <LazyMotion features={domAnimation} strict>
       {children}
     </LazyMotion>
   );

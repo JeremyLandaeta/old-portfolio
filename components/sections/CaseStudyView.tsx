@@ -2,49 +2,32 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, ArrowUpRight, Lightbulb, Target, Wrench, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
+import { MenuFrame } from "@/components/ui/MenuFrame";
 import { ReadingProgress } from "@/components/ui/ReadingProgress";
+import { StatusPlate } from "@/components/ui/StatusPlate";
 import { projectMedia } from "@/lib/projectMedia";
 import { projectPath } from "@/lib/site";
 
 const accentDot: Record<string, string> = {
   blue: "bg-accent",
   cyan: "bg-crystal",
-  violet: "bg-violet-400",
-  emerald: "bg-emerald-400",
+  violet: "bg-flame",
+  emerald: "bg-moss",
 };
 
-function Block({
-  icon,
-  label,
-  eager = false,
-  children,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  /** Sin animación de entrada: para el bloque visible al cargar (es el LCP). */
-  eager?: boolean;
-  children: React.ReactNode;
-}) {
-  const content = (
-    <>
-      <div className="flex items-center gap-2.5">
-        <span className="grid h-9 w-9 place-items-center rounded-lg bg-linear-to-br from-accent/20 to-accent-2/20 text-accent-2">
-          {icon}
-        </span>
-        <h2 className="text-lg font-semibold">{label}</h2>
-      </div>
-      <div className="mt-4 text-pretty leading-relaxed text-muted">{children}</div>
-    </>
-  );
-  // Reveal arranca en opacity 0 hasta hidratar; el primer bloque no puede esperar.
-  return eager ? (
-    <div className="rounded-2xl glass p-6">{content}</div>
-  ) : (
-    <Reveal className="rounded-2xl glass p-6">{content}</Reveal>
+const labelClass = "font-pixel text-[0.6rem] uppercase leading-relaxed text-straw";
+
+/** Apartado del expediente: etiqueta pixel a la izquierda y el texto al lado. */
+function Block({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <Reveal as="section" className="grid gap-x-8 gap-y-3 border-t-2 border-frame py-7 sm:grid-cols-[9.5rem_1fr]">
+      <h2 className={`${labelClass} sm:pt-1.5`}>{label}</h2>
+      <div className="text-pretty text-lg leading-relaxed text-foreground/85">{children}</div>
+    </Reveal>
   );
 }
 
@@ -52,65 +35,12 @@ function Bullets({ items }: { items: string[] }) {
   return (
     <ul className="space-y-2">
       {items.map((b) => (
-        <li key={b} className="flex gap-2.5">
-          <span className="mt-2 h-1.5 w-1.5 shrink-0 bg-accent-2" />
+        <li key={b} className="flex gap-3">
+          <span aria-hidden className="mt-3 h-1.5 w-1.5 shrink-0 bg-accent" />
           <span>{b}</span>
         </li>
       ))}
     </ul>
-  );
-}
-
-/** Barra superior estilo ventana de navegador. */
-function WindowBar({ caption }: { caption: string }) {
-  return (
-    <div className="flex items-center gap-1.5 border-b border-border bg-white/3 px-3 py-2">
-      <span className="h-2.5 w-2.5 bg-red-500/70" />
-      <span className="h-2.5 w-2.5 bg-yellow-500/70" />
-      <span className="h-2.5 w-2.5 bg-green-500/70" />
-      <span className="ml-2 truncate font-mono text-[11px] text-muted">{caption}</span>
-    </div>
-  );
-}
-
-/** Captura real del sitio en vivo, enmarcada como ventana de navegador. */
-function RealShot({ src, caption, alt }: { src: string; caption: string; alt: string }) {
-  return (
-    <figure className="group overflow-hidden rounded-xl border border-border bg-background-soft">
-      <WindowBar caption={caption} />
-      <div className="relative aspect-16/10 w-full overflow-hidden">
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes="(min-width: 800px) 336px, (min-width: 640px) 45vw, 85vw"
-          className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-        />
-      </div>
-    </figure>
-  );
-}
-
-/** Mockup estilizado para proyectos sin captura pública (interno/confidencial). */
-function Mockup({ caption, title }: { caption: string; title: string }) {
-  return (
-    <div className="overflow-hidden rounded-xl border border-border bg-background-soft">
-      <WindowBar caption={caption} />
-      <div className="relative grid h-44 place-items-center bg-grid">
-        <div className="absolute inset-0 bg-linear-to-br from-accent/10 via-transparent to-accent-2/10" />
-        <div className="absolute left-4 right-4 top-4 space-y-2 opacity-40">
-          <div className="h-2 w-1/3 bg-white/25" />
-          <div className="h-2 w-2/3 bg-white/15" />
-          <div className="h-2 w-1/2 bg-white/10" />
-        </div>
-        <span className="relative rounded-md border border-border bg-background/60 px-3 py-1.5 text-center font-mono text-xs text-muted backdrop-blur-sm">
-          {caption}
-        </span>
-        <span className="pointer-events-none absolute bottom-2 right-3 font-mono text-[10px] uppercase tracking-widest text-muted/50">
-          {title}
-        </span>
-      </div>
-    </div>
   );
 }
 
@@ -143,8 +73,8 @@ export function CaseStudyView({ slug }: { slug: string }) {
       <ReadingProgress />
 
       {/* Hero del caso */}
-      <header className="relative overflow-hidden px-4 pt-28 pb-12 sm:pt-32">
-        <div className="mx-auto max-w-3xl">
+      <header className="relative overflow-hidden pt-28 pb-12 sm:pt-32">
+        <div className="mx-auto max-w-3xl px-4">
           <Link
             href={`/${lang}#proyectos`}
             className="-my-1.5 inline-flex items-center gap-1.5 py-1.5 text-sm text-muted transition-colors hover:text-accent-2"
@@ -157,27 +87,22 @@ export function CaseStudyView({ slug }: { slug: string }) {
               <span className={`h-2 w-2 ${accentDot[project.accent]}`} />
               {project.tagline}
             </span>
-            {project.badge && (
-              <span className="border border-accent-2/30 bg-accent-2/10 px-2.5 py-0.5 text-[11px] font-medium text-accent-2">
-                {project.badge}
-              </span>
-            )}
+            <StatusPlate status={project.status} />
           </div>
+
+          <p className="mt-3 font-mono text-xs uppercase tracking-wide text-muted">
+            {t.projects.categoryLabels[project.category]}
+          </p>
 
           <h1 className="title-pixel mt-4 text-balance text-lg leading-normal sm:text-2xl">
             {project.title}
           </h1>
 
-          <div className="mt-5 flex flex-wrap gap-2">
+          <ul className="tag-line mt-5">
             {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-md border border-border bg-white/3 px-2.5 py-1 font-mono text-xs text-muted"
-              >
-                {tag}
-              </span>
+              <li key={tag}>{tag}</li>
             ))}
-          </div>
+          </ul>
 
           {study.links && (study.links.demo || study.links.repo) && (
             <div className="mt-6 flex flex-wrap gap-3">
@@ -206,65 +131,86 @@ export function CaseStudyView({ slug }: { slug: string }) {
         </div>
       </header>
 
-      {/* Cuerpo */}
-      <div className="mx-auto max-w-3xl space-y-4 px-4 pb-8">
-        <Block icon={<Target size={18} />} label={L.problem} eager>
+      {/* Cuerpo: un expediente continuo, no una pila de tarjetas */}
+      <div className="mx-auto max-w-3xl px-4 pb-8">
+        <Block label={L.problem}>
           <p>{study.problem}</p>
         </Block>
 
-        <Block icon={<Lightbulb size={18} />} label={L.context}>
+        <Block label={L.context}>
           <p>{study.context}</p>
         </Block>
 
-        <Block icon={<CheckCircle2 size={18} />} label={L.role}>
+        {study.objective ? (
+          <Block label={L.objective}>
+            <p>{study.objective}</p>
+          </Block>
+        ) : null}
+
+        <Block label={L.role}>
           <Bullets items={study.role} />
         </Block>
 
-        <Block icon={<Wrench size={18} />} label={L.solution}>
+        {study.architecture ? (
+          <Block label={L.architecture}>
+            <Bullets items={study.architecture} />
+          </Block>
+        ) : null}
+
+        <ArchitectureFlow slug={slug} lang={lang} />
+
+        <Block label={L.solution}>
           <Bullets items={study.solution} />
         </Block>
 
-        {/* Galería: capturas reales si existen, mockup estilizado si no */}
-        <Reveal className="rounded-2xl glass p-6">
-          <h2 className="text-lg font-semibold">{L.gallery}</h2>
-          <p className="mt-1 font-mono text-xs text-muted">{shots ? L.liveNote : L.mockupNote}</p>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            {study.gallery.map((cap, i) =>
-              shots?.[i] ? (
-                <RealShot
-                  key={cap}
-                  src={shots[i]}
-                  caption={cap}
-                  alt={`${L.shotOf} ${project.title}: ${cap}`}
-                />
-              ) : (
-                <Mockup key={cap} caption={cap} title={project.title} />
-              ),
-            )}
-          </div>
-        </Reveal>
+        {study.challenges ? (
+          <Block label={L.challenges}>
+            <Bullets items={study.challenges} />
+          </Block>
+        ) : null}
 
-        <Block icon={<Lightbulb size={18} />} label={L.learnings}>
+        {/* Galería: solo capturas reales. Los proyectos confidenciales o sin
+            publicar no tienen galería; no se inventan maquetas. */}
+        {shots && (
+          <Reveal as="section" className="border-t-2 border-frame py-7">
+            <h2 className={labelClass}>{L.gallery}</h2>
+            <p className="mt-2 italic text-muted">{L.liveNote}</p>
+            <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+              {study.gallery.map((cap, i) =>
+                shots[i] ? (
+                  <figure key={cap}>
+                    <div className="relative aspect-16/10 overflow-hidden border border-border bg-background">
+                      <Image
+                        src={shots[i]}
+                        alt={`${L.shotOf} ${project.title}: ${cap}`}
+                        fill
+                        sizes="(min-width: 800px) 360px, (min-width: 640px) 45vw, 90vw"
+                        className="object-cover object-top"
+                      />
+                    </div>
+                    <figcaption className="mt-2 font-mono text-xs text-muted">{cap}</figcaption>
+                  </figure>
+                ) : null,
+              )}
+            </div>
+          </Reveal>
+        )}
+
+        <Block label={L.learnings}>
           <Bullets items={study.learnings} />
         </Block>
 
         {/* Resultado destacado */}
-        <Reveal>
-          <div className="relative overflow-hidden rounded-2xl border border-accent-2/30 bg-linear-to-br from-accent/10 to-accent-2/10 p-6">
-            <div className="flex items-center gap-2.5">
-              <span className="grid h-9 w-9 place-items-center rounded-lg bg-accent-2/20 text-accent-2">
-                <CheckCircle2 size={18} />
-              </span>
-              <h2 className="text-lg font-semibold">{L.result}</h2>
-            </div>
-            <p className="mt-4 text-pretty text-lg leading-relaxed">{study.result}</p>
-          </div>
+        <Reveal className="mt-6">
+          <MenuFrame title={L.result} accent="ember" headingLevel={2} className="px-5 pb-6 pt-8 sm:px-7">
+            <p className="text-pretty text-xl leading-relaxed">{study.result}</p>
+          </MenuFrame>
         </Reveal>
 
         {/* Enlaces cruzados al resto de los casos de estudio */}
-        <Reveal>
-          <nav aria-labelledby="more-projects" className="rounded-2xl glass p-6">
-            <h2 id="more-projects" className="text-lg font-semibold">
+        <Reveal className="mt-12">
+          <nav aria-labelledby="more-projects">
+            <h2 id="more-projects" className={labelClass}>
               {L.more}
             </h2>
             <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -274,15 +220,15 @@ export function CaseStudyView({ slug }: { slug: string }) {
                   <li key={p.id}>
                     <Link
                       href={projectPath(lang, p.id)}
-                      className="group flex items-center justify-between gap-3 rounded-xl border border-border bg-white/3 px-4 py-3 transition-colors hover:border-accent-2/50"
+                      className="group flex items-center justify-between gap-3 border-2 border-frame bg-background-soft px-4 py-3 transition-colors hover:border-accent"
                     >
                       <span className="min-w-0">
-                        <span className="block truncate text-sm font-semibold">{p.title}</span>
+                        <span className="block truncate font-bold">{p.title}</span>
                         <span className="block truncate font-mono text-[11px] text-muted">{p.tagline}</span>
                       </span>
                       <ArrowUpRight
                         size={15}
-                        className="shrink-0 text-muted transition-colors group-hover:text-accent-2"
+                        className="shrink-0 text-muted transition-colors group-hover:text-accent"
                       />
                     </Link>
                   </li>
@@ -292,7 +238,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
         </Reveal>
 
         {/* Volver */}
-        <Reveal className="pt-4 text-center">
+        <Reveal className="pt-10 text-center">
           <Link
             href={`/${lang}#proyectos`}
             className="btn-pixel btn-pixel-ghost"
@@ -302,5 +248,39 @@ export function CaseStudyView({ slug }: { slug: string }) {
         </Reveal>
       </div>
     </article>
+  );
+}
+
+function ArchitectureFlow({ slug, lang }: { slug: string; lang: "es" | "en" }) {
+  const flows: Record<string, Record<"es" | "en", string[]>> = {
+    fcc: {
+      es: ["Interfaz + formularios", "Casos de uso + Zod", "Prisma + transacciones", "PostgreSQL"],
+      en: ["UI + forms", "Use cases + Zod", "Prisma + transactions", "PostgreSQL"],
+    },
+    orbix: {
+      es: ["WhatsApp", "Webhook: valida y encola", "Flujo guiado o IA + documentos", "Derivación + Odoo"],
+      en: ["WhatsApp", "Webhook: validate & enqueue", "Guided flow or AI + documents", "Handoff + Odoo"],
+    },
+    dixta: {
+      es: ["Fuentes", "Python + Scrapling", "Laravel + colas + DeepSeek", "Revisión humana"],
+      en: ["Sources", "Python + Scrapling", "Laravel + queues + DeepSeek", "Human review"],
+    },
+  };
+  const steps = flows[slug]?.[lang];
+  if (!steps) return null;
+
+  return (
+    <Reveal as="section" className="border-t-2 border-frame py-7">
+      <h2 className="sr-only">{lang === "es" ? "Flujo de arquitectura" : "Architecture flow"}</h2>
+      <ol className="grid gap-2 sm:grid-cols-4">
+        {steps.map((step, index) => (
+          <li key={step} className="relative border-2 border-frame bg-background-soft px-3 py-4 text-center font-mono text-xs leading-relaxed text-foreground">
+            <span className="mb-2 block font-pixel text-[0.5rem] text-accent-2">{String(index + 1).padStart(2, "0")}</span>
+            {step}
+            {index < steps.length - 1 ? <span aria-hidden className="absolute -right-2.5 top-1/2 z-10 hidden -translate-y-1/2 bg-background px-1 text-accent sm:block">→</span> : null}
+          </li>
+        ))}
+      </ol>
+    </Reveal>
   );
 }

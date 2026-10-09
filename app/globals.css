@@ -20,6 +20,19 @@
   --flame: #ffd166; /* llama: opción seleccionada */
   --straw: #c9a15a; /* paja del sombrero */
   --crystal: #4fd8ff; /* farol y cristal: lo "técnico" */
+  --moss: #6fe8a8; /* verde del terminal de la escena: "activo" */
+
+  /* Ventanas de juego: marco de madera a la luz del fuego y su sombra dura */
+  --frame: #6f5c3a;
+  --frame-deep: #2a2216;
+
+  /* Movimiento: una curva y tres duraciones para todo el sitio. Lo que anima
+     Framer Motion usa los mismos valores desde lib/motion.ts. */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 0.2s; /* hover, menús, acordeón */
+  --dur-base: 0.5s; /* entradas al hacer scroll */
+  --dur-slow: 1.1s; /* trazos largos (línea de tiempo) */
+  --reveal-step: 70ms; /* escalón entre los elementos de un grupo */
 }
 
 @theme inline {
@@ -33,6 +46,8 @@
   --color-flame: var(--flame);
   --color-straw: var(--straw);
   --color-crystal: var(--crystal);
+  --color-moss: var(--moss);
+  --color-frame: var(--frame);
 
   /* Pixel-art: sin esquinas redondeadas (rounded-full sigue disponible) */
   --radius-md: 0;
@@ -45,14 +60,23 @@
   --font-sans: var(--font-alegreya);
   --font-mono: var(--font-mono);
   --font-pixel: var(--font-press-start);
+
+  /* `ease-out` de Tailwind usa la curva del sitio */
+  --ease-out: var(--ease);
 }
 
-* {
-  border-color: var(--border);
+/* Color de borde por defecto. Va en la capa base para que las utilidades
+   `border-{color}` puedan cambiarlo (sin capa, esta regla les ganaba a todas). */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
 }
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
+  touch-action: manipulation;
 }
 
 /* Offset de anclas: al navegar, el título de cada sección queda bajo el
@@ -107,38 +131,6 @@ kbd {
   border: 1px solid var(--border);
 }
 
-/* Grid background */
-.bg-grid {
-  background-image:
-    linear-gradient(to right, rgba(243, 231, 207, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(243, 231, 207, 0.05) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-
-/* Máscara radial para difuminar bordes del grid */
-.mask-radial {
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 50%, transparent 100%);
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 50%, transparent 100%);
-}
-
-/* Scrollbar oculta (carrusel de proyectos) sin perder el scroll funcional */
-.no-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* Cursor blink terminal */
-@keyframes blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
-.cursor-blink {
-  animation: blink 1.1s step-end infinite;
-}
-
 /* Textura de grano sutil para dar profundidad */
 .grain::after {
   content: "";
@@ -148,66 +140,6 @@ kbd {
   pointer-events: none;
   opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* ============================================================
-   Borde animado de cards (adaptado de 21st.dev — BorderRotate)
-   ============================================================ */
-@property --border-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-@keyframes border-spin {
-  to { --border-angle: 360deg; }
-}
-.card-beam::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: inherit;
-  padding: 1.5px;
-  background: conic-gradient(
-    from var(--border-angle),
-    transparent 0deg,
-    transparent 215deg,
-    rgba(255, 209, 102, 0.9) 295deg,
-    rgba(255, 122, 26, 0.95) 330deg,
-    transparent 360deg
-  );
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: border-spin 6s linear infinite;
-  animation-delay: var(--beam-delay, 0s);
-  pointer-events: none;
-}
-
-/* Barra de progreso del showcase de proyectos */
-@keyframes progress-grow {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
-}
-
-/* ── Capa gamer ─────────────────────────────────────────── */
-
-/* Idle del avatar pixel-art */
-@keyframes idle-bob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-.pixel-idle { animation: idle-bob 2.6s ease-in-out infinite; }
-
-/* Parpadeo de las estrellas pixel decorativas */
-@keyframes twinkle {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.75; }
-}
-.pixel-twinkle {
-  opacity: 0.5;
-  animation: twinkle 3.2s ease-in-out infinite;
 }
 
 /* Overlay de scanlines CRT (sutil, sobre todo el sitio).
@@ -227,37 +159,6 @@ kbd {
   );
   mix-blend-mode: overlay;
   opacity: 0.5;
-}
-
-/* Brillo de "logro desbloqueado" */
-@keyframes achievement-shine {
-  from { background-position: -150% 0; }
-  to { background-position: 250% 0; }
-}
-
-/* Foil holográfico de la carta TCG (Champion Card) */
-.holo-foil {
-  background: linear-gradient(
-    115deg,
-    transparent 25%,
-    rgba(255, 122, 26, 0.12) 42%,
-    rgba(255, 209, 102, 0.22) 50%,
-    rgba(255, 122, 26, 0.12) 58%,
-    transparent 75%
-  );
-  background-size: 250% 100%;
-  background-position: 120% 0;
-  mix-blend-mode: screen;
-  opacity: 0.45;
-  transition: opacity 0.4s ease;
-}
-.group:hover .holo-foil {
-  opacity: 0.95;
-  animation: holo-sweep 1.1s ease;
-}
-@keyframes holo-sweep {
-  from { background-position: 190% 0; }
-  to { background-position: -90% 0; }
 }
 
 /* Ilustraciones pixel-art: sin suavizado al escalar */
@@ -295,13 +196,46 @@ kbd {
   outline: none;
 }
 
+/* ── Entradas al hacer scroll (components/ui/Reveal.tsx) ──
+   El HTML llega visible. Al hidratar, Reveal oculta solo lo que está bajo el
+   pliegue y lo anima cuando entra al viewport: lo que ya se veía no se toca
+   (sin parpadeo y sin retrasar el LCP) y sin JS no queda nada escondido. */
+[data-reveal="hidden"] {
+  opacity: 0;
+}
+[data-reveal="shown"] {
+  animation: reveal-rise var(--dur-base) var(--ease) calc(var(--reveal-order, 0) * var(--reveal-step)) backwards;
+}
+/* variante "grow": un trazo que crece desde arriba (línea de tiempo) */
+[data-reveal="hidden"][data-reveal-kind="grow"] {
+  opacity: 1;
+  transform: scaleY(0);
+}
+[data-reveal="shown"][data-reveal-kind="grow"] {
+  animation: reveal-grow var(--dur-slow) ease-out backwards;
+}
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+@keyframes reveal-grow {
+  from {
+    transform: scaleY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .cursor-blink,
-  .card-beam::after,
+  .blink,
   .menu-cursor a::before,
   .fire-glow,
   .fire-floor,
-  .term-cursor {
+  .term-cursor,
+  .nav-in,
+  .toast-pixel,
+  .route-wipe,
+  .route-seal {
     animation: none !important;
   }
   .ember,
@@ -309,68 +243,13 @@ kbd {
   .scanlines::before {
     display: none !important;
   }
-  .pixel-idle,
-  .pixel-twinkle,
-  .group:hover .holo-foil {
-    animation: none !important;
-  }
-  .current-quest * {
-    animation: none !important;
-    transition: none !important;
-  }
-  .route-wipe,
-  .route-seal {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
     animation: none !important;
   }
   html {
     scroll-behavior: auto;
-  }
-}
-
-/* ── Flip card: tecnología → proyectos donde se aplicó ──
-   Hover en desktop; tap en mobile (data-flipped vía estado). */
-.flip {
-  perspective: 800px;
-}
-.flip-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
-  transform-style: preserve-3d;
-}
-.flip:hover .flip-inner,
-.flip[data-flipped="true"] .flip-inner {
-  transform: rotateY(180deg);
-}
-.flip-face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-.flip-back {
-  transform: rotateY(180deg);
-}
-/* solo la cara visible captura clicks/hover */
-.flip-front {
-  pointer-events: auto;
-}
-.flip-back {
-  pointer-events: none;
-}
-.flip:hover .flip-front,
-.flip[data-flipped="true"] .flip-front {
-  pointer-events: none;
-}
-.flip:hover .flip-back,
-.flip[data-flipped="true"] .flip-back {
-  pointer-events: auto;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .flip-inner {
-    transition: none;
   }
 }
 
@@ -474,6 +353,124 @@ kbd {
     animation: menu-blink 1s steps(1) infinite;
   }
 
+  /* Ventana de juego: el marco se dibuja con cuatro sombras sin esquinas, así
+     quedan escalonadas como en un RPG de 16 bits, más una sombra dura abajo.
+     Es para objetos (fichas, inventario); el texto corrido va sobre el cielo. */
+  .window {
+    --frame-color: var(--frame);
+    position: relative;
+    background: var(--background-soft);
+    box-shadow:
+      -4px 0 0 0 var(--frame-color),
+      4px 0 0 0 var(--frame-color),
+      0 -4px 0 0 var(--frame-color),
+      0 4px 0 0 var(--frame-color),
+      0 8px 0 0 var(--frame-deep);
+  }
+  /* Ventana liviana: borde fino y sin sombra, para lo que acompaña a las piezas
+     con marco grueso (proyecto principal, ficha, inventario). */
+  .window-thin {
+    position: relative;
+    background: var(--background-soft);
+    border: 1px solid var(--border);
+  }
+  .window-thin > .window-tag {
+    top: 0;
+  }
+  /* Vitrina del emblema (proyectos sin capturas públicas): la luz de la fogata
+     bajo el objeto, para que no sea una caja negra con un sprite al medio. */
+  .emblem-stage {
+    background:
+      radial-gradient(closest-side at 50% 58%, rgba(255, 122, 26, 0.13), transparent 72%),
+      var(--background);
+  }
+  /* Carrusel de proyectos: se mueve con las flechas o arrastrando; sin barra */
+  .carousel-track {
+    scrollbar-width: none;
+  }
+  .carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+  /* Placa con el nombre de la ventana, montada sobre el marco */
+  .window-tag {
+    position: absolute;
+    top: -4px;
+    left: 1rem;
+    max-width: calc(100% - 2rem);
+    transform: translateY(-50%);
+    padding: 0.45rem 0.55rem 0.4rem;
+    background: var(--straw);
+    color: var(--background);
+    font-family: var(--font-press-start), var(--font-mono), monospace;
+    font-size: 0.5rem;
+    font-size-adjust: none;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+  /* Placa suelta (estado de un proyecto, "ahora") */
+  .plate {
+    display: inline-block;
+    padding: 0.4rem 0.5rem 0.35rem;
+    background: var(--straw);
+    color: var(--background);
+    font-family: var(--font-press-start), var(--font-mono), monospace;
+    font-size: 0.5rem;
+    font-size-adjust: none;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  /* Lista de tecnologías en una línea, como la del hero: "React · Next.js" */
+  .tag-line {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0.55em;
+    font-family: var(--font-press-start), var(--font-mono), monospace;
+    font-size: 0.55rem;
+    font-size-adjust: none;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .tag-line > li:not(:last-child)::after {
+    content: "·";
+    margin: 0 0.7em;
+    color: var(--accent);
+  }
+
+  /* El cursor ▸ del menú como marca suelta (FAQ, listas). Toma el color del texto. */
+  .cursor-mark {
+    display: inline-block;
+    flex: none;
+    width: 0.75em;
+    height: 1em;
+    background: currentColor;
+    clip-path: polygon(0 0, 33% 0, 33% 17%, 66% 17%, 66% 33%, 100% 33%, 100% 67%, 66% 67%, 66% 83%, 33% 83%, 33% 100%, 0 100%);
+  }
+
+  /* Parpadeo a saltos, como un sprite: cursores e indicadores de "ahora" */
+  .blink {
+    animation: menu-blink 1s steps(1) infinite;
+  }
+
+  /* El navbar baja desde arriba en el primer paint, sin esperar al JS */
+  .nav-in {
+    animation: nav-in var(--dur-base) var(--ease) backwards;
+  }
+
+  /* Aviso de logro: panel plano con filo de brasa. Entra y sale a saltos; el
+     componente lo retira del DOM cuando termina la animación. */
+  .toast-pixel {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--background-soft);
+    box-shadow:
+      inset 0 0 0 2px var(--accent),
+      0 4px 0 0 var(--accent-deep);
+    animation: toast-life 4.6s linear forwards;
+  }
+
   /* ── Hero: pantalla de título ── */
   .hero {
     /* alto de la escena: todo el ancho en pantallas normales, con tope en
@@ -507,6 +504,21 @@ kbd {
     aspect-ratio: 1981 / 793;
     transform: translateX(-50%);
   }
+  /* ── Cierre: la misma escena al final (Contacto), más baja. Al recortarse
+     por arriba queda cielo a medio degradar, así que se funde con la noche. ── */
+  .scene-end {
+    --h: clamp(9rem, 30vw, 46svh);
+  }
+  .scene-end-content {
+    padding-bottom: calc(var(--h) * 0.9);
+  }
+  .scene-end .hero-scene::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, var(--background), transparent 45%);
+  }
+
   .fire-glow,
   .fire-floor,
   .ember,
@@ -564,6 +576,26 @@ kbd {
   }
 }
 
+@keyframes nav-in {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+@keyframes toast-life {
+  0% {
+    transform: translateX(calc(100% + 1.5rem));
+    animation-timing-function: steps(5, end);
+  }
+  7%,
+  93% {
+    transform: translateX(0);
+    animation-timing-function: steps(5, end);
+  }
+  100% {
+    transform: translateX(calc(100% + 1.5rem));
+  }
+}
 @keyframes menu-blink {
   50% {
     opacity: 0.15;

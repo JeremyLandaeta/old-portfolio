@@ -113,7 +113,7 @@ export default async function ProjectPage({
     <>
       <JsonLd data={jsonLd} />
       <Navbar />
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <CaseStudyView slug={slug} />
       </main>
       <Footer />

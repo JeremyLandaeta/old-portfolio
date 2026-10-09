@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Permite aislar builds de CI/smoke tests de un `next dev` activo.
+  distDir: process.env.NEXT_DIST_DIR ?? ".next",
   // Página 404 global. Necesaria porque el "root layout" vive en un segmento
   // dinámico (app/[lang]/layout.tsx), así que el 404 se maneja con
   // app/global-not-found.tsx (devuelve su propio documento HTML).
@@ -28,6 +30,8 @@ const nextConfig: NextConfig = {
       // No hay página de listado de proyectos: vive como sección de la home.
       { source: "/proyectos", destination: "/es#proyectos", permanent: true },
       { source: "/:lang(es|en)/proyectos", destination: "/:lang#proyectos", permanent: true },
+      // El caso conjunto antiguo se separó en dos proyectos independientes.
+      { source: "/:lang(es|en)/proyectos/landings", destination: "/:lang/proyectos/baoblue", permanent: true },
       // URLs antiguas sin prefijo de idioma → español.
       { source: "/proyectos/:slug+", destination: "/es/proyectos/:slug+", permanent: true },
     ];

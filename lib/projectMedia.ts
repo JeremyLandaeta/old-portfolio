@@ -1,16 +1,35 @@
+import type { SpriteName } from "@/lib/gamer";
+
 /**
- * Medios reales por proyecto (independiente del idioma).
- * - `cover`: thumbnail para la card destacada del home.
- * - `shots`: capturas reales para la galería del case study, en el mismo
- *   orden que las captions de `gallery` en content.ts. Si un proyecto no
- *   tiene `shots`, la galería usa el mockup estilizado.
+ * Medios por proyecto (independiente del idioma).
+ * - `cover`: captura real para la tarjeta del home.
+ * - `shots`: capturas reales para la galería del caso de estudio, en el mismo
+ *   orden que las captions de `gallery` en content.ts. Sin `shots` no hay
+ *   galería: no se inventan maquetas.
+ * - `emblem`: sprite pixel-art que ocupa la ventana de arte de la tarjeta
+ *   cuando el proyecto no puede mostrar capturas (confidencial o sin publicar).
  */
 export type ProjectMedia = {
   cover?: string;
   shots?: string[];
+  emblem?: SpriteName;
 };
 
 export const projectMedia: Record<string, ProjectMedia> = {
+  fcc: {
+    cover: "/projects/fcc-resumen-claro.jpg",
+    shots: [
+      "/projects/fcc-resumen-claro.jpg",
+      "/projects/fcc-resumen-oscuro.jpg",
+      "/projects/fcc-entrar-claro.jpg",
+      "/projects/fcc-entrar-oscuro.jpg",
+    ],
+  },
+  greensoft: { emblem: "leaf" },
+  orbix: { emblem: "orbit" },
+  dixta: { emblem: "scroll" },
+  pagos: { emblem: "coin" },
+  anrra: { emblem: "wood" },
   lexy: {
     cover: "/projects/lexy-hero.jpg",
     shots: [
@@ -20,7 +39,7 @@ export const projectMedia: Record<string, ProjectMedia> = {
       "/projects/lexy-contacto.jpg",
     ],
   },
-  landings: {
+  baoblue: {
     cover: "/projects/baoblue-hero.jpg",
     shots: [
       "/projects/baoblue-hero.jpg",

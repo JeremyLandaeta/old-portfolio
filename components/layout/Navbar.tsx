@@ -9,6 +9,7 @@ import { Download, Menu, X } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { useActiveSection } from "@/components/ui/useActiveSection";
 import { cvFile } from "@/lib/content";
+import { DUR } from "@/lib/motion";
 
 // Store externo para el estado de scroll: sin render extra al montar y
 // SSR-safe (el snapshot del servidor es siempre false, igual que el HTML).
@@ -62,14 +63,9 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <m.header
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed inset-x-0 z-50 px-4 transition-all duration-300 ${scrolled ? "top-2" : "top-4"}`}
-    >
+    <header className={`nav-in fixed inset-x-0 z-50 px-4 transition-[top] duration-300 ${scrolled ? "top-2" : "top-4"}`}>
       <nav
-        className={`mx-auto flex items-center justify-between transition-all duration-300 ease-out ${
+        className={`mx-auto flex items-center justify-between transition-[max-width,padding,background-color,box-shadow] duration-300 ease-out ${
           scrolled
             ? "max-w-3xl px-3.5 py-1.5 glass shadow-lg shadow-black/30"
             : "max-w-5xl px-5 py-3 bg-transparent md:px-4 lg:px-5"
@@ -83,13 +79,13 @@ export function Navbar() {
             width={44}
             height={44}
             preload
-            className={`shrink-0 transition-all duration-300 ${scrolled ? "h-9 w-9" : "h-11 w-11"}`}
+            className={`shrink-0 transition-[width,height] duration-300 ${scrolled ? "h-9 w-9" : "h-11 w-11"}`}
           />
           {/* Entre md y lg (tablets) conviven links + CV y no cabe el texto: se
               oculta (y se ajustan paddings) para que el CV no se salga del navbar. */}
           <span className="hidden items-center text-foreground transition-colors group-hover:text-accent-2 sm:inline-flex md:hidden lg:inline-flex">
             jeremy<span className="text-accent-2">.dev</span>
-            <span aria-hidden className="cursor-blink ml-1 inline-block h-3.5 w-1.5 bg-accent-2" />
+            <span aria-hidden className="blink ml-1 inline-block h-3.5 w-1.5 bg-accent-2" />
           </span>
         </Link>
 
@@ -102,7 +98,7 @@ export function Navbar() {
                 <Link
                   href={linkFor(item.id)}
                   aria-current={isActive ? "true" : undefined}
-                  className={`group/nav relative transition-all duration-300 ${
+                  className={`group/nav relative transition-[color,background-color,padding] duration-300 ${
                     isActive ? "text-accent-2" : "text-muted hover:bg-white/5 hover:text-foreground"
                   } ${scrolled ? "px-2 py-1 text-[13px]" : "px-2 py-1.5 text-sm lg:px-2.5"}`}
                 >
@@ -134,7 +130,7 @@ export function Navbar() {
               e.preventDefault();
               toggle();
             }}
-            className={`border border-border font-mono font-semibold text-muted transition-all duration-300 hover:border-accent-2 hover:text-foreground ${
+            className={`border border-border font-mono font-semibold text-muted transition-[color,border-color,padding] duration-300 hover:border-accent-2 hover:text-foreground ${
               scrolled ? "px-2 py-1 text-[11px]" : "px-2.5 py-1.5 text-xs"
             }`}
           >
@@ -158,7 +154,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            aria-label={open ? "Cerrar menú" : "Abrir menú"}
+            aria-label={open ? (lang === "es" ? "Cerrar menú" : "Close menu") : (lang === "es" ? "Abrir menú" : "Open menu")}
             aria-expanded={open}
             aria-controls="mobile-menu"
             className="grid h-9 w-9 place-items-center border border-border text-foreground md:hidden"
@@ -176,8 +172,8 @@ export function Navbar() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="mx-auto mt-2 max-w-5xl rounded-2xl glass p-3 md:hidden"
+            transition={{ duration: DUR.fast }}
+            className="mx-auto mt-2 max-w-5xl glass p-3 md:hidden"
           >
             <ul className="flex flex-col">
               {t.nav.map((item) => (
@@ -207,6 +203,6 @@ export function Navbar() {
           </m.div>
         )}
       </AnimatePresence>
-    </m.header>
+    </header>
   );
 }

@@ -1,129 +1,114 @@
 import type { Lang } from "@/lib/content";
 
 /**
- * Capa "gamer" del portafolio: datos de stats, copys bilingües y el sprite
- * pixel-art. Aislada de content.ts para mantener esa fuente principal limpia.
+ * Capa "gamer" del portafolio: inventario, logros, ficha de personaje y los
+ * sprites pixel-art. Aislada de content.ts para mantener esa fuente limpia.
  */
 
-// Habilidades respaldadas por EVIDENCIA: cada tech apunta a los ids de proyecto
-// donde se aplicó (verificable, sin % subjetivos). Agrupadas por nivel de uso.
-export type SkillUse = { name: string; projects: string[] };
+// Inventario: cada tecnología es un objeto y apunta a los ids de proyecto donde
+// se aplicó (verificable, sin % subjetivos). Agrupadas por nivel de uso.
+export type SkillUse = {
+  id: string;
+  name: string;
+  /** nombre por idioma, para lo que no es un nombre propio */
+  names?: Partial<Record<Lang, string>>;
+  projects: string[];
+};
 export type SkillGroup = { key: "core" | "projects" | "exploring"; skills: SkillUse[] };
 export const SKILL_GROUPS: SkillGroup[] = [
   {
     key: "core",
     skills: [
-      { name: "React", projects: ["greensoft", "pagos", "landings", "portfolio"] },
-      { name: "Next.js", projects: ["lexy", "greensoft", "pagos", "landings", "portfolio"] },
-      { name: "TypeScript", projects: ["lexy", "greensoft", "portfolio"] },
-      { name: "Tailwind CSS", projects: ["lexy", "landings", "portfolio"] },
+      { id: "react", name: "React", projects: ["fcc", "greensoft", "pagos", "baoblue", "anrra", "portfolio"] },
+      { id: "next", name: "Next.js", projects: ["fcc", "lexy", "greensoft", "pagos", "baoblue", "anrra", "portfolio"] },
+      { id: "typescript", name: "TypeScript", projects: ["fcc", "lexy", "greensoft", "portfolio"] },
+      { id: "tailwind", name: "Tailwind CSS", projects: ["fcc", "lexy", "baoblue", "anrra", "portfolio"] },
     ],
   },
   {
     key: "projects",
     skills: [
-      { name: "Framer Motion", projects: ["landings", "portfolio"] },
-      { name: "IA · OpenAI / Ollama", projects: ["lexy", "orbix"] },
-      { name: "PostgreSQL", projects: ["pagos"] },
-      { name: "MongoDB", projects: ["lexy"] },
-      { name: "Mercado Pago", projects: ["pagos"] },
-      { name: "Python", projects: ["orbix"] },
+      { id: "framer", name: "Framer Motion", projects: ["baoblue", "portfolio"] },
+      { id: "openai", name: "OpenAI", projects: ["lexy"] },
+      { id: "laravel", name: "Laravel", projects: ["dixta", "orbix"] },
+      { id: "deepseek", name: "DeepSeek", projects: ["dixta", "orbix"] },
+      // ya no es exploración: el asistente de Ley REP está en producción
+      { id: "agents", name: "Agentes IA", names: { en: "AI agents" }, projects: ["orbix"] },
+      { id: "postgres", name: "PostgreSQL", projects: ["fcc", "pagos"] },
+      { id: "mysql", name: "MySQL", projects: ["dixta", "orbix"] },
+      { id: "prisma", name: "Prisma", projects: ["fcc", "pagos"] },
+      { id: "mongo", name: "MongoDB", projects: ["lexy"] },
+      { id: "mercadopago", name: "Mercado Pago", projects: ["pagos"] },
+      { id: "python", name: "Python", projects: ["dixta"] },
     ],
   },
   {
     key: "exploring",
     skills: [
-      { name: "NestJS", projects: [] },
-      { name: "n8n", projects: [] },
-      { name: "Agentes IA", projects: [] },
+      { id: "nest", name: "NestJS", projects: [] },
+      { id: "n8n", name: "n8n", projects: [] },
     ],
   },
 ];
 
 // Etiquetas de cada grupo (bilingüe).
-export const SKILL_GROUP_LABELS: Record<Lang, Record<string, string>> = {
+export const SKILL_GROUP_LABELS: Record<Lang, Record<SkillGroup["key"], string>> = {
   es: { core: "Especialidad", projects: "En proyectos", exploring: "Explorando" },
   en: { core: "Specialty", projects: "In projects", exploring: "Exploring" },
 };
 
-// Etiqueta corta de cada proyecto para los chips de evidencia (linkean al caso).
+// Etiqueta corta de cada proyecto para los enlaces de evidencia (van al caso).
 export const PROJECT_SHORT: Record<Lang, Record<string, string>> = {
-  es: { lexy: "Lexy", greensoft: "Greensoft", orbix: "Orbix", pagos: "tu-dominio.cl", landings: "BaoBlue", portfolio: "Portafolio" },
-  en: { lexy: "Lexy", greensoft: "Greensoft", orbix: "Orbix", pagos: "tu-dominio.cl", landings: "BaoBlue", portfolio: "Portfolio" },
+  es: { fcc: "Financial Control Center", lexy: "Lexy", greensoft: "GreenSoft", orbix: "Asistente Ley REP", dixta: "Dixta", pagos: "tu-dominio.cl", baoblue: "BaoBlue", anrra: "Anrra", portfolio: "Portafolio" },
+  en: { fcc: "Financial Control Center", lexy: "Lexy", greensoft: "GreenSoft", orbix: "Ley REP Assistant", dixta: "Dixta", pagos: "tu-dominio.cl", baoblue: "BaoBlue", anrra: "Anrra", portfolio: "Portfolio" },
 };
 
-// "Nivel" del jugador = edad actual de Jeremy (nacido 2002-12-22).
-export const PLAYER_LEVEL = 23;
-
 export type GamerCopy = {
-  focusHeading: string;
-  focusCaption: string;
-  flipHint: string;
+  inventoryTitle: string;
+  inventoryHint: string;
+  toolsLabel: string;
   usedIn: string;
-  levelLabel: string;
-  xpLabel: string;
-  zoneLabel: string;
+  projectCount: (n: number) => string;
+  exploringNote: string;
   achievementUnlocked: string;
   // por id de sección
-  zones: Record<string, string>;
-  achievements: Record<string, { icon: string; title: string; desc: string }>;
+  achievements: Record<string, { sprite: SpriteName; title: string; desc: string }>;
 };
 
 export const GAMER_COPY: Record<Lang, GamerCopy> = {
   es: {
-    focusHeading: "Mapa de foco",
-    focusCaption: "Áreas de trabajo · el número son proyectos reales",
-    flipHint: "Voltea cada tecnología para ver dónde la apliqué",
+    inventoryTitle: "Inventario",
+    inventoryHint: "Elige un objeto para ver en qué proyectos lo usé.",
+    toolsLabel: "Herramientas",
     usedIn: "Aplicado en",
-    levelLabel: "Nivel",
-    xpLabel: "XP",
-    zoneLabel: "Zona",
-    achievementUnlocked: "¡Logro desbloqueado!",
-    zones: {
-      inicio: "Inicio",
-      proyectos: "Proyectos",
-      experiencia: "Experiencia",
-      stack: "Stack",
-      faq: "FAQ",
-      contacto: "Contacto",
-    },
+    projectCount: (n) => (n === 1 ? "1 proyecto" : `${n} proyectos`),
+    exploringNote: "Todavía no está en un proyecto: lo estoy explorando.",
+    achievementUnlocked: "Logro desbloqueado",
     achievements: {
-      proyectos: { icon: "🗺️", title: "Explorador", desc: "Desbloqueaste los proyectos" },
-      experiencia: { icon: "⚔️", title: "Veterano", desc: "Revisaste la trayectoria" },
-      stack: { icon: "🧠", title: "Maestro del stack", desc: "Inspeccionaste las habilidades" },
-      faq: { icon: "📜", title: "Curioso", desc: "Leíste el lore (FAQ)" },
-      contacto: { icon: "🎉", title: "¡Party up!", desc: "Llegaste al final, hablemos" },
+      proyectos: { sprite: "map", title: "Explorador", desc: "Encontraste los proyectos" },
+      experiencia: { sprite: "katana", title: "Veterano", desc: "Recorriste la trayectoria" },
+      stack: { sprite: "chest", title: "Coleccionista", desc: "Abriste el inventario" },
+      faq: { sprite: "scroll", title: "Curioso", desc: "Leíste las respuestas" },
+      contacto: { sprite: "fire", title: "Fin del camino", desc: "Llegaste a la fogata. Hablemos." },
     },
   },
   en: {
-    focusHeading: "Focus map",
-    focusCaption: "Areas of work · the number is real projects",
-    flipHint: "Flip each tech to see where I applied it",
+    inventoryTitle: "Inventory",
+    inventoryHint: "Pick an item to see which projects I used it in.",
+    toolsLabel: "Toolbox",
     usedIn: "Used in",
-    levelLabel: "Level",
-    xpLabel: "XP",
-    zoneLabel: "Zone",
-    achievementUnlocked: "Achievement unlocked!",
-    zones: {
-      inicio: "Home",
-      proyectos: "Projects",
-      experiencia: "Experience",
-      stack: "Stack",
-      faq: "FAQ",
-      contacto: "Contact",
-    },
+    projectCount: (n) => (n === 1 ? "1 project" : `${n} projects`),
+    exploringNote: "Not in a project yet: I'm exploring it.",
+    achievementUnlocked: "Achievement unlocked",
     achievements: {
-      proyectos: { icon: "🗺️", title: "Explorer", desc: "Unlocked the projects" },
-      experiencia: { icon: "⚔️", title: "Veteran", desc: "Reviewed the journey" },
-      stack: { icon: "🧠", title: "Stack Master", desc: "Inspected the skills" },
-      faq: { icon: "📜", title: "Curious", desc: "Read the lore (FAQ)" },
-      contacto: { icon: "🎉", title: "Party up!", desc: "You reached the end, let's talk" },
+      proyectos: { sprite: "map", title: "Explorer", desc: "You found the projects" },
+      experiencia: { sprite: "katana", title: "Veteran", desc: "You walked the journey" },
+      stack: { sprite: "chest", title: "Collector", desc: "You opened the inventory" },
+      faq: { sprite: "scroll", title: "Curious", desc: "You read the answers" },
+      contacto: { sprite: "fire", title: "End of the road", desc: "You reached the campfire. Let's talk." },
     },
   },
 };
-
-// Orden de zonas para el HUD (coincide con los ids de sección).
-export const ZONE_ORDER = ["inicio", "proyectos", "experiencia", "stack", "faq", "contacto"];
 
 // ── Easter egg: código Konami (↑↑↓↓←→←→ B A) ──
 export const KONAMI_SEQUENCE = [
@@ -134,7 +119,6 @@ export const KONAMI_SEQUENCE = [
 
 export type KonamiCopy = {
   unlocked: string;
-  rarity: string;
   title: string;
   flavor: string;
   hint: string;
@@ -145,154 +129,324 @@ export type KonamiCopy = {
 export const KONAMI_COPY: Record<Lang, KonamiCopy> = {
   es: {
     unlocked: "Logro secreto desbloqueado",
-    rarity: "Mítica",
     title: "Maestro del Konami",
     flavor: "Pocos llegan hasta acá. Si conoces este código, hablamos el mismo idioma.",
     hint: "↑ ↑ ↓ ↓ ← → ← → B A",
-    reward: "+1000 XP · party invitation",
+    reward: "Recompensa: un lugar junto al fuego",
     close: "Cerrar",
   },
   en: {
     unlocked: "Secret achievement unlocked",
-    rarity: "Mythic",
     title: "Konami Master",
     flavor: "Few make it this far. If you know this code, we speak the same language.",
     hint: "↑ ↑ ↓ ↓ ← → ← → B A",
-    reward: "+1000 XP · party invitation",
+    reward: "Reward: a seat by the fire",
     close: "Close",
   },
 };
 
 /**
- * Sprite pixel-art: casco de astronauta (explorador) con visor cian.
- * Cada char = una celda; el componente PixelAvatar lo mapea a <rect>.
+ * Sprites pixel-art de los logros y de los proyectos sin capturas. Cada char es
+ * una celda y "." es transparente; todos comparten la paleta de la fogata.
  */
-export const AVATAR_SPRITE = [
-  "....KKKKKKKK....",
-  "..KKWWWWWWWWKK..",
-  ".KWWWWWWWWWWWWK.",
-  ".KWWWWWWWWWWWWK.",
-  "KWWKKKKKKKKKKWWK",
-  "KWKVVVVVVVVVVKWK",
-  "KWKVVCCCVVVVVKWK",
-  "KWKVCCCBVVVVVKWK",
-  "KWKVVVVVVVVVVKWK",
-  "KWKVVVVVVVVVVKWK",
-  ".KWKKKKKKKKKKWK.",
-  ".KWWWWWWWWWWWWK.",
-  "..KKWWWWWWWWKK..",
-  "....KKKKKKKK....",
-];
-
-export const AVATAR_PALETTE: Record<string, string> = {
-  K: "#0a0e1a", // contorno
-  W: "#cdd9ee", // casco claro
-  G: "#8aa0c0", // casco sombra
-  V: "#0b3a44", // visor oscuro
-  C: "#22d3ee", // visor brillo cian
-  B: "#3b82f6", // destello azul
+export const SPRITE_PALETTE: Record<string, string> = {
+  B: "#f3e7cf", // hueso
+  M: "#a89f8c", // ceniza
+  S: "#c9a15a", // paja
+  F: "#ffd166", // llama
+  A: "#ffb454", // llama suave
+  O: "#ff7a1a", // brasa
+  D: "#8a3a05", // brasa oscura / madera
+  C: "#4fd8ff", // cristal
+  G: "#6fe8a8", // verde del terminal de la escena
+  E: "#2f9e6e", // verde en sombra
 };
 
-// Mini-sprites decorativos (estrellas, gemas) para rellenar espacios.
-export const SPRITES: Record<string, { grid: string[]; palette: Record<string, string> }> = {
-  spark: {
-    grid: ["..C..", "..B..", "CBWBC", "..B..", "..C.."],
-    palette: { C: "#0e7490", B: "#22d3ee", W: "#e6f7ff" },
-  },
-  star: {
-    grid: [".B.", "BWB", ".B."],
-    palette: { B: "#22d3ee", W: "#e6f7ff" },
-  },
-  diamond: {
-    grid: ["..B..", ".BWB.", "BWCWB", ".BWB.", "..B.."],
-    palette: { B: "#3b82f6", W: "#93c5fd", C: "#22d3ee" },
-  },
-};
+export const SPRITES = {
+  // mapa con la ruta marcada (logro: proyectos)
+  map: [
+    "............",
+    ".SSSSSSSSSS.",
+    ".SBBBBBBBBS.",
+    ".SBBBBBOBOS.",
+    ".SBBBBBBOBS.",
+    ".SBBBBBOBOS.",
+    ".SBBBBDBBBS.",
+    ".SBBBDBBBBS.",
+    ".SBBBBBBBBS.",
+    ".SBDBBBBBBS.",
+    ".SSSSSSSSSS.",
+    "............",
+  ],
+  // katana (logro: experiencia)
+  katana: [
+    "..........BB",
+    ".........BBM",
+    "........BBM.",
+    ".......BBM..",
+    "......BBM...",
+    ".....BBM....",
+    "....BBM.....",
+    ".S.BBM......",
+    "..SBM.......",
+    "..DS........",
+    ".DO.S.......",
+    "DO..........",
+  ],
+  // cofre (logro: inventario)
+  chest: [
+    "............",
+    "..DDDDDDDD..",
+    ".DSSSSSSSSD.",
+    ".DSSSSSSSSD.",
+    ".DSSSSSSSSD.",
+    ".DDDDFFDDDD.",
+    ".DSSSFFSSSD.",
+    ".DSSSSSSSSD.",
+    ".DSSSSSSSSD.",
+    ".DSSSSSSSSD.",
+    ".DDDDDDDDDD.",
+    "............",
+  ],
+  // pergamino (logro: FAQ)
+  scroll: [
+    "............",
+    ".SSSSSSSSSS.",
+    ".SBBBBBBBBS.",
+    "..SSSSSSSS..",
+    "..BBBBBBBB..",
+    "..BMMMMMBB..",
+    "..BBBBBBBB..",
+    "..BMMMMBBB..",
+    "..BBBBBBBB..",
+    "..SSSSSSSS..",
+    ".SBBBBBBBBS.",
+    ".SSSSSSSSSS.",
+  ],
+  // fogata (logro: contacto)
+  fire: [
+    "......O.....",
+    ".....OO.....",
+    ".....OAO....",
+    "....OAAO....",
+    "...OAFAAO...",
+    "...OAFFAO...",
+    "..OAFFFFAO..",
+    "..OAFFFFAO..",
+    "...OAFFAO...",
+    ".DD.OOOO.DD.",
+    "..DDDDDDDD..",
+    ".DD......DD.",
+  ],
+  // cruceta (logro secreto: código Konami)
+  dpad: [
+    "....BBB....",
+    "....BFB....",
+    "....BBB....",
+    "....BBB....",
+    "BBBBBBBBBBB",
+    "BFBBBMBBBFB",
+    "BBBBBBBBBBB",
+    "....BBB....",
+    "....BBB....",
+    "....BFB....",
+    "....BBB....",
+  ],
+  // hoja (plataformas ambientales)
+  leaf: [
+    "............",
+    ".......GGG..",
+    ".....GGGGGG.",
+    "....GGGGEGG.",
+    "...GGGGEGGG.",
+    "..GGGGEGGGG.",
+    "..GGGEGGGG..",
+    "..GGEGGGG...",
+    "..GEGGGG....",
+    "..EGGG......",
+    ".E..........",
+    "E...........",
+  ],
+  // planeta con su luna en órbita (Orbix)
+  orbit: [
+    "....MMMM....",
+    "..MM....MM..",
+    ".M........M.",
+    ".M..CCCC..M.",
+    "M..CCCCCC..M",
+    "M..CCBCCC..M",
+    "M..CCCCCC..M",
+    "M..CCCCCC..M",
+    ".M..CCCC.FF.",
+    ".M.......FF.",
+    "..MM....MM..",
+    "....MMMM....",
+  ],
+  // moneda (pagos)
+  coin: [
+    "....DDDD....",
+    "..DDFFFFDD..",
+    ".DFFFFFFFFD.",
+    ".DFFFDDDFAD.",
+    "DFFFDFFFFFAD",
+    "DFFFFDDFFFAD",
+    "DFFFFFFDFFAD",
+    "DFFFDDDFFFAD",
+    ".DFFFFFFFAD.",
+    ".DFAAAAAAAD.",
+    "..DDAAAADD..",
+    "....DDDD....",
+  ],
+  // tablones apilados (taller de madera)
+  wood: [
+    "............",
+    "............",
+    "..DDDDDDDD..",
+    ".DSSSSSSSSD.",
+    ".DSDDSSDDSD.",
+    ".DSSSSSSSSD.",
+    "..DDDDDDDD..",
+    ".DSSSSSSSSD.",
+    ".DSSDDSSDSD.",
+    ".DSSSSSSSSD.",
+    "..DDDDDDDD..",
+    "............",
+  ],
+  // máscara de luchador (lucha libre)
+  mask: [
+    "...OOOOOO...",
+    "..OOOOOOOO..",
+    ".OOOOOOOOOO.",
+    ".OFFFOOFFFO.",
+    ".OF..OO..FO.",
+    ".OF..OO..FO.",
+    ".OOFFOOFFOO.",
+    ".OOOOFFOOOO.",
+    "..OOF..FOO..",
+    "..OOFFFFOO..",
+    "...OOOOOO...",
+    "....OOOO....",
+  ],
+  // cartas (TCG Mitos y Leyendas)
+  cards: [
+    "............",
+    "....SSSSSSS.",
+    "....SDDDDDS.",
+    ".BBBBBBBDDS.",
+    ".BOOOOOBDDS.",
+    ".BOFFFOBDDS.",
+    ".BOFFFOBDDS.",
+    ".BOOOOOBDDS.",
+    ".BBBBBBBDDS.",
+    ".BMMMMMBSSS.",
+    ".BBBBBBB....",
+    "............",
+  ],
+  // mancuerna (gym)
+  dumbbell: [
+    "............",
+    "............",
+    ".MM......MM.",
+    "MMMM....MMMM",
+    "MMMM....MMMM",
+    "MMMMSSSSMMMM",
+    "MMMMSSSSMMMM",
+    "MMMM....MMMM",
+    "MMMM....MMMM",
+    ".MM......MM.",
+    "............",
+    "............",
+  ],
+  // control (gaming)
+  gamepad: [
+    "............",
+    "............",
+    "..MMMMMMMM..",
+    ".MMMMMMMMMM.",
+    ".MMBMMMMOMM.",
+    ".MBBBMMOMOM.",
+    ".MMBMMMMOMM.",
+    ".MMMMMMMMMM.",
+    ".MMM....MMM.",
+    ".MM......MM.",
+    "............",
+    "............",
+  ],
+  // pantalla (series)
+  screen: [
+    "............",
+    ".MMMMMMMMMM.",
+    ".MCCCCCCCCM.",
+    ".MCCCCCCCCM.",
+    ".MCCBCCCCCM.",
+    ".MCCBBCCCCM.",
+    ".MCCBCCCCCM.",
+    ".MCCCCCCCCM.",
+    ".MMMMMMMMMM.",
+    ".....MM.....",
+    "...MMMMMM...",
+    "............",
+  ],
+  // lata (bebida energética)
+  can: [
+    "....MMMM....",
+    "...MBBBBM...",
+    "...GGGGGG...",
+    "...GGGGGG...",
+    "...GGFGGG...",
+    "...GFFGGG...",
+    "...GGFFGG...",
+    "...GGGFGG...",
+    "...GGFGGG...",
+    "...GGGGGG...",
+    "...GGGGGG...",
+    "....MMMM....",
+  ],
+} satisfies Record<string, string[]>;
 
-// ── Sección "Sobre mí" estilo Champion Profile (TCG + MOBA + RPG) ──
+export type SpriteName = keyof typeof SPRITES;
 
-// "Mapa de foco": el radar se dibuja desde EVIDENCIA, no autoevaluación.
-// Cada eje es un área de trabajo; su valor = nº de proyectos que la tocan.
-export const TOTAL_PROJECTS = 6;
-export const FOCUS_AREAS: { key: string; projects: string[] }[] = [
-  { key: "frontend", projects: ["lexy", "greensoft", "pagos", "landings", "portfolio"] },
-  { key: "backend", projects: ["greensoft", "orbix", "pagos"] },
-  { key: "ia", projects: ["lexy", "orbix"] },
-  { key: "data", projects: ["lexy", "pagos"] },
-  { key: "integrations", projects: ["lexy", "orbix", "pagos"] },
-  { key: "deploy", projects: ["lexy", "greensoft", "pagos", "landings", "portfolio"] },
-];
-export const FOCUS_LABELS: Record<Lang, Record<string, string>> = {
-  es: { frontend: "Frontend", backend: "Backend", ia: "IA", data: "Bases de datos", integrations: "Integraciones", deploy: "Deploy" },
-  en: { frontend: "Frontend", backend: "Backend", ia: "AI", data: "Databases", integrations: "Integrations", deploy: "Deploy" },
-};
-
-export type Ability = { slot: string; icon: string; name: string; desc: string };
+// ── Ficha de personaje ──
+// Lo que no está en ninguna otra sección: quién es, de dónde viene y qué hace
+// fuera del código. Los datos (clase, gremio, historia) viven en content.ts.
 
 export type AboutGame = {
-  cardRole: string;
-  cardSub: string;
-  rarity: string;
-  traits: string[];
-  abilitiesLabel: string;
+  /** placa del marco de la ficha */
+  sheetTag: string;
   loreLabel: string;
-  abilities: Ability[];
-  currentQuest: {
-    title: string;
-    badge: string;
-    objectives: { label: string; state: "done" | "active" | "todo" }[];
-  };
+  /** rótulo de cada dato de la ficha, por `key` de about.facts */
+  factLabels: Record<string, string>;
+  offCodeLabel: string;
+  offCode: { sprite: SpriteName; name: string; note?: string }[];
 };
 
 export const ABOUT_GAME: Record<Lang, AboutGame> = {
   es: {
-    cardRole: "Frontend Developer · React · Next.js · TypeScript",
-    cardSub: "Me muevo entre frontend, backend e integraciones cuando el producto lo requiere.",
-    rarity: "Legendaria",
-    traits: ["Builder", "Bilingüe", "Curioso", "Adaptable"],
-    abilitiesLabel: "Habilidades",
+    sheetTag: "Jugador 1",
     loreLabel: "Lore",
-    abilities: [
-      { slot: "P", icon: "compass", name: "Aprendiz eterno", desc: "Cada proyecto sube de nivel: aprende rápido y se adapta al stack." },
-      { slot: "Q", icon: "layout", name: "Frontend Craft", desc: "Interfaces modernas y pulidas con React, Next.js y Tailwind." },
-      { slot: "W", icon: "server", name: "API Builder", desc: "Backends y APIs con Node, NestJS y bases SQL/NoSQL." },
-      { slot: "E", icon: "brain", name: "IA Integrada", desc: "Chatbots y automatizaciones con OpenAI y Ollama." },
-      { slot: "R", icon: "rocket", name: "Ship It", desc: "Ultimate: lleva ideas a producción, de punta a punta." },
+    factLabels: { class: "Clase", current: "Gremio", location: "Base", education: "Formación", languages: "Idiomas" },
+    offCodeLabel: "Fuera del código",
+    offCode: [
+      { sprite: "mask", name: "Lucha libre", note: "fan" },
+      { sprite: "cards", name: "Mitos y Leyendas", note: "TCG" },
+      { sprite: "gamepad", name: "Gaming" },
+      { sprite: "dumbbell", name: "Gym" },
+      { sprite: "screen", name: "Series" },
+      { sprite: "can", name: "Bebida energética", note: "combustible" },
     ],
-    currentQuest: {
-      title: "Current Quest",
-      badge: "XP +100",
-      objectives: [
-        { label: "Integrar IA útil en flujos reales", state: "done" },
-        { label: "Mejorar arquitectura frontend", state: "active" },
-        { label: "Profundizar buenas prácticas de producto", state: "active" },
-        { label: "Shippear proyectos con mejor criterio técnico", state: "todo" },
-      ],
-    },
   },
   en: {
-    cardRole: "Frontend Developer · React · Next.js · TypeScript",
-    cardSub: "I move between frontend, backend and integrations when the product needs it.",
-    rarity: "Legendary",
-    traits: ["Builder", "Bilingual", "Curious", "Adaptable"],
-    abilitiesLabel: "Abilities",
+    sheetTag: "Player 1",
     loreLabel: "Lore",
-    abilities: [
-      { slot: "P", icon: "compass", name: "Eternal Learner", desc: "Every project levels up: learns fast and adapts to the stack." },
-      { slot: "Q", icon: "layout", name: "Frontend Craft", desc: "Modern, polished interfaces with React, Next.js and Tailwind." },
-      { slot: "W", icon: "server", name: "API Builder", desc: "Backends and APIs with Node, NestJS and SQL/NoSQL databases." },
-      { slot: "E", icon: "brain", name: "AI Integration", desc: "Chatbots and automations with OpenAI and Ollama." },
-      { slot: "R", icon: "rocket", name: "Ship It", desc: "Ultimate: takes ideas to production, end to end." },
+    factLabels: { class: "Class", current: "Guild", location: "Base", education: "Education", languages: "Languages" },
+    offCodeLabel: "Outside the code",
+    offCode: [
+      { sprite: "mask", name: "Lucha libre", note: "fan" },
+      { sprite: "cards", name: "Mitos y Leyendas", note: "TCG" },
+      { sprite: "gamepad", name: "Gaming" },
+      { sprite: "dumbbell", name: "Gym" },
+      { sprite: "screen", name: "TV series" },
+      { sprite: "can", name: "Energy drinks", note: "fuel" },
     ],
-    currentQuest: {
-      title: "Current Quest",
-      badge: "XP +100",
-      objectives: [
-        { label: "Integrate useful AI into real flows", state: "done" },
-        { label: "Improve frontend architecture", state: "active" },
-        { label: "Go deeper on product best practices", state: "active" },
-        { label: "Ship projects with better technical judgment", state: "todo" },
-      ],
-    },
   },
 };

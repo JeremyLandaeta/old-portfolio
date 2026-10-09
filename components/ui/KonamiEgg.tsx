@@ -2,29 +2,31 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
-import { X, Sparkles } from "lucide-react";
+import { X } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { usePrefersReducedMotion } from "@/components/ui/usePrefersReducedMotion";
 import { PixelSprite } from "@/components/ui/PixelSprite";
-import { KONAMI_COPY, KONAMI_SEQUENCE, SPRITES } from "@/lib/gamer";
+import { KONAMI_COPY, KONAMI_SEQUENCE } from "@/lib/gamer";
+import { DUR, EASE } from "@/lib/motion";
 
 const STORAGE_KEY = "konami-unlocked";
-const SPRITE_NAMES = Object.keys(SPRITES) as (keyof typeof SPRITES)[];
+const EMBER_COLORS = ["bg-flame", "bg-accent", "bg-accent-2"];
 
-// Posiciones deterministas del confeti (sin Math.random para no romper SSR/lint).
-const CONFETTI = Array.from({ length: 28 }, (_, i) => {
-  const left = (i * 37) % 100;
-  const delay = (i % 7) * 0.08;
-  const drift = ((i * 53) % 40) - 20;
-  const sprite = SPRITE_NAMES[i % SPRITE_NAMES.length];
-  const size = 3 + (i % 3);
-  // id estable por partícula (la lista es fija y nunca se reordena/filtra).
-  return { id: `confetti-${i}`, left, delay, drift, sprite, size };
-});
+// Brasas que suben al desbloquear, como las de la fogata del hero. Posiciones
+// deterministas (sin Math.random para no romper SSR/lint).
+const EMBERS = Array.from({ length: 24 }, (_, i) => ({
+  // id estable por brasa (la lista es fija y nunca se reordena/filtra).
+  id: `ember-${i}`,
+  left: (i * 37) % 100,
+  delay: (i % 8) * 0.09,
+  drift: ((i * 53) % 60) - 30,
+  size: 4 + (i % 3) * 2,
+  color: EMBER_COLORS[i % EMBER_COLORS.length],
+}));
 
 /**
  * Easter egg: al teclear el código Konami (↑↑↓↓←→←→ B A) se desbloquea un
- * "logro secreto" con una carta estilo TCG y una lluvia de sprites pixel-art.
+ * "logro secreto", con el mismo panel de los logros normales en grande.
  * El desbloqueo persiste en localStorage, pero el código siempre se puede repetir.
  */
 export function KonamiEgg() {
@@ -81,7 +83,7 @@ export function KonamiEgg() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
+          transition={{ duration: DUR.fast }}
           className="fixed inset-0 z-100 grid place-items-center px-4"
           role="dialog"
           aria-modal="true"
@@ -91,35 +93,33 @@ export function KonamiEgg() {
           <button
             type="button"
             aria-label={c.close}
-            className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-background/90"
             onClick={() => setOpen(false)}
           />
 
-          {/* Lluvia de sprites pixel-art */}
+          {/* Brasas subiendo */}
           {!reduced && (
             <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-              {CONFETTI.map((p) => (
-                <m.div
+              {EMBERS.map((p) => (
+                <m.span
                   key={p.id}
-                  className="absolute -top-10"
-                  style={{ left: `${p.left}%` }}
-                  initial={{ y: -40, opacity: 0, rotate: 0 }}
-                  animate={{ y: "110vh", opacity: [0, 1, 1, 0], x: p.drift, rotate: 360 }}
-                  transition={{ duration: 2.4, delay: p.delay, ease: "easeIn" }}
-                >
-                  <PixelSprite name={p.sprite} cell={p.size} />
-                </m.div>
+                  className={`absolute -bottom-3 ${p.color}`}
+                  style={{ left: `${p.left}%`, width: p.size, height: p.size }}
+                  initial={{ y: 0, opacity: 0 }}
+                  animate={{ y: "-105vh", x: p.drift, opacity: [0, 1, 1, 0] }}
+                  transition={{ duration: 2.6, delay: p.delay, ease: "easeOut" }}
+                />
               ))}
             </div>
           )}
 
-          {/* Carta de recompensa estilo TCG */}
+          {/* Panel del logro */}
           <m.div
-            initial={{ scale: 0.8, y: 30, rotateX: -12 }}
-            animate={{ scale: 1, y: 0, rotateX: 0 }}
-            exit={{ scale: 0.85, y: 20, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 220, damping: 20 }}
-            className="relative w-full max-w-sm overflow-hidden rounded-3xl border border-accent-2/40 glass p-6 text-center shadow-2xl shadow-accent-2/20 card-beam"
+            initial={{ y: 24, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 16, opacity: 0, transition: { duration: DUR.fast } }}
+            transition={{ duration: DUR.base, ease: EASE }}
+            className="relative w-full max-w-sm bg-background-soft px-6 pb-7 pt-8 text-center shadow-[inset_0_0_0_2px_var(--accent),0_6px_0_0_var(--accent-deep)]"
           >
             <button
               type="button"
@@ -130,31 +130,18 @@ export function KonamiEgg() {
               <X size={16} />
             </button>
 
-            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent-2">
-              {c.unlocked}
-            </p>
+            <p className="mx-8 font-pixel text-[0.5rem] uppercase leading-relaxed text-straw">{c.unlocked}</p>
 
-            {/* Sello de rareza */}
-            <div className="mt-4 inline-flex items-center gap-1.5 border border-amber-300/40 bg-amber-300/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-amber-300">
-              <Sparkles size={12} />
-              {c.rarity}
+            <div className="mx-auto mt-5 grid h-28 w-28 place-items-center bg-background">
+              <PixelSprite name="dpad" cell={7} />
             </div>
 
-            {/* Sprite estrella grande */}
-            <div className="mt-5 grid place-items-center">
-              <div className="grid h-24 w-24 place-items-center rounded-2xl bg-linear-to-br from-accent/20 to-accent-2/20">
-                <PixelSprite name="diamond" cell={9} className={reduced ? "" : "pixel-idle"} />
-              </div>
-            </div>
+            <h2 className="title-pixel mt-6 text-base leading-normal">{c.title}</h2>
+            <p className="mx-auto mt-3 max-w-[18rem] text-pretty italic leading-snug text-muted">{c.flavor}</p>
 
-            <h2 className="mt-5 text-2xl font-bold text-accent-2">{c.title}</h2>
-            <p className="mx-auto mt-2 max-w-[18rem] text-pretty text-sm text-muted">{c.flavor}</p>
+            <p className="mt-5 font-mono text-base tracking-widest text-foreground">{c.hint}</p>
 
-            <p className="mt-4 font-mono text-base tracking-widest text-foreground">{c.hint}</p>
-
-            <div className="mt-5 inline-flex items-center gap-2 bg-linear-to-r from-accent to-accent-2 px-4 py-1.5 font-mono text-xs font-semibold text-background">
-              {c.reward}
-            </div>
+            <p className="mt-4 text-accent-2">{c.reward}</p>
           </m.div>
         </m.div>
       )}

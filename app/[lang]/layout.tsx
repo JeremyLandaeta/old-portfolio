@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { Alegreya, JetBrains_Mono, Press_Start_2P } from "next/font/google";
 import "../globals.css";
@@ -30,6 +30,8 @@ const pixel = Press_Start_2P({
   subsets: ["latin"],
   display: "swap",
 });
+
+export const viewport: Viewport = { themeColor: "#010813" };
 
 // Solo se generan /es y /en; cualquier otro idioma devuelve 404.
 export function generateStaticParams() {
@@ -117,11 +119,11 @@ export default async function LangLayout({
         alternateName: "Jeremy Landaeta",
         url: SITE_URL,
         image: `${SITE_URL}/pixel/jeremy-pixel.png`,
-        jobTitle: "Frontend Developer",
+        jobTitle: "Software Developer",
         description: HOME_META[lang].description,
         address: { "@type": "PostalAddress", addressLocality: "Santiago", addressCountry: "CL" },
         alumniOf: { "@type": "CollegeOrUniversity", name: "Duoc UC" },
-        knowsAbout: ["React", "Next.js", "TypeScript", "Node.js", "Tailwind CSS", "AI integrations"],
+        knowsAbout: ["React", "Next.js", "TypeScript", "Software architecture", "PostgreSQL", "AI integrations"],
         sameAs: [SOCIALS.linkedin, SOCIALS.github],
       },
       {
@@ -144,6 +146,12 @@ export default async function LangLayout({
     >
       <body className="grain scanlines min-h-full flex flex-col bg-background text-foreground">
         <JsonLd data={jsonLd} />
+        <a
+          href="#main-content"
+          className="fixed left-3 top-3 z-100 -translate-y-20 bg-accent px-4 py-3 font-mono text-sm font-bold text-background transition-transform focus-visible:translate-y-0"
+        >
+          {lang === "es" ? "Saltar al contenido" : "Skip to content"}
+        </a>
         {/* Cielo estrellado fijo detrás de todo el sitio */}
         <div aria-hidden className="stars" />
         <LanguageProvider lang={lang}>

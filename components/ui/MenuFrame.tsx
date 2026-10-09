@@ -1,71 +1,52 @@
-import type { ComponentType, ReactNode } from "react";
-import { CornerBrackets } from "@/components/ui/CornerBrackets";
-
-/** Acepta íconos de lucide-react y react-icons (ambos toman size + className). */
-type IconType = ComponentType<{ size?: number; className?: string }>;
+import type { ReactNode } from "react";
 
 /**
- * Skins de acento. Clases ESTÁTICAS y literales a propósito: Tailwind solo
- * genera las que ve escritas, así que nada de `border-${x}` dinámico.
+ * Color de la placa. Clases ESTÁTICAS y literales a propósito: Tailwind solo
+ * genera las que ve escritas, así que nada de `bg-${x}` dinámico.
  */
 const ACCENTS = {
-  cyan: { border: "border-accent-2/25", bracket: "border-accent-2/70", text: "text-accent-2" },
-  blue: { border: "border-accent/30", bracket: "border-accent/70", text: "text-accent" },
-  amber: { border: "border-amber-400/25", bracket: "border-amber-400/70", text: "text-amber-300" },
-  emerald: { border: "border-emerald-400/25", bracket: "border-emerald-400/70", text: "text-emerald-300" },
-  violet: { border: "border-violet-400/25", bracket: "border-violet-400/70", text: "text-violet-300" },
+  straw: "bg-straw",
+  ember: "bg-accent",
+  flame: "bg-flame",
+  crystal: "bg-crystal",
+  moss: "bg-moss",
 } as const;
 
-type Accent = keyof typeof ACCENTS;
+export type FrameAccent = keyof typeof ACCENTS;
 
 type MenuFrameProps = {
-  /** Etiqueta incrustada en el borde superior (estilo menú de juego). */
+  /** Texto de la placa montada sobre el marco. */
   title: string;
-  /** Ícono opcional junto al título. */
-  icon?: IconType;
-  /** Sello decorativo opcional abajo a la derecha (ej. "LORE.LOG"). */
-  stamp?: string;
-  /** Skin de acento — distinto por sección para que no se vean todas iguales. */
-  accent?: Accent;
+  /** Color de la placa: de la paleta de la escena, para distinguir ventanas. */
+  accent?: FrameAccent;
   /** Nivel de heading del título (2-4) o "none" para etiqueta decorativa. */
   headingLevel?: 2 | 3 | 4 | "none";
+  /** "thin": borde fino sin sombra, para lo que acompaña a las piezas principales. */
+  weight?: "heavy" | "thin";
   className?: string;
   children: ReactNode;
 };
 
 /**
- * Contenedor "game-menu": esquinas con corner-brackets, título incrustado en
- * el borde superior y sello opcional. Alternativa con personalidad a la card
- * glass redondeada (rompe el look de plantilla).
+ * Ventana de juego (`.window` en globals.css): marco en píxeles con esquinas
+ * escalonadas, sombra dura y una placa con el nombre. El marco grueso se reserva
+ * para las piezas que mandan (proyecto principal, ficha, inventario, resultado);
+ * lo que las acompaña usa `weight="thin"`. El texto corrido va sobre el cielo.
  */
-export function MenuFrame({ title, icon: Icon, stamp, accent = "cyan", headingLevel = 3, className = "", children }: MenuFrameProps) {
-  const a = ACCENTS[accent];
+export function MenuFrame({
+  title,
+  accent = "straw",
+  headingLevel = 3,
+  weight = "heavy",
+  className = "",
+  children,
+}: MenuFrameProps) {
   // El título es un heading real (h2-h4) salvo que sea decorativo ("none").
   const TitleTag = (headingLevel === "none" ? "span" : `h${headingLevel}`) as "span" | "h2" | "h3" | "h4";
 
   return (
-    <div
-      className={`relative border ${a.border} bg-[rgba(11,16,30,0.55)] shadow-[0_0_44px_-26px_var(--accent-glow)] backdrop-blur-sm ${className}`}
-    >
-      {/* corner brackets */}
-      <CornerBrackets color={a.bracket} />
-
-      {/* título incrustado en el borde superior */}
-      <div className="absolute -top-2.25 left-5 flex items-center gap-1.5 bg-background px-2">
-        {Icon && <Icon size={13} className={a.text} />}
-        <TitleTag className={`font-pixel text-[0.5rem] uppercase tracking-wide ${a.text}`}>{title}</TitleTag>
-      </div>
-
-      {/* sello opcional */}
-      {stamp && (
-        <span
-          aria-hidden
-          className="pointer-events-none absolute bottom-1.5 right-4 font-mono text-[10px] uppercase tracking-[0.2em] text-muted/40"
-        >
-          {stamp}
-        </span>
-      )}
-
+    <div className={`${weight === "thin" ? "window-thin" : "window"} ${className}`}>
+      <TitleTag className={`window-tag ${ACCENTS[accent]}`}>{title}</TitleTag>
       {children}
     </div>
   );

@@ -19,15 +19,15 @@ export const projectPath = (lang: Lang, slug: string) => `/${lang}/proyectos/${s
 /** Title/description de la home por idioma (los casos de estudio usan content.ts). */
 export const HOME_META: Record<Lang, { title: string; description: string; ogDesc: string }> = {
   es: {
-    title: "Jeremy Landaeta — Frontend Developer",
+    title: "Jeremy Landaeta — Software Developer",
     description:
-      "Portafolio de Jeremy Landaeta Lizama, Ingeniero en Informática. Desarrollo frontend/fullstack con React, Next.js y TypeScript, e integraciones con IA.",
-    ogDesc: "Productos web, interfaces modernas y automatizaciones con IA. React · Next.js · TypeScript.",
+      "Portafolio de Jeremy Landaeta Lizama. Productos frontend y full stack, arquitectura de aplicaciones e integraciones con IA usando React, Next.js y TypeScript.",
+    ogDesc: "Productos de punta a punta: interfaces, reglas de negocio, integraciones e IA aplicada.",
   },
   en: {
-    title: "Jeremy Landaeta — Frontend Developer",
+    title: "Jeremy Landaeta — Software Developer",
     description:
-      "Portfolio of Jeremy Landaeta Lizama, Computer Engineer. Frontend/fullstack development with React, Next.js and TypeScript, plus AI integrations.",
-    ogDesc: "Web products, modern interfaces and AI automations. React · Next.js · TypeScript.",
+      "Portfolio of Jeremy Landaeta Lizama. Frontend and full-stack products, application architecture and AI integrations using React, Next.js and TypeScript.",
+    ogDesc: "End-to-end products: interfaces, business rules, integrations and applied AI.",
   },
 };

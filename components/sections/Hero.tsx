@@ -1,20 +1,11 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import Image from "next/image";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { useLang } from "@/components/providers/LanguageProvider";
+import { CampfireScene } from "@/components/ui/CampfireScene";
 import { DecodeText } from "@/components/ui/DecodeText";
 import { SOCIALS, cvFile } from "@/lib/content";
-
-// Brasas que suben desde la fogata. Posiciones en % de la ilustración.
-const EMBERS = [
-  { left: "44.6%", delay: "0s", duration: "3.4s" },
-  { left: "46.3%", delay: "0.9s", duration: "4.1s" },
-  { left: "45.4%", delay: "1.7s", duration: "3.7s" },
-  { left: "47.1%", delay: "2.6s", duration: "4.4s" },
-  { left: "45.9%", delay: "3.3s", duration: "3.9s" },
-];
 
 /**
  * Hero como pantalla de título de un juego: la escena pixel-art ocupa todo el
@@ -79,32 +70,9 @@ export function Hero() {
       </div>
 
       {/* Escena a todo el ancho, anclada abajo */}
-      <div aria-hidden className="hero-scene">
-        <div className="hero-scene-art">
-          <Image
-            src="/pixel/about-scene-base.webp"
-            alt=""
-            fill
-            sizes="100vw"
-            preload
-            draggable={false}
-            className="pixelated select-none object-cover"
-          />
-          <span className="fire-glow" />
-          <span className="fire-floor" />
-          {EMBERS.map((e) => (
-            <span
-              key={e.left}
-              className="ember"
-              style={{ left: e.left, animationDelay: e.delay, animationDuration: e.duration }}
-            />
-          ))}
-          <span className="term-cursor" />
-        </div>
-      </div>
+      <CampfireScene preload />
 
-      {/* escritorio: ubicación y redes sobre el suelo de la escena, a la derecha
-          (la esquina izquierda es del HUD) */}
+      {/* escritorio: ubicación y redes sobre el suelo de la escena, a la derecha */}
       <div className="absolute inset-x-0 bottom-0 z-10 hidden items-center justify-end gap-3 px-8 pb-5 font-pixel text-[0.55rem] uppercase text-muted sm:flex">
         <span>{t.hero.location}</span>
         <SocialLinks />
