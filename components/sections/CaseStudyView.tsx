@@ -261,6 +261,10 @@ function ArchitectureFlow({ slug, lang }: { slug: string; lang: "es" | "en" }) {
       es: ["WhatsApp", "Webhook: valida y encola", "Flujo guiado o IA + documentos", "Derivación + Odoo"],
       en: ["WhatsApp", "Webhook: validate & enqueue", "Guided flow or AI + documents", "Handoff + Odoo"],
     },
+    portfolio: {
+      es: ["Contenido tipado ES/EN", "Páginas estáticas por idioma", "Sistema visual Fogata", "Deploy en Vercel"],
+      en: ["Typed ES/EN content", "Static pages per language", "Fogata visual system", "Deploy on Vercel"],
+    },
     dixta: {
       es: ["Fuentes", "Python + Scrapling", "Laravel + colas + DeepSeek", "Revisión humana"],
       en: ["Sources", "Python + Scrapling", "Laravel + queues + DeepSeek", "Human review"],

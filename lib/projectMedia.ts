@@ -49,12 +49,15 @@ export const projectMedia: Record<string, ProjectMedia> = {
     ],
   },
   portfolio: {
-    cover: "/projects/portfolio-hero.jpg",
+    cover: "/projects/portfolio-fogata-hero.jpg",
     shots: [
+      "/projects/portfolio-fogata-hero.jpg",
+      "/projects/portfolio-fogata-proyectos.jpg",
+      "/projects/portfolio-fogata-ficha.jpg",
+      "/projects/portfolio-fogata-inventario.jpg",
+      "/projects/portfolio-fogata-aliados.jpg",
+      // el diseño anterior, para contar la evolución
       "/projects/portfolio-hero.jpg",
-      "/projects/portfolio-about.jpg",
-      "/projects/portfolio-proyectos.jpg",
-      "/projects/portfolio-pixel.jpg",
     ],
   },
 };
