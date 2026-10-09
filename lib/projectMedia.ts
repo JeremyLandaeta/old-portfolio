@@ -17,12 +17,12 @@ export type ProjectMedia = {
 
 export const projectMedia: Record<string, ProjectMedia> = {
   fcc: {
-    cover: "/projects/fcc-resumen-claro.jpg",
+    cover: "/projects/fcc-resumen-tema-claro.jpg",
     shots: [
-      "/projects/fcc-resumen-claro.jpg",
-      "/projects/fcc-resumen-oscuro.jpg",
-      "/projects/fcc-entrar-claro.jpg",
-      "/projects/fcc-entrar-oscuro.jpg",
+      "/projects/fcc-resumen-tema-claro.jpg",
+      "/projects/fcc-resumen-tema-oscuro.jpg",
+      "/projects/fcc-entrar-tema-claro.jpg",
+      "/projects/fcc-entrar-tema-oscuro.jpg",
     ],
   },
   greensoft: { emblem: "leaf" },
