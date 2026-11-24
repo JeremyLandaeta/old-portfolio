@@ -4,9 +4,10 @@ import { useState, type ComponentType } from "react";
 import Link from "next/link";
 import { Bot, Sparkles } from "lucide-react";
 import {
-  SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiFramer, SiOpenai, SiLaravel,
+  SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiFramer, SiLaravel,
   SiPostgresql, SiMysql, SiPrisma, SiMongodb, SiMercadopago, SiPython, SiNestjs, SiN8N,
 } from "react-icons/si";
+import { TbBrandOpenai } from "react-icons/tb";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { MenuFrame } from "@/components/ui/MenuFrame";
 import { projectPath } from "@/lib/site";
@@ -21,7 +22,7 @@ const ICONS: Record<string, IconType> = {
   typescript: SiTypescript,
   tailwind: SiTailwindcss,
   framer: SiFramer,
-  openai: SiOpenai,
+  openai: TbBrandOpenai,
   laravel: SiLaravel,
   deepseek: Sparkles, // sin logo en react-icons
   postgres: SiPostgresql,
@@ -65,7 +66,7 @@ export function Inventory({ tools }: { tools: string[] }) {
         >
           <div className="flex items-center gap-3">
             <span className="grid h-12 w-12 shrink-0 place-items-center bg-background-soft text-flame">
-              <SelectedIcon size={24} />
+              <SelectedIcon size={24} aria-hidden="true" />
             </span>
             <div className="min-w-0">
               <h3 className="text-xl font-bold leading-tight">{selected.names?.[lang] ?? selected.name}</h3>
@@ -117,7 +118,7 @@ export function Inventory({ tools }: { tools: string[] }) {
                           type="button"
                           aria-pressed={isSelected}
                           onClick={() => setSelectedId(skill.id)}
-                          className={`relative flex aspect-square w-full flex-col items-center justify-center gap-2 border-2 bg-background p-1.5 transition-colors ${
+                          className={`pixel-interact relative flex aspect-square w-full flex-col items-center justify-center gap-2 border-2 bg-background p-1.5 transition-colors ${
                             isSelected
                               ? "border-accent text-flame"
                               : `border-frame text-muted hover:border-straw hover:text-foreground ${
@@ -130,7 +131,7 @@ export function Inventory({ tools }: { tools: string[] }) {
                               ×{skill.projects.length}
                             </span>
                           )}
-                          <Icon size={26} />
+                          <Icon size={26} aria-hidden="true" />
                           <span className="text-balance text-center font-mono text-[10px] leading-tight">
                             {skill.names?.[lang] ?? skill.name}
                           </span>

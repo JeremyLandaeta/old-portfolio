@@ -8,6 +8,7 @@ import { AnimatePresence, m } from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
 import { useLang } from "@/components/providers/LanguageProvider";
 import { useActiveSection } from "@/components/ui/useActiveSection";
+import { usePrefersReducedMotion } from "@/components/ui/usePrefersReducedMotion";
 import { cvFile } from "@/lib/content";
 import { DUR } from "@/lib/motion";
 
@@ -29,6 +30,7 @@ function getScrolledServerSnapshot() {
 export function Navbar() {
   const { t, lang, toggle } = useLang();
   const pathname = usePathname();
+  const reduced = usePrefersReducedMotion();
   const isHome = pathname === `/${lang}`;
   // en otras páginas, los anclajes deben apuntar a la home del idioma (/es#seccion)
   const linkFor = (id: string) => (isHome ? `#${id}` : `/${lang}#${id}`);
@@ -63,7 +65,7 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className={`nav-in fixed inset-x-0 z-50 px-4 transition-[top] duration-300 ${scrolled ? "top-2" : "top-4"}`}>
+    <header className={`nav-in sticky inset-x-0 z-50 px-4 transition-[top] duration-300 ${scrolled ? "top-2" : "top-4"}`}>
       <nav
         className={`mx-auto flex items-center justify-between transition-[max-width,padding,background-color,box-shadow] duration-300 ease-out ${
           scrolled
@@ -72,7 +74,7 @@ export function Navbar() {
         }`}
       >
         {/* Logo */}
-        <Link href={isHome ? "#inicio" : `/${lang}`} className="group flex items-center gap-2 font-mono text-sm font-semibold">
+        <Link href={isHome ? "#inicio" : `/${lang}`} className="group flex min-h-11 items-center gap-2 font-mono text-sm font-semibold">
           <Image
             src="/jl-logo.png"
             alt="Jeremy Landaeta — logo"
@@ -98,7 +100,7 @@ export function Navbar() {
                 <Link
                   href={linkFor(item.id)}
                   aria-current={isActive ? "true" : undefined}
-                  className={`group/nav relative transition-[color,background-color,padding] duration-300 ${
+                  className={`pixel-interact group/nav relative inline-flex min-h-11 min-w-11 items-center justify-center transition-[color,background-color,padding] duration-300 ${
                     isActive ? "text-accent-2" : "text-muted hover:bg-white/5 hover:text-foreground"
                   } ${scrolled ? "px-2 py-1 text-[13px]" : "px-2 py-1.5 text-sm lg:px-2.5"}`}
                 >
@@ -130,7 +132,7 @@ export function Navbar() {
               e.preventDefault();
               toggle();
             }}
-            className={`border border-border font-mono font-semibold text-muted transition-[color,border-color,padding] duration-300 hover:border-accent-2 hover:text-foreground ${
+            className={`pixel-interact inline-flex min-h-11 min-w-11 items-center justify-center border border-border font-mono font-semibold text-muted transition-[color,border-color,padding] duration-300 hover:border-accent-2 hover:text-foreground ${
               scrolled ? "px-2 py-1 text-[11px]" : "px-2.5 py-1.5 text-xs"
             }`}
           >
@@ -157,7 +159,7 @@ export function Navbar() {
             aria-label={open ? (lang === "es" ? "Cerrar menú" : "Close menu") : (lang === "es" ? "Abrir menú" : "Open menu")}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            className="grid h-9 w-9 place-items-center border border-border text-foreground md:hidden"
+            className="pixel-interact grid h-11 w-11 place-items-center border border-border text-foreground md:hidden"
           >
             {open ? <X size={18} /> : <Menu size={18} />}
           </button>
@@ -169,11 +171,11 @@ export function Navbar() {
         {open && (
           <m.div
             id="mobile-menu"
-            initial={{ opacity: 0, y: -8 }}
+            initial={reduced ? false : { opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: DUR.fast }}
-            className="mx-auto mt-2 max-w-5xl glass p-3 md:hidden"
+            exit={reduced ? { opacity: 1 } : { opacity: 0, y: -8 }}
+            transition={{ duration: reduced ? 0 : DUR.fast }}
+            className="mx-auto mt-2 max-h-[calc(100dvh-6rem)] max-w-5xl overflow-y-auto glass p-3 md:hidden"
           >
             <ul className="flex flex-col">
               {t.nav.map((item) => (

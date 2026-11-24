@@ -89,7 +89,7 @@ function SocialLinks() {
         target="_blank"
         rel="noreferrer"
         aria-label="GitHub"
-        className="p-2 transition-colors hover:text-accent"
+        className="pixel-interact inline-flex min-h-11 min-w-11 items-center justify-center p-2 transition-colors hover:text-accent"
       >
         <FaGithub size={16} />
       </a>
@@ -98,7 +98,7 @@ function SocialLinks() {
         target="_blank"
         rel="noreferrer"
         aria-label="LinkedIn"
-        className="p-2 transition-colors hover:text-accent"
+        className="pixel-interact inline-flex min-h-11 min-w-11 items-center justify-center p-2 transition-colors hover:text-accent"
       >
         <FaLinkedin size={16} />
       </a>

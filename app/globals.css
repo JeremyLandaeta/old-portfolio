@@ -82,7 +82,7 @@ html {
 /* Offset de anclas: al navegar, el título de cada sección queda bajo el
    navbar fijo con aire suficiente (en vez de pegado o tapado). */
 :where(section[id]) {
-  scroll-margin-top: 2.5rem;
+  scroll-margin-top: 6rem;
 }
 
 body {
@@ -685,5 +685,69 @@ kbd {
   100% {
     transform: translate(0.6vw, calc(var(--h) * -0.26));
     opacity: 0;
+  }
+}
+
+/* Pasos cortos y sombras duras mantienen la respuesta arcade. */
+@layer components {
+  .pixel-interact,
+  main a:not(.btn-pixel):not(:has(img)),
+  footer a,
+  main button {
+    transition: color 150ms, background-color 150ms, border-color 150ms, translate 100ms steps(2, end);
+  }
+  .btn-pixel:is(:hover, :focus-visible) {
+    translate: 0 -2px;
+  }
+  .btn-pixel:active {
+    translate: 0 0;
+  }
+  .pixel-interact:focus-visible,
+  main a:not(.btn-pixel):not(:has(img)):focus-visible,
+  footer a:focus-visible,
+  main button:focus-visible {
+    translate: 2px 0;
+  }
+  @media (hover: hover) {
+    .pixel-interact:hover,
+    main a:not(.btn-pixel):not(:has(img)):hover,
+    footer a:hover,
+    main button:hover {
+      translate: 2px 0;
+    }
+  }
+  .pixel-interact:active,
+  main a:not(.btn-pixel):active,
+  main button:active {
+    translate: 0 2px;
+  }
+  @media (max-width: 639px) {
+    .hero {
+      --h: clamp(14rem, 62vw, 20rem);
+      min-height: auto;
+    }
+    .hero-content {
+      justify-content: flex-start;
+      padding-top: 2.5rem;
+      padding-bottom: calc(var(--h) + 1rem);
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal="hidden"],
+  [data-reveal="shown"] {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  *, *::before, *::after {
+    transition-duration: 0s !important;
+  }
+  .pixel-interact,
+  .btn-pixel,
+  main a,
+  main button,
+  footer a {
+    translate: none !important;
   }
 }

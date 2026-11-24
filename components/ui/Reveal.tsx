@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 
+import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
+
 type RevealProps = {
   children?: ReactNode;
   className?: string;
@@ -49,14 +51,19 @@ function getObserver() {
  */
 export function Reveal({ children, className, order = 0, kind = "rise", as: Tag = "div" }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
+  const reduced = usePrefersReducedMotion();
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!el) return;
+    if (reduced) {
+      delete el.dataset.reveal;
+      return;
+    }
     const io = getObserver();
     io.observe(el);
     return () => io.unobserve(el);
-  }, []);
+  }, [reduced]);
 
   return (
     <Tag
