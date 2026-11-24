@@ -502,7 +502,7 @@ kbd {
     box-shadow:
       inset 0 0 0 2px var(--accent),
       0 4px 0 0 var(--accent-deep);
-    animation: toast-life 4.6s linear forwards;
+    animation: toast-life 2.5s linear forwards;
   }
 
   /* ── Hero: pantalla de título ── */

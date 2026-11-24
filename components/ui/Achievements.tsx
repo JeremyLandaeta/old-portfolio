@@ -8,7 +8,7 @@ import { GAMER_COPY, type SpriteName } from "@/lib/gamer";
 type Toast = { key: number; sprite: SpriteName; title: string; desc: string };
 
 /** Duración de `toast-life` en globals.css (entrada + pausa + salida). */
-const LIFE_MS = 4600;
+const LIFE_MS = 2500;
 
 /** Avisos de "logro desbloqueado" al llegar a cada sección. */
 export function Achievements() {
@@ -37,7 +37,7 @@ export function Achievements() {
           fired.add(id);
 
           const key = ++counterRef.current;
-          setToasts((prev) => [...prev, { key, ...g.achievements[id] }]);
+          setToasts([{ key, ...g.achievements[id] }]);
           timers.push(
             window.setTimeout(() => {
               setToasts((prev) => prev.filter((t) => t.key !== key));
@@ -59,23 +59,21 @@ export function Achievements() {
     // g cambia sólo con el idioma; los logros ya disparados no se repiten.
   }, [g]);
 
+  const toast = toasts[0];
+  if (!toast) return null;
+
   return (
-    <div
-      aria-hidden
-      className="pointer-events-none fixed bottom-5 right-4 z-70 flex w-[min(20rem,calc(100vw-2rem))] flex-col gap-3"
-    >
-      {toasts.map((t) => (
-        <div key={t.key} className="toast-pixel">
-          <span className="grid h-12 w-12 shrink-0 place-items-center bg-background">
-            <PixelSprite name={t.sprite} cell={3} />
-          </span>
-          <div className="min-w-0">
-            <p className="font-pixel text-[0.5rem] uppercase leading-relaxed text-straw">{g.achievementUnlocked}</p>
-            <p className="mt-0.5 truncate text-lg font-bold leading-tight">{t.title}</p>
-            <p className="truncate text-sm leading-snug text-muted">{t.desc}</p>
-          </div>
+    <div aria-hidden className="pointer-events-none fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-4 z-70 sm:w-[min(20rem,calc(100vw-2rem))]">
+      <div key={toast.key} className="toast-pixel">
+        <span className="grid h-12 w-12 shrink-0 place-items-center bg-background">
+          <PixelSprite name={toast.sprite} cell={3} />
+        </span>
+        <div className="hidden min-w-0 sm:block">
+          <p className="font-pixel text-[0.5rem] uppercase leading-relaxed text-straw">{g.achievementUnlocked}</p>
+          <p className="mt-0.5 truncate text-lg font-bold leading-tight">{toast.title}</p>
+          <p className="truncate text-sm leading-snug text-muted">{toast.desc}</p>
         </div>
-      ))}
+      </div>
     </div>
   );
 }
