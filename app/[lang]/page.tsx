@@ -48,9 +48,9 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         <Experience />
         <Stack />
         <CurrentlyBuilding />
-        <Allies />
         <Faq />
         <Contact />
+        <Allies />
       </main>
       <Footer />
     </>

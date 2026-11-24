@@ -228,6 +228,7 @@ kbd {
 
 @media (prefers-reduced-motion: reduce) {
   .blink,
+  .nudge-down,
   .menu-cursor a::before,
   .fire-glow,
   .fire-floor,
@@ -238,6 +239,9 @@ kbd {
   .route-wipe,
   .route-seal {
     animation: none !important;
+  }
+  .fold {
+    transition: none !important;
   }
   .ember,
   .grain::after,
@@ -453,6 +457,35 @@ kbd {
     animation: menu-blink 1s steps(1) infinite;
   }
 
+  /* Flecha que invita a seguir: baja y sube un paso, a saltos como el parpadeo */
+  .nudge-down {
+    animation: nudge-down 1.2s steps(1) infinite;
+  }
+
+  /* Panel plegable (Aliados): el alto anima de 0 a auto con filas de grid, sin
+     medirlo en JS. Plegado queda invisible y fuera del foco, pero en el HTML.
+     La visibilidad espera a que termine el cierre para no cortar el fundido. */
+  .fold {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      grid-template-rows var(--dur-base) var(--ease),
+      opacity var(--dur-base) var(--ease),
+      visibility 0s linear var(--dur-base);
+  }
+  .fold[data-open] {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+  .fold-inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+
   /* El navbar baja desde arriba en el primer paint, sin esperar al JS */
   .nav-in {
     animation: nav-in var(--dur-base) var(--ease) backwards;
@@ -614,6 +647,11 @@ kbd {
 @keyframes menu-blink {
   50% {
     opacity: 0.15;
+  }
+}
+@keyframes nudge-down {
+  50% {
+    transform: translateY(0.4rem);
   }
 }
 @keyframes fire-flicker {

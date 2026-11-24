@@ -165,6 +165,10 @@ export type Content = {
     buildLabel: string;
     questsLabel: string;
     visit: string;
+    /** invitación bajo la escena del cierre; al activarla se despliegan los aliados */
+    reveal: string;
+    /** el mismo botón, con los aliados desplegados */
+    hide: string;
   };
   github: {
     note: string;
@@ -789,6 +793,8 @@ const es: Content = {
     buildLabel: "Build",
     questsLabel: "Misiones",
     visit: "Ver portafolio",
+    reveal: "Conoce a mis aliados",
+    hide: "Ocultar aliados",
   },
   github: {
     note: "Trabajo principalmente con TypeScript, React y Next.js. Algunos proyectos laborales no tienen repositorio público por confidencialidad.",
@@ -1434,6 +1440,8 @@ const en: Content = {
     buildLabel: "Build",
     questsLabel: "Quests",
     visit: "View portfolio",
+    reveal: "Meet my allies",
+    hide: "Hide allies",
   },
   github: {
     note: "I work mainly with TypeScript, React and Next.js. Some work projects don't have a public repository for confidentiality.",
