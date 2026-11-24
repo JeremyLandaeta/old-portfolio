@@ -49,6 +49,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
   const L = t.caseStudyLabels;
   const project = t.projects.items.find((p) => p.id === slug);
   const study = t.caseStudies[slug];
+  const cover = projectMedia[slug]?.cover;
   const shots = projectMedia[slug]?.shots;
 
   if (!project || !study) {
@@ -130,6 +131,21 @@ export function CaseStudyView({ slug }: { slug: string }) {
           )}
         </div>
       </header>
+
+      {cover && (
+        <figure className="mx-auto mb-10 max-w-5xl px-4">
+          <div className="relative aspect-16/10 overflow-hidden border-2 border-frame bg-background-soft sm:aspect-video">
+            <Image
+              src={cover}
+              alt={`${L.shotOf} ${project.title}`}
+              fill
+              preload
+              sizes="(min-width: 1024px) 992px, calc(100vw - 32px)"
+              className="object-contain object-top"
+            />
+          </div>
+        </figure>
+      )}
 
       {/* Cuerpo: un expediente continuo, no una pila de tarjetas */}
       <div className="mx-auto max-w-3xl px-4 pb-8">
